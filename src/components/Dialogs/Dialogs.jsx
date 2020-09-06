@@ -24,7 +24,7 @@ const Dialog = (props) => {
 const Dialogs = (props) => {
 
     let dialogsData = [
-        { id: 1, name: 'Molly cyrus' },
+        { id: 1, name: 'Molly cyrus1' },
         { id: 2, name: 'Andrew' },
         { id: 3, name: 'Jason Bourne' },
         { id: 4, name: 'Sarah Grey' },
