@@ -10,31 +10,16 @@ import Userlist6 from '../../images/resources/friend-avatar6.jpg';
 import Userlist7 from '../../images/resources/friend-avatar7.jpg';
 import Userlist8 from '../../images/resources/friend-avatar8.jpg';
 import you from '../../images/resources/userlist-2.jpg';
+import Message from './Message/Message';
 
 
 
-const Message = (props) => {
-    return (
-        <p className={s.messages}>{props.message}</p>
-    );
-}
 
 const Messages = (props) => {
 
-    let messagesDataYou = [
-        { id: 1, message: "what's liz short for? :)" },
-        { id: 2, message: 'yes' },
-        { id: 3, message: 'coooooooooool dude ;)' },
-    ];
-    let messageElementYou = messagesDataYou.map(messagesDataYou => <Message message={messagesDataYou.message} id={messagesDataYou.id} />)
+    let messageElementYou = props.messagesDataYou.map(messagesDataYou => <Message message={messagesDataYou.message} id={messagesDataYou.id} />)
 
-    let messagesDataMe = [
-        { id: 1, message: 'Elizabeth lol' },
-        { id: 2, message: 'wanna know whats my second guess was?' },
-        { id: 3, message: "Disney's the lizard king" },
-        { id: 4, message: 'i know him 5 years ago' },
-    ];
-    let messageElementMe = messagesDataMe.map(messagesDataMe => <Message message={messagesDataMe.message} id={messagesDataMe.id} />)
+    let messageElementMe = props.messagesDataMe.map(messagesDataMe => <Message message={messagesDataMe.message} id={messagesDataMe.id} />)
 
     return (
                         <div class="peoples-mesg-box">

@@ -2,14 +2,11 @@ import React from 'react';
 import PhotoInput from '../images/resources/admin3.jpg';
 import './MyPosts.css';
 import Post from './Post/Post';
-const MyPosts = () => {
+const MyPosts = (props) => {
 
-  let postData = [
-    { id: 1, message: "hi, how are you?", like: 15 },
-    { id: 1, message: "it's its my first post", like: 35 }
-  ];
+ 
 
-  let postElements = postData.map(postData=><Post id={postData.id} message={postData.message} like={postData.like} />)
+  let postElements = props.postData.map(postData=><Post id={postData.id} message={postData.message} like={postData.like} />)
 
   return (
     <div class="col-lg-6">

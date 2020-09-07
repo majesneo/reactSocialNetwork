@@ -10,32 +10,12 @@ import Userlist6 from '../images/resources/friend-avatar6.jpg';
 import Userlist7 from '../images/resources/friend-avatar7.jpg';
 import Userlist8 from '../images/resources/friend-avatar8.jpg';
 import you from '../images/resources/userlist-2.jpg';
-import { NavLink } from 'react-router-dom';
 import Messages from './Messages/Messages';
+import Dialog from './Dialog/Dialog';
 
-const Dialog = (props) => {
-    return (
-        <li className={s.dialogsItem}>
-            <NavLink activeClassName={s.activeLink}  to={"/Dialogs/" + props.id}>{props.name}</NavLink>
-        </li>
-    );
-}
 
 const Dialogs = (props) => {
-
-    let dialogsData = [
-        { id: 1, name: 'Molly cyrus1' },
-        { id: 2, name: 'Andrew' },
-        { id: 3, name: 'Jason Bourne' },
-        { id: 4, name: 'Sarah Grey' },
-        { id: 5, name: 'Bill Doe' },
-        { id: 6, name: 'Shen Cornery' },
-        { id: 7, name: 'Kill Bill' },
-        { id: 8, name: 'Jasmin Walia' },
-        { id: 9, name: 'Neclos Cage' }
-    ];
-    let dialogsElement = dialogsData.map(dialogsData => <Dialog name={dialogsData.name} id={dialogsData.id} />)
-
+    let dialogsElement = props.dialogsData.map(dialogsData => <Dialog name={dialogsData.name} id={dialogsData.id} />)
     return (
 
         <div class="col-lg-6">
@@ -44,9 +24,9 @@ const Dialogs = (props) => {
                     <h5 class="f-title"><i class="fa  fa-bell-o"></i>All Messages <span class="more-options"><i class="fa fa-ellipsis-h"></i></span></h5>
                     <div class="message-box">
                         <ul class="peoples">
-                            {dialogsElement}
+                            {dialogsElement} 
                         </ul>
-                        <Messages/>
+                        <Messages messagesDataYou={props.messagesDataYou} messagesDataMe={props.messagesDataMe}/>
                     </div>
                 </div>
             </div>
