@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 let postData = [
-  { id: 1, message: "hi, how are you?", like: 25 },
+  { id: 1, message: "hi1, how are you?", like: 25 },
   { id: 1, message: "it's its my first post", like: 35 }
 ];
 
