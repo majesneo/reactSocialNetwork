@@ -1,5 +1,4 @@
 import React from 'react';
-import MyPage from '../images/resources/admin3.jpg';
 import Userlist1 from '../images/resources/userlist-1.jpg';
 import Userlist2 from '../images/resources/userlist-2.jpg';
 import Userlist3 from '../images/resources/userlist-3.jpg';
@@ -7,9 +6,13 @@ import Userlist4 from '../images/resources/userlist-4.jpg';
 import Userlist5 from '../images/resources/userlist-5.jpg';
 import Userlist6 from '../images/resources/userlist-6.jpg';
 import Userlist7 from '../images/resources/userlist-7.jpg';
-import Page from './YourPage.module.css'
+import Friends from '../Friends/Friends';
+// import MyPhoto from '../MyPhoto/MyPhoto';
 
-const YourPage = () => {
+const YourPage = (props) => {
+
+    // let myPhotoElement = props.MyPhoto.map(MyPhoto => <MyPhoto imageUrl={MyPhoto.imageUrl} alt={MyPhoto.alt} />)
+
     return (
         <div class="col-lg-3">
             <aside class="sidebar static">
@@ -17,7 +20,7 @@ const YourPage = () => {
                     <h4 class="widget-title">Your page</h4>
                     <div class="your-page">
                         <figure>
-                            <a href="#" title=""><img src={MyPage} alt=""></img></a>
+                            {/* <a href="#" title="">{myPhotoElement}</a> */}
                         </figure>
                         <div class="page-meta">
                             <a href="#" title="" class="underline">Alice</a>
@@ -89,6 +92,7 @@ const YourPage = () => {
                         </div>
                     </div>
                 </div>
+                <Friends/>
             </aside>
         </div>
     );

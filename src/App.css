@@ -1011,4 +1011,91 @@ canvas {
 .align-right {
   float: right;
   margin-left: 20px;
+  
+}
+
+/*--- search friend widget ---*/
+
+#searchDir .filterinput {
+  border: 1px solid #eaeaea;
+  color: #575757;
+  font-size: 14px;
+  padding: 5px 10px;
+  width: 100%;
+}
+
+#searchDir {
+  padding: 0 20px;
+}
+
+#people-list {
+  max-height: 450px;
+  position: relative;
+}
+
+#people-list figure {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+  width: 23%;
+  position: relative;
+}
+
+span.status {
+  background: #bebebe none repeat scroll 0 0;
+  border-radius: 50%;
+  bottom: 0;
+  display: inline-block;
+  height: 12px;
+  padding: 2px;
+  position: absolute;
+  right: 0;
+  width: 12px;
+}
+
+span.status::after {
+  background: white none repeat scroll 0 0;
+  border-radius: 100%;
+  content: "";
+  height: 6px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+}
+
+span.status.f-online {
+  background: #7FBA00;
+}
+
+
+span.status.f-away {
+  background: #ffd300;
+}
+
+span.status.f-off {
+  background: #a9a9a9;
+}
+
+.friendz-meta {
+  display: inline-block;
+  line-height: 17px;
+  padding-left: 10px;
+  vertical-align: middle;
+  width: 74%;
+}
+
+.friendz-meta > i {
+  color: #999;
+  display: inline-block;
+  font-size: 13px;
+  width: 100%;
+}
+
+.friendz-meta > a {
+  display: inline-block;
+  font-size: 14px;
+  text-transform: capitalize;
+  width: 100%;
 }

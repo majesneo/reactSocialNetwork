@@ -2,7 +2,7 @@ import React from 'react';
 import './Header.css'
 import face from '../images/resources/user-avatar2.jpg';
 import back from '../images/resources/timeline-1.jpg';
-const Header = () => {
+const Header = (props) => {
 	return (
 		<div class="feature-photo">
 			<figure><img src={back} alt=""></img></figure>
