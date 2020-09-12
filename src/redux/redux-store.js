@@ -8,7 +8,6 @@ let reducers = combineReducers({
     messagesDataMe: dialogsReducer,
     postData: postReducer
 });
-export default store;
 
 let store = createStore(reducers);
-
+export default store;
