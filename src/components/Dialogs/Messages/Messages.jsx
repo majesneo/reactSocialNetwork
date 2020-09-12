@@ -11,7 +11,7 @@ import Userlist7 from '../../images/resources/friend-avatar7.jpg';
 import Userlist8 from '../../images/resources/friend-avatar8.jpg';
 import you from '../../images/resources/userlist-2.jpg';
 import Message from './Message/Message';
-import { onMessageChangeActionCreator, addMessageActionCreator } from '../../../redux/state';
+import { onMessageChangeActionCreator, addMessageActionCreator } from '../../../redux/dialogs-reducer';
 
 
 

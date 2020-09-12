@@ -1,5 +1,8 @@
-let store = {
+import dialogsReducer from "./dialogs-reducer";
+import postReducer from "./post-reducer";
 
+
+let store = {
     _state: {
 
         MyPhoto: [
@@ -49,34 +52,9 @@ let store = {
     },
 
     dispatch(action) {
-
-        if (action.type === 'addMessage') {
-            let newMessage = {
-                id: 5,
-                message: this._state.newMessageText,
-            };
-            this._state.messagesDataMe.push(newMessage);
-            this._state.newMessageText = '';
-            this._callSubscriber(this._state);
-
-        } else if (action.type === 'onMessageChange') {
-            this._state.newMessageText = action.messageText
-            this._callSubscriber(this._state);
-
-        } else if (action.type === 'addPost') {
-            let newPost = {
-                id: 3,
-                message: this._state.newPostText,
-                like: 4
-            };
-            this._state.postData.push(newPost);
-            this._state.newPostText = '';
-            this._callSubscriber(this._state);
-
-        } else if (action.type === 'onPostChange') {
-            this._state.newPostText = action.postText;
-            this._callSubscriber(this._state);
-        }
+        this._state = postReducer(this._state, action);
+        this._state = dialogsReducer(this._state, action);
+        this._callSubscriber(this._state);
     },
 
     subscribe(observer) {
@@ -84,14 +62,6 @@ let store = {
     }
 }
 export default store;
-
-export const onMessageChangeActionCreator = (messageText) => ({type: 'onMessageChange', messageText});
-
-export const addMessageActionCreator = () => ({type: 'addMessage'});
-
-export const addPostActionCreator = () => ({type: 'addPost'});
-
-export const onPostChangeActionCreator = (postText) => ({type: 'onPostChange', postText});
 
 window.store = store;
 

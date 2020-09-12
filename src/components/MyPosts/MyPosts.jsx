@@ -1,8 +1,9 @@
 import React from 'react';
+import { addPostActionCreator, onPostChangeActionCreator } from '../../redux/post-reducer';
 import PhotoInput from '../images/resources/admin3.jpg';
 import './MyPosts.css';
 import Post from './Post/Post';
-import { addPostActionCreator, onPostChangeActionCreator } from '../../redux/state';
+
 
 
 const MyPosts = (props) => {
