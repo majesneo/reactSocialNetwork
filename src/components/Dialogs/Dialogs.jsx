@@ -17,7 +17,7 @@ import Dialog from './Dialog/Dialog';
 
 
 const Dialogs = (props) => {
-
+    
     let dialogsElement = props.dialogsReducerKey.dialogsData.map(dialogsData => <Dialog imageUrl={dialogsData.imageUrl} name={dialogsData.name} id={dialogsData.id} />)
     return (
 
