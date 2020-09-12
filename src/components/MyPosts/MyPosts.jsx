@@ -1,25 +1,26 @@
 import React from 'react';
-import { addPostActionCreator, onPostChangeActionCreator } from '../../redux/post-reducer';
+
 import PhotoInput from '../images/resources/admin3.jpg';
 import './MyPosts.css';
+
 import Post from './Post/Post';
 
 
 
 const MyPosts = (props) => {
-  
+
   let postElements = props.postData.map(postData => <Post id={postData.id} message={postData.message} like={postData.like} />)
 
   let newPostElement = React.createRef();
 
   let addPost = (e) => {
     e.preventDefault();
-    props.dispatch(addPostActionCreator());
+    props.addPost();
   }
 
   let onPostChange = () => {
     let postText = newPostElement.current.value;
-    props.dispatch(onPostChangeActionCreator(postText));
+    props.onPostChange(postText);
   }
 
   return (

@@ -11,28 +11,30 @@ import Userlist7 from '../../images/resources/friend-avatar7.jpg';
 import Userlist8 from '../../images/resources/friend-avatar8.jpg';
 import you from '../../images/resources/userlist-2.jpg';
 import Message from './Message/Message';
-import { onMessageChangeActionCreator, addMessageActionCreator } from '../../../redux/dialogs-reducer';
+
+
+
 
 
 
 
 const Messages = (props) => {
-
     let newMessageElement = React.createRef();
 
     let onMessageChange = () => {
         let messageText = newMessageElement.current.value;
-        props.dispatch(onMessageChangeActionCreator(messageText));
+        props.onMessageChange(messageText);
     }
 
     let addMessage = (e) => {
         e.preventDefault();
-        props.dispatch(addMessageActionCreator());
+        props.addMessage();
+
     }
 
-    let messageElementYou = props.messagesDataYou.map(messagesDataYou => <Message message={messagesDataYou.message} id={messagesDataYou.id} />)
+    let messageElementYou = props.dialogsReducerKey.messagesDataYou.map(messagesDataYou => <Message message={messagesDataYou.message} id={messagesDataYou.id} />)
 
-    let messageElementMe = props.messagesDataMe.map(messagesDataMe => <Message message={messagesDataMe.message} id={messagesDataMe.id} />)
+    let messageElementMe = props.dialogsReducerKey.messagesDataMe.map(messagesDataMe => <Message message={messagesDataMe.message} id={messagesDataMe.id} />)
 
     return (
         <div class="peoples-mesg-box">

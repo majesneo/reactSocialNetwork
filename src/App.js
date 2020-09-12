@@ -3,7 +3,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Navbar from './components/Navbar/Navbar';
-import MyPosts from './components/MyPosts/MyPosts';
+import MyPostsContainer from './components/MyPosts/MyPostsContainer';
 import Header from './components/Header/Header';
 import YourPage from './components/YourPage/YourPage';
 import Dialogs from './components/Dialogs/Dialogs';
@@ -15,13 +15,12 @@ import { Route, BrowserRouter } from 'react-router-dom';
 const App = (props) => {
 
   return (
-    
     <div className='app-wrapper'>
       <Header />
       <div class="row">
         <Navbar />
-        <Route path="/Dialogs" render={() => <Dialogs dispatch={props.dispatch} newMessageText={props.state.messagesDataMe.newMessageText} dialogsData={props.state.messagesDataMe.dialogsData} messagesDataYou={props.state.messagesDataMe.messagesDataYou} messagesDataMe={props.state.messagesDataMe.messagesDataMe}/>} />
-        <Route path="/MyPosts" render={() => <MyPosts dispatch={props.dispatch} postData={props.state.postData} newPostText={props.state.newPostText} />} />
+        <Route path="/Dialogs" render={() => <Dialogs dispatch={props.dispatch}  dialogsReducerKey={props.state.dialogsReducerKey} onMessageChange={props.onMessageChange} addMessage={props.addMessage} />} />
+        <Route path="/MyPosts" render={() => <MyPostsContainer dispatch={props.dispatch} postData={props.state.postDataKey.postData} newPostText={props.state.postDataKey.newPostText}/>} />
         <YourPage />
       </div>
     </div>

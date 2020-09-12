@@ -12,13 +12,13 @@ import Userlist7 from '../images/resources/friend-avatar7.jpg';
 
 import Userlist8 from '../images/resources/friend-avatar8.jpg';
 import you from '../images/resources/userlist-2.jpg';
-import Messages from './Messages/Messages';
+import MessagesContainer from './Messages/MessagesContainer';
 import Dialog from './Dialog/Dialog';
 
 
 const Dialogs = (props) => {
-   
-    let dialogsElement = props.dialogsData.map(dialogsData => <Dialog imageUrl={dialogsData.imageUrl} name={dialogsData.name} id={dialogsData.id} />)
+
+    let dialogsElement = props.dialogsReducerKey.dialogsData.map(dialogsData => <Dialog imageUrl={dialogsData.imageUrl} name={dialogsData.name} id={dialogsData.id} />)
     return (
 
         <div class="col-lg-6">
@@ -29,7 +29,7 @@ const Dialogs = (props) => {
                         <ul class="peoples">
                             {dialogsElement}
                         </ul>
-                        <Messages dispatch={props.dispatch} newMessageText={props.newMessageText} messagesDataYou={props.messagesDataYou} messagesDataMe={props.messagesDataMe} />
+                        <MessagesContainer dispatch={props.dispatch} dialogsReducerKey={props.dialogsReducerKey}/>
                     </div>
                 </div>
             </div>
