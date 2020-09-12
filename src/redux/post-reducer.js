@@ -1,7 +1,15 @@
 const addPost = 'addPost';
 const onPostChange = 'onPostChange';
 
-const postReducer = (state, action) => {
+let initialState = {
+    postData: [
+        { id: 1, message: "hi, how are you?", like: 25 },
+        { id: 2, message: "it's its my first post", like: 35 }
+    ],
+    newPostText: ''
+};
+
+const postReducer = (state = initialState, action) => {
     switch (action.type) {
         case addPost:
             let newPost = {
