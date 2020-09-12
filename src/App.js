@@ -19,8 +19,8 @@ const App = (props) => {
       <Header />
       <div class="row">
         <Navbar />
-        <Route path="/Dialogs" render={() => <Dialogs />} />
-        <Route path="/MyPosts" render={() => <MyPostsContainer />} />
+        <Route path="/Dialogs" render={() => <Dialogs dispatch={props.dispatch}  dialogsReducerKey={props.state.dialogsReducerKey} onMessageChange={props.onMessageChange} addMessage={props.addMessage} />} />
+        <Route path="/MyPosts" render={() => <MyPostsContainer dispatch={props.dispatch} postData={props.state.postDataKey.postData} newPostText={props.state.postDataKey.newPostText}/>} />
         <YourPage />
       </div>
     </div>
