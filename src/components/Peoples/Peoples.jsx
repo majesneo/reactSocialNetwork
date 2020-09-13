@@ -4,19 +4,7 @@ import People from './People/People';
 import * as axios from 'axios';
 import s from './Peoples.module.css';
 
-//пагинация onPageChanged
 class Peoples extends React.Component {
-
-    async componentDidMount() {
-        const response = await axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.originalPage}&count=${this.props.pageSize}`).catch(e => e);
-        this.props.setPeoples(response.data.items);
-    }
-
-    async onPageChanged  (pageNumber) {
-        this.props.originalPage(pageNumber);
-        const response = await axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).catch(e => e);
-        this.props.setPeoples(response.data.items);
-    }
 
     peoplesList = () => {
         return this.props.peoplesData.map(peoplesData => <People unFriend={this.props.unFriend} addFriend={this.props.addFriend} key={peoplesData.id} friend={peoplesData.friend} about={peoplesData.about} imageUrl={peoplesData.imageUrl} name={peoplesData.name} id={peoplesData.id} />)
