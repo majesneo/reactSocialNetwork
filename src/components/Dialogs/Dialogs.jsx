@@ -18,7 +18,7 @@ import Dialog from './Dialog/Dialog';
 
 const Dialogs = (props) => {
  
-    let dialogsElement = props.dialogsData.map(dialogsData => <Dialog imageUrl={dialogsData.imageUrl} name={dialogsData.name} id={dialogsData.id} />)
+    let dialogsElement = props.dialogsData.map(dialogsData => <Dialog key={dialogsData.id} imageUrl={dialogsData.imageUrl} name={dialogsData.name} id={dialogsData.id} />)
     return (
 
         <div class="col-lg-6">

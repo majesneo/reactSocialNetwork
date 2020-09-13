@@ -27,9 +27,9 @@ const Messages = (props) => {
         props.addMessage();
     }
 
-    let messageElementYou = props.messagesDataYou.map(messagesDataYou => <Message message={messagesDataYou.message} id={messagesDataYou.id} />)
+    let messageElementYou = props.messagesDataYou.map(messagesDataYou => <Message key={messagesDataYou.id} message={messagesDataYou.message} id={messagesDataYou.id} />)
 
-    let messageElementMe = props.messagesDataMe.map(messagesDataMe => <Message message={messagesDataMe.message} id={messagesDataMe.id} />)
+    let messageElementMe = props.messagesDataMe.map(messagesDataMe => <Message key={messagesDataMe.id} message={messagesDataMe.message} id={messagesDataMe.id} />)
 
     return (
         <div class="peoples-mesg-box">
