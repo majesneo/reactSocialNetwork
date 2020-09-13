@@ -6,7 +6,7 @@ import postReducer from './post-reducer';
 
 let reducers = combineReducers({
     dialogsReducerKey: dialogsReducer,
-    postDataKey: postReducer
+    postReducerKey: postReducer
 });
 
 let store = createStore(reducers);

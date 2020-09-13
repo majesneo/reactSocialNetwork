@@ -6,10 +6,9 @@ import Navbar from './components/Navbar/Navbar';
 import MyPostsContainer from './components/MyPosts/MyPostsContainer';
 import Header from './components/Header/Header';
 import YourPage from './components/YourPage/YourPage';
-import Dialogs from './components/Dialogs/Dialogs';
 import { Route, BrowserRouter } from 'react-router-dom';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
-// MyPhoto={props.state.MyPhoto}
  
 
 const App = (props) => {
@@ -19,12 +18,11 @@ const App = (props) => {
       <Header />
       <div class="row">
         <Navbar />
-        <Route path="/Dialogs" render={() => <Dialogs dispatch={props.dispatch}  dialogsReducerKey={props.state.dialogsReducerKey} onMessageChange={props.onMessageChange} addMessage={props.addMessage} />} />
-        <Route path="/MyPosts" render={() => <MyPostsContainer dispatch={props.dispatch} postData={props.state.postDataKey.postData} newPostText={props.state.postDataKey.newPostText}/>} />
+        <Route path="/Dialogs" render={() => <DialogsContainer />} />
+        <Route path="/MyPosts" render={() => <MyPostsContainer />} />
         <YourPage />
       </div>
     </div>
-
   );
 }
 

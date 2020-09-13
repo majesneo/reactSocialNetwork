@@ -13,12 +13,8 @@ import you from '../../images/resources/userlist-2.jpg';
 import Message from './Message/Message';
 
 
-
-
-
-
-
 const Messages = (props) => {
+
     let newMessageElement = React.createRef();
 
     let onMessageChange = () => {
@@ -29,12 +25,11 @@ const Messages = (props) => {
     let addMessage = (e) => {
         e.preventDefault();
         props.addMessage();
-
     }
 
-    let messageElementYou = props.dialogsReducerKey.messagesDataYou.map(messagesDataYou => <Message message={messagesDataYou.message} id={messagesDataYou.id} />)
+    let messageElementYou = props.messagesDataYou.map(messagesDataYou => <Message message={messagesDataYou.message} id={messagesDataYou.id} />)
 
-    let messageElementMe = props.dialogsReducerKey.messagesDataMe.map(messagesDataMe => <Message message={messagesDataMe.message} id={messagesDataMe.id} />)
+    let messageElementMe = props.messagesDataMe.map(messagesDataMe => <Message message={messagesDataMe.message} id={messagesDataMe.id} />)
 
     return (
         <div class="peoples-mesg-box">

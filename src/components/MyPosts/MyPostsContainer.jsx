@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { connect } from 'react-redux';
 import { addPostActionCreator, onPostChangeActionCreator } from '../../redux/post-reducer';
 import MyPosts from './MyPosts';
@@ -7,7 +7,8 @@ import MyPosts from './MyPosts';
 
 let mapStateToProps = (state) => {
   return {
-    postData: state.postData
+    postData: state.postReducerKey.postData,
+    newPostText: state.postReducerKey.newPostText
   }
 }
 let mapDispatchToProps = (dispatch) => {

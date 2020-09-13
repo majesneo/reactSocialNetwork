@@ -17,8 +17,8 @@ import Dialog from './Dialog/Dialog';
 
 
 const Dialogs = (props) => {
-    
-    let dialogsElement = props.dialogsReducerKey.dialogsData.map(dialogsData => <Dialog imageUrl={dialogsData.imageUrl} name={dialogsData.name} id={dialogsData.id} />)
+ 
+    let dialogsElement = props.dialogsData.map(dialogsData => <Dialog imageUrl={dialogsData.imageUrl} name={dialogsData.name} id={dialogsData.id} />)
     return (
 
         <div class="col-lg-6">
@@ -29,7 +29,7 @@ const Dialogs = (props) => {
                         <ul class="peoples">
                             {dialogsElement}
                         </ul>
-                        <MessagesContainer dispatch={props.dispatch} dialogsReducerKey={props.dialogsReducerKey}/>
+                        <MessagesContainer/>
                     </div>
                 </div>
             </div>
