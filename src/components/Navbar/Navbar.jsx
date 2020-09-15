@@ -43,7 +43,7 @@ const Navbar = (props) => {
                         </li>
                         <li className={classes.item}>
                             <i class="fa fa-map-marker"></i>
-                            <NavLink to="/PeopleNearby" activeClassName={classes.active}>People Nearby</NavLink>
+                            <NavLink to="/Peoples" activeClassName={classes.active}>Peoples</NavLink>
                         </li>
                         <li className={classes.item}>
                             <i class="fa fa-bar-chart-o"></i>

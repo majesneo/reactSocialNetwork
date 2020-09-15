@@ -8,6 +8,9 @@ import Header from './components/Header/Header';
 import YourPage from './components/YourPage/YourPage';
 import { Route, BrowserRouter } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
+import PeoplesContainer from './components/Peoples/Peoples.Container';
+
+
 
  
 
@@ -20,6 +23,7 @@ const App = (props) => {
         <Navbar />
         <Route path="/Dialogs" render={() => <DialogsContainer />} />
         <Route path="/MyPosts" render={() => <MyPostsContainer />} />
+        <Route path="/Peoples" render={() => <PeoplesContainer/>} />
         <YourPage />
       </div>
     </div>

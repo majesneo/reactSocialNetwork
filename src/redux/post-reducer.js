@@ -11,7 +11,6 @@ let initialState = {
 
 
 const postReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case addPost: {
             return {
@@ -21,13 +20,12 @@ const postReducer = (state = initialState, action) => {
             };
         }
         case onPostChange: {
-            return  {
+            return {
                 ...state,
                 newPostText: action.postText
             };
         }
-        default:
-            return state;
+        default: return state;
     }
 }
 export default postReducer;
