@@ -4,7 +4,7 @@ import People from './People/People';
 import * as axios from 'axios';
 import s from './Peoples.module.css';
 
-
+//пагинация onPageChanged
 class Peoples extends React.Component {
 
     async componentDidMount() {
