@@ -1,10 +1,10 @@
 const addPost = 'addPost';
 const onPostChange = 'onPostChange';
+const setPosts = 'setPosts';
 
 let initialState = {
     postData: [
-        { id: 1, message: "hi, how are you?", like: 25 },
-        { id: 2, message: "it's its my first post", like: 35 }
+
     ],
     newPostText: ''
 };
@@ -25,11 +25,16 @@ const postReducer = (state = initialState, action) => {
                 newPostText: action.postText
             };
         }
+        case setPosts: {
+            return {
+                ...state, postData: [...action.posts] 
+            }
+        }
         default: return state;
     }
 }
 export default postReducer;
 
 export const addPostActionCreator = () => ({ type: 'addPost' });
-
 export const onPostChangeActionCreator = (postText) => ({ type: 'onPostChange', postText });
+export const setPostsAC = (posts) => ({ type: 'setPosts', posts });

@@ -8,6 +8,7 @@
   src: local("HoboStd"), url("./fonts/HoboStd.eot") format("embedded-opentype");
 }
 
+
 button:focus{
   outline: none !important;
 }
@@ -52,9 +53,7 @@ button.add-butn:hover {
   transition: all 0.2s linear 0s;
 }
 
-.we-video-info > ul li span.like:hover .we-video-info > ul li span.dislike:hover {
-  trnsform: scale(1.1);
-}
+
 
 .your-page > figure {
   display: inline-block;
@@ -197,6 +196,7 @@ button.add-butn:hover {
 
 .frnds .nav-tabs .nav-item {
   margin-right: 50px;
+  
 }
 
 .frnds .nav-tabs .nav-item:last-child {
@@ -511,8 +511,7 @@ button.add-butn.more-action {
   width: 100%;
 }
 
-.activity-meta > h6 a {
-}
+
 
 .activitiez > li::before {
   content: "";

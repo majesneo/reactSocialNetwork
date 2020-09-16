@@ -1,75 +1,82 @@
 import React from 'react';
-
+import * as axios from 'axios';
 import PhotoInput from '../images/resources/admin3.jpg';
 import './MyPosts.css';
-
 import Post from './Post/Post';
 
 
 
-const MyPosts = (props) => {
+class MyPosts extends React.Component {
 
-  let postElements = props.postData.map(postData => <Post key={postData.id} id={postData.id} message={postData.message} like={postData.like} />)
+  postElements = this.props.postData.map(postData => <Post key={postData.id} id={postData.id} message={postData.message} like={postData.like} />)
+  newPostElement = React.createRef();
 
-  let newPostElement = React.createRef();
-
-  let addPost = (e) => {
+  onPostChange = () => {
+    let postText = this.newPostElement.current.value;
+    this.props.onPostChange(postText);
+  }
+  
+  addPost = (e) => {
     e.preventDefault();
-    props.addPost();
+    this.props.addPost();
   }
 
-  let onPostChange = () => {
-    let postText = newPostElement.current.value;
-    props.onPostChange(postText);
+  componentDidMount() {
+    axios.get("http://test-api.quando.pro/reactsocialnetwork/post")
+      .then(response => {
+        this.props.setPosts(response.data);
+      });
   }
 
-  return (
-    <div class="col-lg-6">
-      <div class="central-meta">
-        <div class="new-postbox">
-          <figure>
-            <img src={PhotoInput} alt=""></img>
-          </figure>
-          <div class="newpst-input">
-            <form method="post">
-              <textarea onChange={onPostChange} value={props.newPostText} ref={newPostElement} rows="3" placeholder="write something" />
-              <div class="attachments">
-                <ul>
-                  <li>
-                    <i class="fa fa-music"></i>
-                    <label class="fileContainer">
-                      <input type="file"></input>
-                    </label>
-                  </li>
-                  <li>
-                    <i class="fa fa-image"></i>
-                    <label class="fileContainer">
-                      <input type="file"></input>
-                    </label>
-                  </li>
-                  <li>
-                    <i class="fa fa-video-camera"></i>
-                    <label class="fileContainer">
-                      <input type="file"></input>
-                    </label>
-                  </li>
-                  <li>
-                    <i class="fa fa-camera"></i>
-                    <label class="fileContainer">
-                      <input type="file"></input>
-                    </label>
-                  </li>
-                  <li>
-                    <button onClick={addPost} class="btn-input" type="submit">Publish</button>
-                  </li>
-                </ul>
-              </div>
-            </form>
+  render() {
+    return (
+      <div class="col-lg-6">
+        <div class="central-meta">
+          <div class="new-postbox">
+            <figure>
+              <img src={PhotoInput} alt=""></img>
+            </figure>
+            <div class="newpst-input">
+              <form method="post">
+                <textarea onChange={this.onPostChange} value={this.props.newPostText} ref={this.newPostElement} rows="3" placeholder="write something" />
+                <div class="attachments">
+                  <ul>
+                    <li>
+                      <i class="fa fa-music"></i>
+                      <label class="fileContainer">
+                        <input type="file"></input>
+                      </label>
+                    </li>
+                    <li>
+                      <i class="fa fa-image"></i>
+                      <label class="fileContainer">
+                        <input type="file"></input>
+                      </label>
+                    </li>
+                    <li>
+                      <i class="fa fa-video-camera"></i>
+                      <label class="fileContainer">
+                        <input type="file"></input>
+                      </label>
+                    </li>
+                    <li>
+                      <i class="fa fa-camera"></i>
+                      <label class="fileContainer">
+                        <input type="file"></input>
+                      </label>
+                    </li>
+                    <li>
+                      <button onClick={this.addPost} class="btn-input" type="submit">Publish</button>
+                    </li>
+                  </ul>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
+        {this.postElements}
       </div>
-      {postElements}
-    </div>
-  );
+    );
+  }
 }
 export default MyPosts;
