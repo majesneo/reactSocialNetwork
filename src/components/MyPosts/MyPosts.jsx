@@ -8,7 +8,9 @@ import Post from './Post/Post';
 
 class MyPosts extends React.Component {
 
-  postElements = this.props.postData.map(postData => <Post key={postData.id} id={postData.id} message={postData.message} like={postData.like} />)
+  postList=()=>{
+   return this.props.postData.map(postData => <Post key={postData.id} id={postData.id} message={postData.message} like={postData.like} />)
+  }
   newPostElement = React.createRef();
 
   onPostChange = () => {
@@ -74,7 +76,7 @@ class MyPosts extends React.Component {
             </div>
           </div>
         </div>
-        {this.postElements}
+        {this.postList()}
       </div>
     );
   }

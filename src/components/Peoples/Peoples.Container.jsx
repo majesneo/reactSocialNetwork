@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addFriendAC, unFriendAC, addPeopleActionCreator, setPeoplesAC, setCurrentPagesAC } from '../../redux/peoples-reducer';
+import { addFriendAC, unFriendAC, addPeopleActionCreator, setPeoplesAC, setCurrentPageAC } from '../../redux/peoples-reducer';
 import Peoples from './Peoples';
 
 
@@ -9,7 +9,7 @@ let mapStateToProps = (state) => {
         peoplesData: state.peoplesReducerKey.peoplesData,
         pageSize: state.peoplesReducerKey.pageSize,
         totalUsersCount: state.peoplesReducerKey.totalUsersCount,
-        originalPage: state.peoplesReducerKey.originalPage
+        currentPage: state.peoplesReducerKey.currentPage
     }
 }
 let mapDispatchToProps = (dispatch) => {
@@ -26,8 +26,8 @@ let mapDispatchToProps = (dispatch) => {
         setPeoples: (peoples) => {
             dispatch(setPeoplesAC(peoples));
         },
-        originalPage: (originalPage) => {
-            dispatch(setCurrentPagesAC(originalPage));
+        setCurrentPages: (currentPage) => {
+            dispatch(setCurrentPageAC(currentPage));
         }
     }
 }

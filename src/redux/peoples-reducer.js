@@ -4,13 +4,13 @@ const addPeople = 'addPeople';
 const addFriend = 'addFriend';
 const unFriend = 'unFriend';
 const setPeoples = 'setPeoples';
-const originalPage= 'originalPage';
+const currentPage= 'currentPage';
 
 let initialState = {
     peoplesData: [],
     pageSize: 6,
     totalUsersCount: 22,
-    originalPage: 1
+    currentPage: 1
 };
 
 const peoplesReducer = (state = initialState, action) => {
@@ -48,9 +48,9 @@ const peoplesReducer = (state = initialState, action) => {
                 ...state,  peoplesData: action.peoples
             }
         }
-        case originalPage: {
+        case currentPage: {
             return {
-                ...state, originalPage: action.originalPage
+                ...state, currentPage: action.currentPage
             }
         }
         default: return state;
@@ -62,4 +62,4 @@ export const addPeopleActionCreator = () => ({ type: 'addPeople' });
 export const addFriendAC = (peopleId) => ({ type: 'addFriend', peopleId });
 export const unFriendAC = (peopleId) => ({ type: 'unFriend', peopleId });
 export const setPeoplesAC = (peoples) => ({ type: 'setPeoples', peoples });
-export const setCurrentPagesAC = (originalPage) => ({ type: 'originalPage', originalPage });
+export const setCurrentPageAC = (currentPage) => ({ type: 'currentPage', currentPage });

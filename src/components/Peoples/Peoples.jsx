@@ -5,6 +5,17 @@ import * as axios from 'axios';
 import s from './Peoples.module.css';
 
 class Peoples extends React.Component {
+    
+    async componentDidMount() {
+        const response = await axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).catch(e => e);
+        this.props.setPeoples(response.data.items);
+    }
+
+    async setCurrentPages  (pageNumber) {
+        this.props.setCurrentPages(pageNumber);
+        const response = await axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).catch(e => e);
+        this.props.setPeoples(response.data.items);
+    }
 
     peoplesList = () => {
         return this.props.peoplesData.map(peoplesData => <People unFriend={this.props.unFriend} addFriend={this.props.addFriend} key={peoplesData.id} friend={peoplesData.friend} about={peoplesData.about} imageUrl={peoplesData.imageUrl} name={peoplesData.name} id={peoplesData.id} />)
@@ -25,7 +36,7 @@ class Peoples extends React.Component {
                             <li class="nav-item"><a class="active" data-toggle="tab">Peoples</a> <span>{this.props.peoplesData.length}</span></li>
                             <div style={{ marginLeft: "auto"}}>
                             {pages.map(p => {
-                                return <span style={{ cursor: "pointer"}} onClick={() => { this.onPageChanged(p) }} className={this.props.originalPage === p && s.active}>{p}</span>
+                                return <span style={{ cursor: "pointer"}} onClick={() => { this.setCurrentPages(p) }} className={this.props.currentPage === p && s.active}>{p}</span>
                             })}
                             </div>
                         </ul>

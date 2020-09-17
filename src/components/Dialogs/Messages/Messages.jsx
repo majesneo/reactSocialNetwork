@@ -13,67 +13,48 @@ import you from '../../images/resources/userlist-2.jpg';
 import Message from './Message/Message';
 
 
-const Messages = (props) => {
+class Messages extends React.Component {
 
-    let newMessageElement = React.createRef();
+    newMessageElement = React.createRef();
 
-    let onMessageChange = () => {
-        let messageText = newMessageElement.current.value;
-        props.onMessageChange(messageText);
+    onMessageChange = () => {
+        let messageText = this.newMessageElement.current.value;
+        this.props.onMessageChange(messageText);
     }
 
-    let addMessage = (e) => {
+    addMessage = (e) => {
         e.preventDefault();
-        props.addMessage();
+        this.props.addMessage();
     }
 
-    let messageElementYou = props.messagesDataYou.map(messagesDataYou => <Message key={messagesDataYou.id} message={messagesDataYou.message} id={messagesDataYou.id} />)
+    messageYouList = () => { return this.props.messagesDataYou.map(messagesDataYou => <Message key={messagesDataYou.id} message={messagesDataYou.message} id={messagesDataYou.id} />) }
+    messageMeList = () => { return this.props.messagesDataMe.map(messagesDataMe => <Message key={messagesDataMe.id} message={messagesDataMe.message} id={messagesDataMe.id} />) }
 
-    let messageElementMe = props.messagesDataMe.map(messagesDataMe => <Message key={messagesDataMe.id} message={messagesDataMe.message} id={messagesDataMe.id} />)
-
-    return (
-        <div class="peoples-mesg-box">
-            <div class="conversation-head">
-                <figure><img src={Userlist3} alt=""></img></figure>
-                <span>jason bourne <i>online</i></span>
+    render() {
+        return (
+            <div class="peoples-mesg-box" >
+                <div class="conversation-head">
+                    <figure><img src={Userlist3} alt=""></img></figure>
+                    <span>jason bourne <i>online</i></span>
+                </div>
+                <ul class="chatting-area">
+                    <li class="you">
+                        <figure><img src={you} alt=""></img></figure>
+                        {this.messageYouList()}
+                    </li>
+                    <li class="me">
+                        <figure><img src={me} alt=""></img></figure>
+                        {this.messageMeList()}
+                    </li>
+                </ul>
+                <div class="message-text-container">
+                    <form method="post">
+                        <textarea onChange={this.onMessageChange} value={this.props.newMessageText} ref={this.newMessageElement}></textarea>
+                        <button onClick={this.addMessage} title="send"><i class="fa fa-paper-plane"></i></button>
+                    </form>
+                </div>
             </div>
-            <ul class="chatting-area">
-                <li class="you">
-                    <figure><img src={you} alt=""></img></figure>
-                    {messageElementYou[0]}
-                </li>
-                <li class="me">
-                    <figure><img src={me} alt=""></img></figure>
-                    {messageElementMe[0]}
-                </li>
-                <li class="me">
-                    <figure><img src={me} alt=""></img></figure>
-                    {messageElementMe[1]}
-                </li>
-                <li class="you">
-                    <figure><img src={you} alt=""></img></figure>
-                    {messageElementYou[1]}
-                </li>
-                <li class="me">
-                    <figure><img src={me} alt=""></img></figure>
-                    {messageElementMe[2]}
-                </li>
-                <li class="me">
-                    <figure><img src={me} alt=""></img></figure>
-                    {messageElementMe[3]}
-                </li>
-                <li class="me">
-                    <figure><img src={me} alt=""></img></figure>
-                    {messageElementMe}
-                </li>
-            </ul>
-            <div class="message-text-container">
-                <form method="post">
-                    <textarea onChange={onMessageChange} value={props.newMessageText} ref={newMessageElement}></textarea>
-                    <button onClick={addMessage} title="send"><i class="fa fa-paper-plane"></i></button>
-                </form>
-            </div>
-        </div>
-    );
+        );
+    }
 }
 export default Messages;
