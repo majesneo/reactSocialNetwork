@@ -3,12 +3,13 @@ import { NavLink } from 'react-router-dom';
 import s from './People.module.css';
 
 class People extends React.Component {
+    
     render() {
         return (
             <li className={s.peopleItem}>
                 <div class="nearly-pepls">
                     <figure>
-                        <NavLink to={"/Peoples/" + this.props.name} title=""><img width="60px" height="60px" src={this.props.imageUrl} alt={this.props.alt}></img></NavLink>
+                        <NavLink to={"/Peoples/" + this.props.name} title=""><img width="60px" height="60px" src={this.props.photos.small} alt={this.props.alt}></img></NavLink>
                     </figure>
                     <div class="pepl-info">
                         <h4><NavLink activeClassName={s.activeLink} to={"/Peoples/" + this.props.name}>{this.props.name}</NavLink></h4>
