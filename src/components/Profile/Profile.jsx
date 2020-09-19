@@ -23,7 +23,7 @@ let Profile = (props) => {
                             <div class="description">
                                 <span>{props.profile.lookingForAJob}</span>
                                 <p>
-                                    {props.profile.lookingForAJobDescription}
+                                    {props.profile.lookingForAJob}
                                 </p>
                             </div>
                         </div>

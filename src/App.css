@@ -8,8 +8,7 @@
   src: local("HoboStd"), url("./fonts/HoboStd.eot") format("embedded-opentype");
 }
 
-
-button:focus{
+button:focus {
   outline: none !important;
 }
 button {
@@ -52,8 +51,6 @@ button.add-butn:hover {
   cursor: pointer;
   transition: all 0.2s linear 0s;
 }
-
-
 
 .your-page > figure {
   display: inline-block;
@@ -196,7 +193,6 @@ button.add-butn:hover {
 
 .frnds .nav-tabs .nav-item {
   margin-right: 50px;
-  
 }
 
 .frnds .nav-tabs .nav-item:last-child {
@@ -416,7 +412,19 @@ button.add-butn.more-action {
   padding: 0 25px 20px;
   width: 100%;
 }
-
+a.widget-title.login {
+  padding-left: 0px !important;
+  text-align: right;
+  text-decoration: underline;
+  cursor: pointer;
+}
+a.widget-title.login::before{
+  content: none;
+  
+}
+.flex {
+  display: flex;
+}
 .sidebar .widget-title {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   color: #424242;
@@ -510,8 +518,6 @@ button.add-butn.more-action {
   margin-top: 7px;
   width: 100%;
 }
-
-
 
 .activitiez > li::before {
   content: "";

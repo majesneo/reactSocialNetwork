@@ -11,7 +11,6 @@ import { withRouter } from 'react-router-dom';
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = 2;
@@ -29,7 +28,9 @@ class ProfileContainer extends React.Component {
     }
 }
 let mapStateToProps = (state) => ({
-    profile: state.profileReducerKey.profile
+    profile: state.profileReducerKey.profile,
+    isAuth: state.authReducerKey.isAuth,
+    login: state.authReducerKey.login
 })
 let WitUrlProfileContainer = withRouter(ProfileContainer);
 export default connect(mapStateToProps, { setPeoplesProfile })(WitUrlProfileContainer, ProfileContainer);

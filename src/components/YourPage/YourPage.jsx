@@ -7,23 +7,27 @@ import Userlist5 from '../images/resources/userlist-5.jpg';
 import Userlist6 from '../images/resources/userlist-6.jpg';
 import Userlist7 from '../images/resources/userlist-7.jpg';
 import Friends from '../Friends/Friends';
-// import MyPhoto from '../MyPhoto/MyPhoto';
+
+
 
 const YourPage = (props) => {
-
-    // let myPhotoElement = props.MyPhoto.map(MyPhoto => <MyPhoto imageUrl={MyPhoto.imageUrl} alt={MyPhoto.alt} />)
 
     return (
         <div class="col-lg-3">
             <aside class="sidebar static">
                 <div class="widget">
-                    <h4 class="widget-title">Your page</h4>
+                    <div class="flex">
+                        <h4 class="widget-title">Your page</h4>
+                        {props.isAuth
+                            ? <a class="widget-title login" >{props.login}</a>
+                            : <a class="widget-title login" >Login</a>}
+                    </div>
                     <div class="your-page">
                         <figure>
-                            {/* <a href="#" title="">{myPhotoElement}</a> */}
+                            <img src={Userlist7} alt="" />
                         </figure>
                         <div class="page-meta">
-                            <a href="#" title="" class="underline">Alice</a>
+                            <a href="#" title="" class="underline">{props.login}</a>
                             <span><i class="fa fa-comment-o"></i><a href="insight.html" title="">Messages <em>9</em></a></span>
                             <span><i class="fa  fa-bell-o"></i><a href="insight.html" title="">Notifications <em>2</em></a></span>
                         </div>
@@ -32,7 +36,6 @@ const YourPage = (props) => {
                                 <li class="nav-item"><a class="active" href="#link1" data-toggle="tab">likes</a></li>
                                 <li class="nav-item"><a class="" href="#link2" data-toggle="tab">views</a></li>
                             </ul>
-
                             <div class="tab-content">
                                 <div class="tab-pane active fade show " id="link1" >
                                     <span><i class="fa fa-heart-o"></i>884</span>
@@ -92,7 +95,7 @@ const YourPage = (props) => {
                         </div>
                     </div>
                 </div>
-                <Friends/>
+                <Friends />
             </aside>
         </div>
     );
