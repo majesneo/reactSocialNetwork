@@ -8,12 +8,13 @@ const current_Page = 'current_Page';
 let initialState = {
     peoplesData: [],
     pageSize: 6,
-    totalUsersCount: 50,
+    totalUsersCount: 22,
     currentPage: 1,
     isFetching: false
 };
 
 const peoplesReducer = (state = initialState, action) => {
+
     switch (action.type) {
         case add_People: {
             return {
@@ -24,26 +25,30 @@ const peoplesReducer = (state = initialState, action) => {
             }
         }
         case add_Friend: {
+
             return {
+                
                 ...state, peoplesData: state.peoplesData.map(people => {
                     if (people.id === action.peopleId) {
-                        return { ...people, friend: true }
+                        return { ...people, followed: true }
                     }
                     return people;
                 })
             }
         }
         case un_Friend: {
+
             return {
                 ...state, peoplesData: state.peoplesData.map(people => {
                     if (people.id === action.peopleId) {
-                        return { ...people, friend: false }
+                        return { ...people, followed: false }
                     }
                     return people;
                 })
             }
         }
         case set_Peoples: {
+            
             return {
                 ...state, peoplesData: action.peoples
             }

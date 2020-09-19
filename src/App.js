@@ -14,6 +14,7 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 
 
 
+
 const App = (props) => {
 
   return (
@@ -24,7 +25,7 @@ const App = (props) => {
         <Route path="/Dialogs" render={() => <DialogsContainer />} />
         <Route path="/MyPosts" render={() => <MyPostsContainer />} />
         <Route path="/Profile/:userId?" render={() => <ProfileContainer />} />
-        <Route path="/Peoples" render={() => <PeoplesContainer/>} />
+        <Route path="/Peoples" render={() => <PeoplesContainer />} />
         <YourPageContainer />
       </div>
     </div>

@@ -4,7 +4,8 @@ import People from './People/People';
 
 let Peoples = (props) => {
    let peoplesList = () => {
-        return props.peoplesData.map(peoplesData => <People unFriend={props.unFriend} addFriend={props.addFriend} key={peoplesData.id} friend={peoplesData.friend} about={peoplesData.about} photos={peoplesData.photos} name={peoplesData.name} id={peoplesData.id} />)
+       
+        return props.peoplesData.map(peoplesData => <People unFriend={props.unFriend} addFriend={props.addFriend} key={peoplesData.id} followed={peoplesData.followed}  photos={peoplesData.photos} name={peoplesData.name} id={peoplesData.id} />)
     }
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];

@@ -7,9 +7,12 @@ import Preloader from '../Preloader/Preloader';
 
 
 class PeoplesContainer extends React.Component {
-    componentDidMount() {
+   async componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+      const result = await axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, 
+        {
+            withCredentials: true
+        })
             .then(response => {
                 this.props.setPeoples(response.data.items);
                 this.props.toggleIsFetching(false);
@@ -19,13 +22,17 @@ class PeoplesContainer extends React.Component {
     onPageChanged = (p) => {
         this.props.setCurrent(p);
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
+       axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`, 
+        {
+            withCredentials: true
+        })
             .then(response => {
                 this.props.setPeoples(response.data.items);
                 this.props.toggleIsFetching(false);
             });
     }
     render() {
+
         return <>
             {this.props.isFetching ? <Preloader /> : null}
             <Peoples totalUsersCount={this.props.totalUsersCount}
@@ -43,6 +50,7 @@ class PeoplesContainer extends React.Component {
 
 
 let mapStateToProps = (state) => {
+    
     return {
         peoplesData: state.peoplesReducerKey.peoplesData,
         pageSize: state.peoplesReducerKey.pageSize,
