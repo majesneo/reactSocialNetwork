@@ -1,4 +1,3 @@
-
 const toggleIs_Fetching = 'toggleIs_Fetching';
 const add_People = 'add_People';
 const add_Friend = 'add_Friend';
@@ -9,7 +8,7 @@ const current_Page = 'current_Page';
 let initialState = {
     peoplesData: [],
     pageSize: 6,
-    totalUsersCount: 22,
+    totalUsersCount: 50,
     currentPage: 1,
     isFetching: false
 };

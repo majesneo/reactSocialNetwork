@@ -19,7 +19,7 @@ const Navbar = (props) => {
                         </li>
                         <li className={classes.item}>
                             <i class="fa fa-file-text-o"></i>
-                            <NavLink to="/MyPages" activeClassName={classes.active}>My pages</NavLink>
+                            <NavLink to="/Profile" activeClassName={classes.active}>Profile</NavLink>
                         </li>
                         <li className={classes.item}>
                             <i class="fa fa-users"></i>

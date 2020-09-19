@@ -43,14 +43,14 @@
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
-    width: 8%;
+    width: 12%;
   }
   
   .friend-name {
     display: inline-block;
     padding-left: 10px;
-    vertical-align: middle;
-    width: 90%;
+
+    width: 80%;
   }
   
   .friend-name > ins {

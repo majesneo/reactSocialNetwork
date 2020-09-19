@@ -9,10 +9,10 @@ import YourPage from './components/YourPage/YourPage';
 import { Route, BrowserRouter } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import PeoplesContainer from './components/Peoples/PeoplesContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 
 
- 
 
 const App = (props) => {
 
@@ -23,6 +23,7 @@ const App = (props) => {
         <Navbar />
         <Route path="/Dialogs" render={() => <DialogsContainer />} />
         <Route path="/MyPosts" render={() => <MyPostsContainer />} />
+        <Route path="/Profile/:userId?" render={() => <ProfileContainer />} />
         <Route path="/Peoples" render={() => <PeoplesContainer/>} />
         <YourPage />
       </div>

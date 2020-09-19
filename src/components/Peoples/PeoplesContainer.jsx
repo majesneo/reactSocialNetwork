@@ -53,9 +53,12 @@ let mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {addPeople,
+export default connect(mapStateToProps, {
+    addPeople,
     addFriend,
     unFriend,
     setPeoples,
     setCurrent,
-    toggleIsFetching})(PeoplesContainer);
+    toggleIsFetching
+})
+    (PeoplesContainer);
