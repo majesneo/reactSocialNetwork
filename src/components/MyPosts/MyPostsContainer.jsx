@@ -8,7 +8,8 @@ import MyPosts from './MyPosts';
 let mapStateToProps = (state) => {
   return {
     postData: state.postReducerKey.postData,
-    newPostText: state.postReducerKey.newPostText
+    newPostText: state.postReducerKey.newPostText,
+    isAuth: state.authReducerKey.isAuth
   }
 }
 let mapDispatchToProps = (dispatch) => {

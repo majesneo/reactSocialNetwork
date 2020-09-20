@@ -5,7 +5,6 @@ import People from './People/People';
 let Peoples = (props) => {
 
     let peoplesList = () => {
-
         return props.peoplesData.map(peoplesData => <People
             followingInProgress={props.followingInProgress}
             togglefollowingInProgress={props.togglefollowingInProgress}
@@ -14,6 +13,8 @@ let Peoples = (props) => {
             photos={peoplesData.photos}
             name={peoplesData.name}
             id={peoplesData.id}
+            getFollowDelThunkCreator={props.getFollowDelThunkCreator}
+            getFollowPostThunkCreator={props.getFollowPostThunkCreator}
         />)
     }
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);

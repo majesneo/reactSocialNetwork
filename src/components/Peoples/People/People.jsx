@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { getFollowDelAPI, getFollowPostAPI } from '../../../api/api';
 import s from './People.module.css';
 
 
@@ -8,7 +7,7 @@ import s from './People.module.css';
 class People extends React.Component {
 
     render() {
-
+    
         return (
 
             <li className={s.peopleItem}>
@@ -21,26 +20,9 @@ class People extends React.Component {
                         <span>{this.props.about}</span>
 
                         {this.props.followed
+                            ? <button disabled={this.props.followingInProgress.some(id => id === this.props.id)} onClick={() => { this.props.getFollowDelThunkCreator(this.props.id) }} title="" class="add-butn more-action" data-ripple="">unfriend</button>
+                            : <button disabled={this.props.followingInProgress.some(id => id === this.props.id)} onClick={() => { this.props.getFollowPostThunkCreator(this.props.id) }} className={s.btn} title="" class="add-butn" data-ripple="">add friend</button>}
 
-                            ? <button disabled={this.props.followingInProgress.some(id => id === this.props.id)} onClick={() => {
-                                this.props.togglefollowingInProgress(true,this.props.id);
-                                getFollowDelAPI(this.props.id).then(data => {
-                                    if (data.resultCode == 0) {
-                                        this.props.unFriend(this.props.id)
-                                    }
-                                    this.props.togglefollowingInProgress(false,this.props.id);
-                                });
-                            }} title="" class="add-butn more-action" data-ripple="">unfriend</button>
-
-                            : <button disabled={this.props.followingInProgress} onClick={() => {
-                                this.props.togglefollowingInProgress(true,this.props.id);
-                                getFollowPostAPI(this.props.id).then(data => {
-                                    if (data.resultCode == 0) {
-                                        this.props.addFriend(this.props.id)
-                                    }
-                                    this.props.togglefollowingInProgress(false,this.props.id);
-                                });
-                            }} className={s.btn} title="" class="add-butn" data-ripple="">add friend</button>}
                     </div>
                 </div>
             </li>

@@ -1,28 +1,19 @@
 import { connect } from 'react-redux';
-import { addFriend, unFriend, addPeople, setPeoples, setCurrent, toggleIsFetching, togglefollowingInProgress } from '../../redux/peoples-reducer';
+import { addFriend, unFriend, addPeople, getUsersThunkCreator, getFollowDelThunkCreator, getFollowPostThunkCreator } from '../../redux/peoples-reducer';
 import Peoples from './Peoples';
-import * as axios from "axios";
 import React from 'react';
 import Preloader from '../Preloader/Preloader';
-import { getUsersAPI } from '../../api/api';
+
 
 
 class PeoplesContainer extends React.Component {
+
     componentDidMount() {
-        this.props.toggleIsFetching(true);
-        getUsersAPI(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.setPeoples(data.items);
-            this.props.toggleIsFetching(false);
-        });
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (p) => {
-        this.props.setCurrent(p);
-        this.props.toggleIsFetching(true);
-        getUsersAPI(p, this.props.pageSize).then(data => {
-            this.props.setPeoples(data.items);
-            this.props.toggleIsFetching(false);
-        });
+        this.props.getUsersThunkCreator(p, this.props.pageSize);
     }
     render() {
         return <>
@@ -35,8 +26,9 @@ class PeoplesContainer extends React.Component {
                 currentPage={this.props.currentPage}
                 addFriend={this.props.addFriend}
                 unFriend={this.props.unFriend}
-                togglefollowingInProgress={this.props.togglefollowingInProgress}
                 followingInProgress={this.props.followingInProgress}
+                getFollowDelThunkCreator={this.props.getFollowDelThunkCreator}
+                getFollowPostThunkCreator={this.props.getFollowPostThunkCreator}
             />
         </>
     }
@@ -61,9 +53,8 @@ export default connect(mapStateToProps, {
     addPeople,
     addFriend,
     unFriend,
-    setPeoples,
-    setCurrent,
-    toggleIsFetching,
-    togglefollowingInProgress
+    getFollowDelThunkCreator,
+    getFollowPostThunkCreator,
+    getUsersThunkCreator
 })
     (PeoplesContainer);

@@ -1,25 +1,14 @@
 import React from 'react';
-import s from './Dialogs.module.css';
-import Userlist0 from '../images/resources/side-friend6.jpg';
-import Userlist1 from '../images/resources/friend-avatar2.jpg';
-import Userlist2 from '../images/resources/friend-avatar3.jpg';
-import Userlist3 from '../images/resources/friend-avatar.jpg';
-import Userlist4 from '../images/resources/friend-avatar4.jpg';
-import Userlist5 from '../images/resources/friend-avatar5.jpg';
-import Userlist6 from '../images/resources/friend-avatar6.jpg';
-import Userlist7 from '../images/resources/friend-avatar7.jpg';
-
-
-import Userlist8 from '../images/resources/friend-avatar8.jpg';
-import you from '../images/resources/userlist-2.jpg';
 import MessagesContainer from './Messages/MessagesContainer';
 import Dialog from './Dialog/Dialog';
+import { Redirect } from 'react-router-dom';
 
 
-class Dialogs extends React.Component{
- 
-    dialogList = ()=>{ return this.props.dialogsData.map(dialogsData => <Dialog key={dialogsData.id} imageUrl={dialogsData.imageUrl} name={dialogsData.name} id={dialogsData.id} />)}
+class Dialogs extends React.Component {
+
+    dialogList = () => { return this.props.dialogsData.map(dialogsData => <Dialog key={dialogsData.id} imageUrl={dialogsData.imageUrl} name={dialogsData.name} id={dialogsData.id} />) }
     render() {
+        if (this.props.isAuth == false) return <Redirect to={"Logout"} />
         return (
             <div class="col-lg-6">
                 <div class="central-meta">
@@ -29,7 +18,7 @@ class Dialogs extends React.Component{
                             <ul class="peoples">
                                 {this.dialogList()}
                             </ul>
-                            <MessagesContainer/>
+                            <MessagesContainer />
                         </div>
                     </div>
                 </div>

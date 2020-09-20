@@ -3,13 +3,13 @@ import * as axios from 'axios';
 import PhotoInput from '../images/resources/admin3.jpg';
 import './MyPosts.css';
 import Post from './Post/Post';
-
+import { Redirect } from 'react-router-dom';
 
 
 class MyPosts extends React.Component {
 
-  postList=()=>{
-   return this.props.postData.map(postData => <Post key={postData.id} id={postData.id} message={postData.message} like={postData.like} />)
+  postList = () => {
+    return this.props.postData.map(postData => <Post key={postData.id} id={postData.id} message={postData.message} like={postData.like} />)
   }
   newPostElement = React.createRef();
 
@@ -17,7 +17,7 @@ class MyPosts extends React.Component {
     let postText = this.newPostElement.current.value;
     this.props.onPostChange(postText);
   }
-  
+
   addPost = (e) => {
     e.preventDefault();
     this.props.addPost();
@@ -31,6 +31,7 @@ class MyPosts extends React.Component {
   }
 
   render() {
+    if (this.props.isAuth == false) return <Redirect to={"Logout"} />
     return (
       <div class="col-lg-6">
         <div class="central-meta">
