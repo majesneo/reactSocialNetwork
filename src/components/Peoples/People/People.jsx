@@ -1,14 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { getFollowDelAPI, getFollowPostAPI } from '../../../api/api';
 import s from './People.module.css';
-import * as axios from "axios";
+
+
 
 class People extends React.Component {
-       
+
     render() {
 
         return (
-           
+
             <li className={s.peopleItem}>
                 <div class="nearly-pepls">
                     <figure>
@@ -17,22 +19,27 @@ class People extends React.Component {
                     <div class="pepl-info">
                         <h4><NavLink activeClassName={s.activeLink} to={"/Profile/" + this.props.id}>{this.props.name}</NavLink></h4>
                         <span>{this.props.about}</span>
+
                         {this.props.followed
-                            ? <button onClick={() => {
-                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${this.props.id}`, { withCredentials: true, headers: { "API-KEY": "6e653f6e-b667-4c69-b909-e415cdfb364d" } })
-                                    .then(response => {
-                                        if (response.data.resultCode == 0) {
-                                            this.props.unFriend(this.props.id)
-                                        }
-                                    });
+
+                            ? <button disabled={this.props.followingInProgress.some(id => id === this.props.id)} onClick={() => {
+                                this.props.togglefollowingInProgress(true,this.props.id);
+                                getFollowDelAPI(this.props.id).then(data => {
+                                    if (data.resultCode == 0) {
+                                        this.props.unFriend(this.props.id)
+                                    }
+                                    this.props.togglefollowingInProgress(false,this.props.id);
+                                });
                             }} title="" class="add-butn more-action" data-ripple="">unfriend</button>
-                            : <button onClick={() => {
-                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${this.props.id}`, {}, { withCredentials: true, headers: { "API-KEY": "6e653f6e-b667-4c69-b909-e415cdfb364d" } })
-                                    .then(response => {
-                                        if (response.data.resultCode == 0) {
-                                            this.props.addFriend(this.props.id)
-                                        }
-                                    });
+
+                            : <button disabled={this.props.followingInProgress} onClick={() => {
+                                this.props.togglefollowingInProgress(true,this.props.id);
+                                getFollowPostAPI(this.props.id).then(data => {
+                                    if (data.resultCode == 0) {
+                                        this.props.addFriend(this.props.id)
+                                    }
+                                    this.props.togglefollowingInProgress(false,this.props.id);
+                                });
                             }} className={s.btn} title="" class="add-butn" data-ripple="">add friend</button>}
                     </div>
                 </div>

@@ -1,38 +1,30 @@
 import { connect } from 'react-redux';
-import { addFriend, unFriend, addPeople, setPeoples, setCurrent, toggleIsFetching } from '../../redux/peoples-reducer';
+import { addFriend, unFriend, addPeople, setPeoples, setCurrent, toggleIsFetching, togglefollowingInProgress } from '../../redux/peoples-reducer';
 import Peoples from './Peoples';
 import * as axios from "axios";
 import React from 'react';
 import Preloader from '../Preloader/Preloader';
+import { getUsersAPI } from '../../api/api';
 
 
 class PeoplesContainer extends React.Component {
-   async componentDidMount() {
-        this.props.toggleIsFetching(true)
-      const result = await axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, 
-        {
-            withCredentials: true
-        })
-            .then(response => {
-                this.props.setPeoples(response.data.items);
-                this.props.toggleIsFetching(false);
-            });
+    componentDidMount() {
+        this.props.toggleIsFetching(true);
+        getUsersAPI(this.props.currentPage, this.props.pageSize).then(data => {
+            this.props.setPeoples(data.items);
+            this.props.toggleIsFetching(false);
+        });
     }
 
     onPageChanged = (p) => {
         this.props.setCurrent(p);
         this.props.toggleIsFetching(true);
-       axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`, 
-        {
-            withCredentials: true
-        })
-            .then(response => {
-                this.props.setPeoples(response.data.items);
-                this.props.toggleIsFetching(false);
-            });
+        getUsersAPI(p, this.props.pageSize).then(data => {
+            this.props.setPeoples(data.items);
+            this.props.toggleIsFetching(false);
+        });
     }
     render() {
-
         return <>
             {this.props.isFetching ? <Preloader /> : null}
             <Peoples totalUsersCount={this.props.totalUsersCount}
@@ -42,7 +34,10 @@ class PeoplesContainer extends React.Component {
                 addPeople={this.props.addPeople}
                 currentPage={this.props.currentPage}
                 addFriend={this.props.addFriend}
-                unFriend={this.props.unFriend} />
+                unFriend={this.props.unFriend}
+                togglefollowingInProgress={this.props.togglefollowingInProgress}
+                followingInProgress={this.props.followingInProgress}
+            />
         </>
     }
 }
@@ -50,13 +45,14 @@ class PeoplesContainer extends React.Component {
 
 
 let mapStateToProps = (state) => {
-    
+
     return {
         peoplesData: state.peoplesReducerKey.peoplesData,
         pageSize: state.peoplesReducerKey.pageSize,
         totalUsersCount: state.peoplesReducerKey.totalUsersCount,
         currentPage: state.peoplesReducerKey.currentPage,
-        isFetching: state.peoplesReducerKey.isFetching
+        isFetching: state.peoplesReducerKey.isFetching,
+        followingInProgress: state.peoplesReducerKey.followingInProgress
     }
 }
 
@@ -67,6 +63,7 @@ export default connect(mapStateToProps, {
     unFriend,
     setPeoples,
     setCurrent,
-    toggleIsFetching
+    toggleIsFetching,
+    togglefollowingInProgress
 })
     (PeoplesContainer);

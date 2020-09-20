@@ -4,13 +4,15 @@ const add_Friend = 'add_Friend';
 const un_Friend = 'un_Friend';
 const set_Peoples = 'set_Peoples';
 const current_Page = 'current_Page';
+const toggle_followingInProgress = 'toggle_followingInProgress';
 
 let initialState = {
     peoplesData: [],
     pageSize: 6,
     totalUsersCount: 22,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 };
 
 const peoplesReducer = (state = initialState, action) => {
@@ -27,7 +29,7 @@ const peoplesReducer = (state = initialState, action) => {
         case add_Friend: {
 
             return {
-                
+
                 ...state, peoplesData: state.peoplesData.map(people => {
                     if (people.id === action.peopleId) {
                         return { ...people, followed: true }
@@ -48,13 +50,12 @@ const peoplesReducer = (state = initialState, action) => {
             }
         }
         case set_Peoples: {
-            
             return {
                 ...state, peoplesData: action.peoples
             }
         }
         case current_Page: {
-            return {
+            return { 
                 ...state, currentPage: action.currentPage
             }
         }
@@ -63,6 +64,13 @@ const peoplesReducer = (state = initialState, action) => {
                 ...state, isFetching: action.isFetching
             }
         }
+        case toggle_followingInProgress: {
+            return {
+                ...state, followingInProgress: action.following
+                    ? [...state.followingInProgress, action.peopleId]
+                    : state.followingInProgress.filter(id => id != action.peopleId)
+            }
+        } 
         default: return state;
     }
 }
@@ -73,4 +81,5 @@ export const addFriend = (peopleId) => ({ type: 'add_Friend', peopleId });
 export const unFriend = (peopleId) => ({ type: 'un_Friend', peopleId });
 export const setPeoples = (peoples) => ({ type: 'set_Peoples', peoples });
 export const setCurrent = (currentPage) => ({ type: 'current_Page', currentPage });
-export const toggleIsFetching = (isFetching) => ({ type: 'toggleIs_Fetching', isFetching });
+export const toggleIsFetching = (isFetching) => ({ type: 'toggleIs_Fetching', isFetching});
+export const togglefollowingInProgress = (following, peopleId) => ({ type: 'toggle_followingInProgress', following, peopleId  })
