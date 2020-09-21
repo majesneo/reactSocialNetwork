@@ -3,6 +3,8 @@ import { addFriend, unFriend, addPeople, getUsersThunkCreator, getFollowDelThunk
 import Peoples from './Peoples';
 import React from 'react';
 import Preloader from '../Preloader/Preloader';
+import { compose } from 'redux';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 
 
@@ -49,12 +51,15 @@ let mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {
+export default compose(connect(mapStateToProps, {
     addPeople,
     addFriend,
     unFriend,
     getFollowDelThunkCreator,
     getFollowPostThunkCreator,
     getUsersThunkCreator
-})
-    (PeoplesContainer);
+}))(PeoplesContainer);
+
+
+
+

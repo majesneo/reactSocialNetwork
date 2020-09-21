@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {  withRouter } from 'react-router-dom';
 import { getProfileThunkCreator } from '../../redux/profile-reducer';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 
 
@@ -31,6 +32,7 @@ let mapStateToProps = (state) => ({
     login: state.authReducerKey.login
 })
 
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-let WitUrlProfileContainer = withRouter(AuthRedirectComponent);
-export default connect(mapStateToProps, { getProfileThunkCreator })(WitUrlProfileContainer,ProfileContainer);
+// let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
+// let WitUrlProfileContainer = withRouter(AuthRedirectComponent);
+// export default connect(mapStateToProps, { getProfileThunkCreator })(WitUrlProfileContainer);//compose рефакторит этот код на аналогичный ниже
+export default compose(connect(mapStateToProps, { getProfileThunkCreator }),withRouter,withAuthRedirect)(ProfileContainer);

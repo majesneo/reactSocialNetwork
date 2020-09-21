@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { addPostActionCreator, onPostChangeActionCreator, setPostsAC } from '../../redux/post-reducer';
 import MyPosts from './MyPosts';
@@ -25,9 +26,7 @@ let mapDispatchToProps = (dispatch) => {
   }
 }
 
-let AuthRedirectComponent = withAuthRedirect(MyPosts);
-
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
-
-export default MyPostsContainer;
+// let AuthRedirectComponent = withAuthRedirect(MyPosts);
+// const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);//compose рефакторит этот код на аналогичный ниже
+export default compose(connect(mapStateToProps, mapDispatchToProps),withAuthRedirect)(MyPosts)
 
