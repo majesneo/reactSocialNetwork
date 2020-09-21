@@ -3,7 +3,7 @@ import * as axios from 'axios';
 import PhotoInput from '../images/resources/admin3.jpg';
 import './MyPosts.css';
 import Post from './Post/Post';
-import { Redirect } from 'react-router-dom';
+
 
 
 class MyPosts extends React.Component {
@@ -31,7 +31,7 @@ class MyPosts extends React.Component {
   }
 
   render() {
-    if (this.props.isAuth == false) return <Redirect to={"Logout"} />
+    
     return (
       <div class="col-lg-6">
         <div class="central-meta">

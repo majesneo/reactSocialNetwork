@@ -7,13 +7,13 @@ import Userlist5 from '../images/resources/userlist-5.jpg';
 import Userlist6 from '../images/resources/userlist-6.jpg';
 import Userlist7 from '../images/resources/userlist-7.jpg';
 import Friends from '../Friends/Friends';
-import { Redirect } from 'react-router-dom';
+
 
 
 
 const YourPage = (props) => {
 
-    if (props.isAuth == false) return <Redirect to={"Logout"} />
+    
 
     return (
 

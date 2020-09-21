@@ -6,7 +6,7 @@ import Navbar from './components/Navbar/Navbar';
 import MyPostsContainer from './components/MyPosts/MyPostsContainer';
 import Header from './components/Header/Header';
 import YourPageContainer from './components/YourPage/YourPageContainer';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route} from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import PeoplesContainer from './components/Peoples/PeoplesContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
@@ -24,7 +24,6 @@ const App = (props) => {
     <div className='app-wrapper'>
       <Header />
       <div class="row">
-      
         <Navbar />
         <Route path="/Login" render={() => <Login />} />
         <Route path="/Dialogs" render={() => <DialogsContainer />} />
@@ -34,7 +33,6 @@ const App = (props) => {
         <Route path="/Logout" render={() => <Logout />} />
         <Route path="/Profile/Logout" render={() => <Logout />} />
         <YourPageContainer />
-        
       </div>
       
     </div>

@@ -1,14 +1,14 @@
 import React from 'react';
 import MessagesContainer from './Messages/MessagesContainer';
 import Dialog from './Dialog/Dialog';
-import { Redirect } from 'react-router-dom';
+
 
 
 class Dialogs extends React.Component {
 
     dialogList = () => { return this.props.dialogsData.map(dialogsData => <Dialog key={dialogsData.id} imageUrl={dialogsData.imageUrl} name={dialogsData.name} id={dialogsData.id} />) }
     render() {
-        if (this.props.isAuth == false) return <Redirect to={"Logout"} />
+        
         return (
             <div class="col-lg-6">
                 <div class="central-meta">
