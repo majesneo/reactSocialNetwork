@@ -28,7 +28,7 @@ const pofileReducer = (state = initialState, action) => {
 export default pofileReducer;
 
 export const setPeoplesProfile = (profile) => ({ type: 'set_PeoplesProfile', profile });
-export const setStatus = (status) => ({ type: 'set_Status', status });
+export const setStatusProf = (status) => ({ type: 'set_Status', status });
 
 
 export const getProfileThunkCreator = (userId) => {
@@ -43,7 +43,7 @@ export const getStatusThunkCreator = (userId) => {
         debugger
         getStatusAPI(userId).then(response => {
             debugger
-            dispatch(setStatus(response.data));
+            dispatch(setStatusProf(response.data));
         });
     }
 }

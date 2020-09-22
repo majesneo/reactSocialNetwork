@@ -1,4 +1,4 @@
-import {  updatedStatusAPI } from "../api/api";
+import {  getStatusAPI, updatedStatusAPI } from "../api/api";
 
 const set_Status = 'set_Status';
 
@@ -30,9 +30,18 @@ export const updatedStatusThunkCreator = (status) => {
         updatedStatusAPI(status).then(response => {
                     debugger
             if (response.data.resultCode == 0) {
-                dispatch(setStatus(response));
+                dispatch(setStatus(status));
             }
         });
     }
 }
 
+export const getStatusThunkCreator = (userId) => {
+    return (dispatch) => {
+        debugger
+        getStatusAPI(userId).then(response => {
+            debugger
+            dispatch(setStatus(response.data));
+        });
+    }
+}

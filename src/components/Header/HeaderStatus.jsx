@@ -20,7 +20,6 @@ class HeaderStatus extends React.Component {
         this.setState({
             editMode: false,
         });
-     
         this.props.updatedStatusThunkCreator(this.state.status);
     }
     onStatusChange = (e) => {
