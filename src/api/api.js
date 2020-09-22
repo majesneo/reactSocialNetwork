@@ -39,3 +39,16 @@ export const getGetAuthAPI = () => {
     });
 }
 
+export const getStatusAPI = (userId) => {
+
+    return instance.get(`profile/status/` +  userId ).then(response => {
+        return response
+    });
+}
+
+export const updatedStatusAPI = (status) => {
+    debugger
+    return instance.put(`profile/status`, { status }).then(response => {
+        return response
+    });
+}

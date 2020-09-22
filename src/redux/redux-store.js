@@ -5,13 +5,15 @@ import peoplesReducer from './peoples-reducer';
 import postReducer from './post-reducer';
 import profileReducer from './profile-reducer';
 import thunkMiddleware from "redux-thunk";
+import headerReducer from './header-reducer';
 
 let reducers = combineReducers({
     dialogsReducerKey: dialogsReducer,
     postReducerKey: postReducer,
     peoplesReducerKey: peoplesReducer,
     profileReducerKey: profileReducer,
-    authReducerKey: authReducer
+    authReducerKey: authReducer,
+    headerReducerKey: headerReducer
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));

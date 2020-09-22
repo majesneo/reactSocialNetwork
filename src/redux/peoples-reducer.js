@@ -12,8 +12,8 @@ const toggle_followingInProgress = 'toggle_followingInProgress';
 
 let initialState = {
     peoplesData: [],
-    pageSize: 6,
-    totalUsersCount: 22,
+    pageSize: 7,
+    totalUsersCount: 31,
     currentPage: 1,
     isFetching: false,
     followingInProgress: []

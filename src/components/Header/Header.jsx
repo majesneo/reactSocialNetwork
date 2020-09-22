@@ -2,7 +2,12 @@ import React from 'react';
 import './Header.css'
 import face from '../images/resources/user-avatar2.jpg';
 import back from '../images/resources/timeline-1.jpg';
+import HeaderStatusContainer from './HeaderStatusContainer';
+
+
+
 const Header = (props) => {
+
 	return (
 		<div class="feature-photo">
 			<figure><img src={back} alt=""></img></figure>
@@ -19,14 +24,15 @@ const Header = (props) => {
 										<input type="file" />
 									</label>
 								</form>
-							</figure> 
+							</figure>
 						</div>
 					</div>
 					<div class="col-lg-10 col-sm-9">
 						<div class="timeline-info">
 							<ul>
 								<li class="admin-name">
-									<h5>Alice</h5>
+									<h5>{props.login}</h5>
+									<HeaderStatusContainer />
 								</li>
 								<li>
 									<a class="active" href="fav-page.html" title="" data-ripple="">Page</a>

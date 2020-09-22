@@ -14,9 +14,9 @@ import Friends from '../Friends/Friends';
 const YourPage = (props) => {
 
     
-
+   
     return (
-
+        
         <div class="col-lg-3">
             <aside class="sidebar static">
                 <div class="widget">

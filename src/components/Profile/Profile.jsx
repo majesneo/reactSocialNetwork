@@ -19,7 +19,7 @@ let Profile = (props) => {
                         </figure>
                         <div class="friend-name">
                             <ins><a href="#" title="">{props.profile.fullName}</a></ins>
-                            <span>Online</span>
+                            <span>{props.status}</span>
                         </div>
                         <div class="post-meta">
                             <div>{props.profile.aboutMe}</div>
