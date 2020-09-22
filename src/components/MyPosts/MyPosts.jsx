@@ -9,7 +9,7 @@ import Post from './Post/Post';
 class MyPosts extends React.Component {
 
   postList = () => {
-    return this.props.postData.map(postData => <Post key={postData.id} id={postData.id} message={postData.message} like={postData.like} />)
+    return this.props.postData.map(postData => <Post key={postData.id} login={this.props.login} id={postData.id} message={postData.message} like={postData.like} />)
   }
   newPostElement = React.createRef();
 
