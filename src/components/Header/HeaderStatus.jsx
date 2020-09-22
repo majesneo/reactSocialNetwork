@@ -16,7 +16,6 @@ class HeaderStatus extends React.Component {
         });
     }
     deactivateEditMode = () => {
-        
         this.setState({
             editMode: false,
         });

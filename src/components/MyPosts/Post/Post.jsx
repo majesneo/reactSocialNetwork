@@ -15,7 +15,7 @@ const Post = (props) => {
                             <img src={Photo} alt=""></img>
                         </figure>
                         <div class="friend-name">
-                            <ins><a href="time-line.html" title="">Alice</a></ins>
+                            <ins><a href="time-line.html" title="">{props.login}</a></ins>
                             <span>published: june,2 2018 19:PM</span>
                         </div>
                         <div class="post-meta">

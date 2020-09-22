@@ -47,7 +47,7 @@ export const getStatusAPI = (userId) => {
 }
 
 export const updatedStatusAPI = (status) => {
-    debugger
+
     return instance.put(`profile/status`, { status }).then(response => {
         return response
     });
