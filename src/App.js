@@ -27,13 +27,14 @@ const App = (props) => {
 
       <div class="row">
         <Navbar />
-        <Route path="/Login" render={() => <Login />} />
+        
         <Route path="/Dialogs" render={() => <DialogsContainer />} />
         <Route path="/MyPosts" render={() => <MyPostsContainer />} />
         <Route path="/Profile/:userId?" render={() => <ProfileContainer />} />
         <Route path="/Peoples" render={() => <PeoplesContainer />} />
         <Route path="/Logout" render={() => <Logout />} />
         <Route path="/Profile/Logout" render={() => <Logout />} />
+        <Route path="/Login" render={() => <Login />} />
         <YourPageContainer />
       </div>
     </div>

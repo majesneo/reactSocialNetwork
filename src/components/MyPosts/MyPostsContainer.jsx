@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
-import { addPostActionCreator, onPostChangeActionCreator, setPostsAC } from '../../redux/post-reducer';
+import { addPostActionCreator, setPostsAC } from '../../redux/post-reducer';
 import MyPosts from './MyPosts';
 
 
@@ -15,11 +15,8 @@ let mapStateToProps = (state) => {
 }
 let mapDispatchToProps = (dispatch) => {
   return {
-    onPostChange: (postText) => {
-      dispatch(onPostChangeActionCreator(postText));
-    },
-    addPost: () => {
-      dispatch(addPostActionCreator());
+    addPost: (value) => {
+      dispatch(addPostActionCreator(value));
     },
     setPosts: (posts) => {
       dispatch(setPostsAC(posts));

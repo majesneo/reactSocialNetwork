@@ -1,5 +1,5 @@
 const addMessage = 'addMessage';
-const onMessageChange = 'onMessageChange';
+
 
 let initialState = {
     dialogsData: [
@@ -25,8 +25,7 @@ let initialState = {
         { id: 1, message: "what's liz short for? :)" },
         { id: 2, message: 'yes' },
         { id: 3, message: 'coooooooooool dude ;)' }
-    ],
-    newMessageText: ''
+    ]
 };
 
 const dialogsReducer = (state = initialState, action) => {
@@ -34,16 +33,11 @@ const dialogsReducer = (state = initialState, action) => {
         case addMessage: {
             return {
                 ...state,
-                newMessageText : '',
-                messagesDataMe: [...state.messagesDataMe, { id: 5, message: state.newMessageText }]
+                messagesDataMe: [...state.messagesDataMe, { id: 5, message: action.value }],
+                newMessageText : ''
             }
         }
-        case onMessageChange: {
-            return {
-                ...state,
-                newMessageText: action.messageText
-            }
-        }
+
         default:
             return state;
     }
@@ -51,6 +45,4 @@ const dialogsReducer = (state = initialState, action) => {
 export default dialogsReducer;
 
 
-export const onMessageChangeActionCreator = (messageText) => ({ type: 'onMessageChange', messageText });
-
-export const addMessageActionCreator = () => ({ type: 'addMessage' });
+export const addMessageActionCreator = (value) => ({ type: 'addMessage',value });

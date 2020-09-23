@@ -1561,3 +1561,6 @@ button.add-butn {
     position: absolute;
     left: 0;
 }
+*:focus{
+  outline: none;
+}
