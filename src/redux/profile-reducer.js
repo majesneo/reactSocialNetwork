@@ -40,9 +40,9 @@ export const getProfileThunkCreator = (userId) => {
 }
 export const getStatusThunkCreator = (userId) => {
     return (dispatch) => {
-        debugger
+       
         getStatusAPI(userId).then(response => {
-            debugger
+          
             dispatch(setStatusProf(response.data));
         });
     }

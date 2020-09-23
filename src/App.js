@@ -6,13 +6,13 @@ import Navbar from './components/Navbar/Navbar';
 import MyPostsContainer from './components/MyPosts/MyPostsContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import YourPageContainer from './components/YourPage/YourPageContainer';
-import { Route} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import PeoplesContainer from './components/Peoples/PeoplesContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Logout from './components/Logout/Logout';
 import Login from './components/Login/Login';
-import HeaderStatusContainer from './components/Header/HeaderStatusContainer';
+
 
 
 
@@ -21,9 +21,10 @@ import HeaderStatusContainer from './components/Header/HeaderStatusContainer';
 const App = (props) => {
 
   return (
+    
     <div className='app-wrapper'>
       <HeaderContainer />
-      
+
       <div class="row">
         <Navbar />
         <Route path="/Login" render={() => <Login />} />
@@ -35,8 +36,8 @@ const App = (props) => {
         <Route path="/Profile/Logout" render={() => <Logout />} />
         <YourPageContainer />
       </div>
-      
     </div>
+    
   );
 }
 

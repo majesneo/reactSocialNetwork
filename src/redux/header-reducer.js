@@ -28,7 +28,7 @@ export const setStatus = (status) => ({ type: 'set_Status', status });
 export const updatedStatusThunkCreator = (status) => {
     return (dispatch) => {
         updatedStatusAPI(status).then(response => {
-                    debugger
+                  
             if (response.data.resultCode == 0) {
                 dispatch(setStatus(status));
             }
@@ -38,9 +38,9 @@ export const updatedStatusThunkCreator = (status) => {
 
 export const getStatusThunkCreator = (userId) => {
     return (dispatch) => {
-        debugger
+        
         getStatusAPI(userId).then(response => {
-            debugger
+         
             dispatch(setStatus(response.data));
         });
     }

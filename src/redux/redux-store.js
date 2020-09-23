@@ -6,6 +6,7 @@ import postReducer from './post-reducer';
 import profileReducer from './profile-reducer';
 import thunkMiddleware from "redux-thunk";
 import headerReducer from './header-reducer';
+import { reducer as formReducer } from 'redux-form';
 
 let reducers = combineReducers({
     dialogsReducerKey: dialogsReducer,
@@ -13,7 +14,8 @@ let reducers = combineReducers({
     peoplesReducerKey: peoplesReducer,
     profileReducerKey: profileReducer,
     authReducerKey: authReducer,
-    headerReducerKey: headerReducer
+    headerReducerKey: headerReducer,
+    form: formReducer
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));

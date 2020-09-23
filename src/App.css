@@ -418,9 +418,8 @@ a.widget-title.login {
   text-decoration: underline;
   cursor: pointer;
 }
-a.widget-title.login::before{
+a.widget-title.login::before {
   content: none;
-  
 }
 .flex {
   display: flex;
@@ -1362,8 +1361,6 @@ button.add-butn {
   position: relative;
 }
 
-
-
 .land-meta > a.folow-me:hover {
   text-shadow: 0 1px 1px #454545;
 }
@@ -1390,7 +1387,7 @@ button.add-butn {
 }
 
 .log-reg-area form .checkbox {
-  display: inline-block;
+  display: flex;
   width: 50%;
 }
 
@@ -1446,4 +1443,121 @@ button.add-butn {
 
 .login-reg-bg.show .log-reg-area.sign {
   display: none;
+}
+.mtr-btn {
+  position: relative;
+  background: currentColor;
+  border: 1px solid currentColor;
+  font-size: 16px;
+  color: #4f93ce;
+  margin-top: 10px;
+  padding: 7px 30px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.28s ease, color 0.28s ease, -webkit-box-shadow 0.28s ease;
+  transition: background-color 0.28s ease, color 0.28s ease, -webkit-box-shadow 0.28s ease;
+  transition: background-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+  transition: background-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease, -webkit-box-shadow 0.28s ease;
+  overflow: hidden;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.mtr-btn:before {
+  content: "";
+  position: absolute;
+  background: #071017;
+  border: 50vh solid #1d4567;
+  width: 30vh;
+  height: 30vh;
+  border-radius: 50%;
+  display: block;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  opacity: 1;
+  -webkit-transform: translate(-50%, -50%) scale(0);
+  transform: translate(-50%, -50%) scale(0);
+}
+.mtr-btn:hover{
+  color: #088dcd;
+    -webkit-box-shadow: 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12), 0 3px 5px -1px rgba(0,0,0,.2);
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12), 0 3px 5px -1px rgba(0,0,0,.2);
+}
+.checkbox .check-box{
+  color: #088dcd;
+  position: absolute;
+
+    width: 1rem;
+    height: 1rem;
+    z-index: 0;
+    border: .125rem solid currentColor;
+    border-radius: .0625rem;
+    -webkit-transition: border-color .28s ease;
+    transition: border-color .28s ease;
+}
+.checkbox input:checked~.check-box::before{
+  height: 1.2rem;
+    -webkit-transition-delay: .28s;
+    transition-delay: .28s;
+}
+.checkbox input:checked~.check-box::after, .checkbox input:checked~.check-box::before{
+  opacity: 1;
+    -webkit-transition: height .28s ease;
+    transition: height .28s ease;
+}
+.checkbox .check-box::before{
+  top: .65rem;
+    left: .38rem;
+    -webkit-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+    -webkit-box-shadow: 0 0 0 0.0625rem #fff;
+    box-shadow: 0 0 0 0.0625rem #fff;
+}
+.checkbox input:checked~.check-box::after{
+  height: .5rem;
+}
+.checkbox input:checked~.check-box::after, .checkbox input:checked~.check-box::before{
+  opacity: 1;
+    -webkit-transition: height .28s ease;
+    transition: height .28s ease;
+}
+.checkbox .check-box::after{
+  top: .3rem;
+    left: 0;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+.checkbox .check-box::after{
+  position: absolute;
+    height: 0;
+    width: .2rem;
+    background-color: #088dcd;
+    display: block;
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    border-radius: .25rem;
+    content: '';
+    -webkit-transition: opacity .28s ease,height 0s linear .28s;
+    transition: opacity .28s ease,height 0s linear .28s;
+    opacity: 0;
+}
+.checkbox .check-box::before{
+  position: absolute;
+  height: 0;
+  width: .2rem;
+  background-color: #088dcd;
+  display: block;
+  -webkit-transform-origin: left top;
+  transform-origin: left top;
+  border-radius: .25rem;
+  content: '';
+  -webkit-transition: opacity .28s ease,height 0s linear .28s;
+  transition: opacity .28s ease,height 0s linear .28s;
+  opacity: 0;
+}
+.checkbox input{
+  width: auto;
+    opacity: .00000001;
+    position: absolute;
+    left: 0;
 }
