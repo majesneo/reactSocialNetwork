@@ -1,29 +1,28 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {  Redirect } from 'react-router-dom';
+import { compose } from 'redux';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { logoutThunkCreator } from '../../redux/auth-reducer';
 
 
 
 
 
-const Logout = (props) => {
-    return (
-        <section>
-            <div class="gap100 gray-bg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="logout-meta">
-                                <h2>logged out social network</h2>
+class Logout extends React.Component {
 
-                                <p>
-                                    Please <NavLink to={"/Login"} title="">Login</NavLink> or <a href="#" title="">Register</a> now to create your own profile and have access to social network
-							</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
+    componentDidMount() {
+        this.props.logoutThunkCreator();
+    }
+    render() {
+         if (this.props.isAuth) {
+         return <Redirect to={"/Logout"} />}else {
+            return <Redirect to={"/Login"} />}
+        }
+    }
+
+let mapStateToProps = (state) => {
+    return { isAuth: state.authReducerKey.isAuth }
 }
-export default Logout;
+export default compose(connect(mapStateToProps, { logoutThunkCreator }), withAuthRedirect)(Logout)
+ 

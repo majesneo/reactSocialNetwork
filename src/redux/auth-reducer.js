@@ -1,4 +1,7 @@
-import { getGetAuthAPI } from "../api/api";
+
+import { Component } from "react";
+import { delLogoutAPI, getGetAuthAPI, postLoginAPI } from "../api/api";
+
 
 const set_UserData = 'set_UserData';
 
@@ -15,7 +18,6 @@ const authReducer = (state = initialState, action) => {
         case set_UserData: {
             return {
                 ...state, ...action.data,
-                isAuth: true
             }
         }
         default: return state;
@@ -23,18 +25,40 @@ const authReducer = (state = initialState, action) => {
 }
 export default authReducer;
 
-export const setAuthUserData = (id, email, login) => ({ type: 'set_UserData', data: { id, email, login } });
+export const setAuthUserData = (id, email, login, isAuth) => ({ type: 'set_UserData', data: { id, email, login, isAuth } });
 
 
 
 export const getGetAuthThunkCreator = () => {
+    
     return (dispatch) => {
         getGetAuthAPI().then(data => {
+        
             if (data.resultCode === 0) {
+                
                 let { id, email, login } = data.data;
-                dispatch(setAuthUserData(id, email, login));
+                dispatch(setAuthUserData(id, email, login, true));
             }
         });
     }
 }
-
+export const loginThunkCreator = (email, password, rememberMe) => {
+    
+    return (dispatch) => {
+        postLoginAPI({email, password, rememberMe}).then(data => {
+            
+            if (data.data.resultCode === 0) {
+                dispatch(getGetAuthThunkCreator());
+            }
+        });
+    }
+}
+export const logoutThunkCreator = () => {
+    return (dispatch) => {
+        delLogoutAPI().then(data => {
+            if (data.data.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, null, false));
+            }
+        });
+    }
+}

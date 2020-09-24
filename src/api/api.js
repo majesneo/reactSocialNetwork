@@ -40,15 +40,25 @@ export const getGetAuthAPI = () => {
 }
 
 export const getStatusAPI = (userId) => {
-
-    return instance.get(`profile/status/` +  userId ).then(response => {
+    return instance.get(`profile/status/` + userId).then(response => {
         return response
     });
 }
 
 export const updatedStatusAPI = (status) => {
-
     return instance.put(`profile/status`, { status }).then(response => {
+        return response
+    });
+}
+
+export const postLoginAPI = ({ email, password, rememberMe = false }) => {
+    return instance.post(`auth/login`, { email, password, rememberMe }).then(response => {
+        return response
+    });
+}
+
+export const delLogoutAPI = () => {
+    return instance.delete(`auth/login`, ).then(response => {
         return response
     });
 }
