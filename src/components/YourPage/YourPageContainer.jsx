@@ -1,14 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { getGetAuthThunkCreator} from '../../redux/auth-reducer';
+import {connect} from 'react-redux';
+import {compose} from 'redux';
 import YourPage from './YourPage';
+import {logoutThunkCreator} from "../../redux/auth-reducer";
 
 
 class YourPageContainer extends React.Component {
-    componentDidMount() {
-        this.props.getGetAuthThunkCreator();
-    }
 
     render() {
         return (
@@ -21,5 +18,5 @@ let mapStateToProps = (state) => ({
     isAuth: state.authReducerKey.isAuth,
     login: state.authReducerKey.login
 });
-export default compose(connect(mapStateToProps, { getGetAuthThunkCreator }))(YourPageContainer)
+export default compose(connect(mapStateToProps,{logoutThunkCreator}))(YourPageContainer)
 

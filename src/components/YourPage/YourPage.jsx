@@ -7,24 +7,22 @@ import Userlist5 from '../images/resources/userlist-5.jpg';
 import Userlist6 from '../images/resources/userlist-6.jpg';
 import Userlist7 from '../images/resources/userlist-7.jpg';
 import Friends from '../Friends/Friends';
-
+import {NavLink} from "react-router-dom";
+import s from "./YourPage.module.css";
 
 
 
 const YourPage = (props) => {
-
-    
    
     return (
-        
         <div class="col-lg-3">
             <aside class="sidebar static">
                 <div class="widget">
                     <div class="flex">
                         <h4 class="widget-title">Your page</h4>
                         {props.isAuth
-                            ? <a class="widget-title login" >{props.login}</a>
-                            : <a class="widget-title login" >Login</a>}
+                            ? <button onClick={props.logoutThunkCreator} className={s.widgetTitle} >{props.login}</button>
+                            : <NavLink to={'/Login'} className={s.widgetTitle} >Login</NavLink>}
                     </div>
                     <div class="your-page">
                         <figure>

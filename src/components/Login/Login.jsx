@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import { loginThunkCreator } from '../../redux/auth-reducer';
 import { maxLengthCreator, requireField } from '../../validators/validators';
 import { Input } from '../common/FormsControls/FormsControls';
-
+import s from '../common/FormsControls/FormsControls.module.css';
 
 
 const maxLengthCreatorEmail30 = maxLengthCreator(30);
@@ -31,6 +31,7 @@ const LoginForm = (props) => {
                             </label>
                             <label style={{ paddingLeft: "25px" }}>Always Remember Me.</label>
                         </div>
+                        {props.error && <div className={s.formError}>{props.error}</div>}
                         <div class="submit-btns">
                             <button type="submit" style={{ marginRight: "10px" }} class="mtr-btn signin" ><span style={{ color: "white" }}>Login</span></button>
                             <button class="mtr-btn signup"><span style={{ color: "white" }}>Register</span></button>
