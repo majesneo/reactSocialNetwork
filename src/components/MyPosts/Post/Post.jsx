@@ -3,7 +3,7 @@ import s from './Post.module.css';
 import Photo from '../../images/resources/admin3.jpg';
 
 const Post = (props) => {
-    
+
 
     return (
 
@@ -51,8 +51,8 @@ const Post = (props) => {
                             <div class="description">
                                 <span>TITLE YOU COMMENT POST</span>
                                 <p>
-                                   {props.message}
-								</p>
+                                    {props.message}
+                                </p>
                             </div>
                         </div>
                     </div>

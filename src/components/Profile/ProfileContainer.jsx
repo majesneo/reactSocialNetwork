@@ -1,33 +1,31 @@
 import React from 'react';
 import Profile from './Profile';
 import {connect} from 'react-redux';
-import {Redirect, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {getProfileThunkCreator, getStatusThunkCreator} from '../../redux/profile-reducer';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
+import Preloader from "../Preloader/Preloader";
 
 
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-
         let userId = this.props.match.params.userId;
-
-        if (!userId && this.props.isAuth) {
+        if (!userId) {
             userId = this.props.id;
-            this.props.getProfileThunkCreator(userId);
-            this.props.getStatusThunkCreator(userId);
+            if (!userId){
+                this.props.history.push('/Login');
+            }
         }
-        if (userId) {
-            this.props.getProfileThunkCreator(userId);
-            this.props.getStatusThunkCreator(userId);
-        } else {
-            return <Redirect to='/Peoples'/>
-        }
-
+        this.props.getProfileThunkCreator(userId);
+        this.props.getStatusThunkCreator(userId);
     }
 
     render() {
+        if (!this.props.profile) {
+            return <Preloader/>
+        }
         return (
             <Profile {...this.props} status={this.props.status} profile={this.props.profile}/>
         );

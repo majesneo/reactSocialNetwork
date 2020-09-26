@@ -8,18 +8,10 @@ import {getGetAuthThunkCreator} from "../../redux/auth-reducer";
 
 
 class HeaderStatusContainer extends React.Component {
-    componentDidMount() {
-        if (this.props.isAuth) {
-            let userId = this.props.id;
-            this.props.getGetAuthThunkCreator();
-            this.props.getStatusThunkCreator(userId);
 
-        }
-    }
 
 
     render() {
-
         return <HeaderStatus {...this.props} status={this.props.status}
                              updatedStatusThunkCreator={this.props.updatedStatusThunkCreator}/>
     };

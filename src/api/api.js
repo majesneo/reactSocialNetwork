@@ -62,3 +62,9 @@ export const delLogoutAPI = () => {
         return response
     });
 }
+
+export const getPostAPI = () => {
+    return axios.get("http://test-api.quando.pro/reactsocialnetwork/post").then(response => {
+        return response.data
+    });
+}

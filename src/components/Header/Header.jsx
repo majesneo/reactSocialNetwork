@@ -3,6 +3,7 @@ import './Header.css'
 import face from '../images/resources/user-avatar2.jpg';
 import back from '../images/resources/timeline-1.jpg';
 import HeaderStatusContainer from './HeaderStatusContainer';
+import HeaderStatusWithHooks from "./HeaderStatusWithHooks";
 
 
 
@@ -32,7 +33,7 @@ const Header = (props) => {
 							<ul>
 								<li class="admin-name">
 									<h5>{props.login}</h5>
-									<HeaderStatusContainer />
+									<HeaderStatusWithHooks {...props} getStatusThunkCreator={props.getStatusThunkCreator} updatedStatusThunkCreator={props.updatedStatusThunkCreator}/>
 								</li>
 								<li>
 									<a class="active" href="fav-page.html" title="" data-ripple="">Page</a>

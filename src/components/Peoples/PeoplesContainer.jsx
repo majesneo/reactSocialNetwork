@@ -11,11 +11,17 @@ import Peoples from './Peoples';
 import React from 'react';
 import Preloader from '../Preloader/Preloader';
 import {compose} from 'redux';
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getPeoples,
+    getTotalUsersCount
+} from "../../redux/peoples-selector";
 
 
 class PeoplesContainer extends React.Component {
-
     componentDidMount() {
         this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
     }
@@ -26,36 +32,23 @@ class PeoplesContainer extends React.Component {
 
     render() {
         return <>
+
             {this.props.isFetching ? <Preloader/> : null}
-            <Peoples totalUsersCount={this.props.totalUsersCount}
-                     pageSize={this.props.pageSize}
-                     peoplesData={this.props.peoplesData}
-                     onPageChanged={this.onPageChanged}
-                     addPeople={this.props.addPeople}
-                     currentPage={this.props.currentPage}
-                     addFriend={this.props.addFriend}
-                     unFriend={this.props.unFriend}
-                     followingInProgress={this.props.followingInProgress}
-                     getFollowDelThunkCreator={this.props.getFollowDelThunkCreator}
-                     getFollowPostThunkCreator={this.props.getFollowPostThunkCreator}
-            />
+            <Peoples {...this.props} onPageChanged={this.onPageChanged}/>
         </>
     }
 }
 
-
 let mapStateToProps = (state) => {
-
     return {
-        peoplesData: state.peoplesReducerKey.peoplesData,
-        pageSize: state.peoplesReducerKey.pageSize,
-        totalUsersCount: state.peoplesReducerKey.totalUsersCount,
-        currentPage: state.peoplesReducerKey.currentPage,
-        isFetching: state.peoplesReducerKey.isFetching,
-        followingInProgress: state.peoplesReducerKey.followingInProgress
+        peoplesData: getPeoples(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
-
 
 export default compose(connect(mapStateToProps, {
     addPeople,
@@ -64,7 +57,7 @@ export default compose(connect(mapStateToProps, {
     getFollowDelThunkCreator,
     getFollowPostThunkCreator,
     getUsersThunkCreator
-}),withAuthRedirect)(PeoplesContainer);
+}))(PeoplesContainer);
 
 
 

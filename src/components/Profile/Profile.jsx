@@ -3,12 +3,6 @@ import Preloader from '../Preloader/Preloader';
 
 
 let Profile = (props) => {
-
-
-    if (!props.profile) {
-        return <Preloader />
-    }
-
     return (
         <div class="col-lg-6">
             <div class="central-meta item">

@@ -16,8 +16,9 @@ let reducers = combineReducers({
     profileReducerKey: profileReducer,
     authReducerKey: authReducer,
     headerReducerKey: headerReducer,
-    form: formReducer,
-    appReducerKey: appReducer
+    appReducerKey: appReducer,
+    form: formReducer
+
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));

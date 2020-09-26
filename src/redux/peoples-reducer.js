@@ -88,11 +88,11 @@ export const togglefollowingInProgress = (following, peopleId) => ({ type: 'togg
 
 
 
-export const getUsersThunkCreator = (p, currentPage, pageSize) => {
+export const getUsersThunkCreator = ( currentPage, pageSize) => {
     return (dispatch) => {
-        dispatch(setCurrent(p));
+        dispatch(setCurrent(currentPage));
         dispatch(toggleIsFetching(true));
-        getUsersAPI(p, currentPage, pageSize).then(data => {
+        getUsersAPI( currentPage, pageSize).then(data => {
             dispatch(toggleIsFetching(false));
             dispatch(setPeoples(data.items));
         });

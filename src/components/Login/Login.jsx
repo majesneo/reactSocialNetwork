@@ -42,7 +42,6 @@ const LoginForm = (props) => {
         </div>
     );
 }
-
 const LoginReduxForm = reduxForm({ form: 'Login' })(LoginForm);
 
 const Login = (props) => {

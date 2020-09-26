@@ -22,11 +22,7 @@ export default appReducer;
 
 export const initializedSuccess = () => ({type: 'set_Initialized'});
 
-export const initializedThunkCreator = () => (dispatch) => {
-    debugger
-    let promise = dispatch(getGetAuthThunkCreator());
-
-    Promise.all([promise]).then(() => {
-        dispatch(initializedSuccess());
-    });
+export const initializedThunkCreator = () => async (dispatch) => {
+    await dispatch(getGetAuthThunkCreator());
+    dispatch(initializedSuccess());
 }

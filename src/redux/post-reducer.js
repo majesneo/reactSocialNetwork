@@ -1,33 +1,42 @@
-const addPost = 'addPost';
-const setPosts = 'setPosts';
+import {getPostAPI} from "../api/api";
+
+const add_Post = 'add_Post';
+const set_Posts = 'set_Posts';
 
 let initialState = {
-    postData: [
-
-    ],
+    postData: [],
     newPostText: ''
 };
 
 
 const postReducer = (state = initialState, action) => {
     switch (action.type) {
-        case addPost: {
+        case add_Post: {
             return {
                 ...state,
-                postData: [...state.postData, { id: 3, message: action.value, like: 4 }],
+                postData: [...state.postData, {id: 3, message: action.value, like: 4}],
                 newPostText: ''
             };
         }
-        case setPosts: {
+        case set_Posts: {
             return {
                 ...state, postData: [...action.posts]
             }
         }
-        default: return state;
+        default:
+            return state;
     }
 }
 export default postReducer;
 
-export const addPostActionCreator = (value) => ({ type: 'addPost', value });
-export const onPostChangeActionCreator = (postText) => ({ type: 'onPostChange', postText });
-export const setPostsAC = (posts) => ({ type: 'setPosts', posts });
+export const addPost = (value) => ({type: 'add_Post', value});
+export const setPosts = (posts) => ({type: 'set_Posts', posts});
+
+export const getPostThunkCreator = () => {
+    return (dispatch) => {
+
+        getPostAPI().then(post => {
+            dispatch(setPosts(post))
+        });
+    }
+}

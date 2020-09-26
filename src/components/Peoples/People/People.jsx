@@ -5,11 +5,8 @@ import s from './People.module.css';
 
 
 class People extends React.Component {
-
     render() {
-    
         return (
-
             <li className={s.peopleItem}>
                 <div class="nearly-pepls">
                     <figure>

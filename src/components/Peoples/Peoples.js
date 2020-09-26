@@ -7,7 +7,6 @@ let Peoples = (props) => {
     let peoplesList = () => {
         return props.peoplesData.map(peoplesData => <People
             followingInProgress={props.followingInProgress}
-            togglefollowingInProgress={props.togglefollowingInProgress}
             unFriend={props.unFriend} addFriend={props.addFriend}
             key={peoplesData.id} followed={peoplesData.followed}
             photos={peoplesData.photos}
