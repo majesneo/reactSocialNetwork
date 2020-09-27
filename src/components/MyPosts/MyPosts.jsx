@@ -4,13 +4,13 @@ import PhotoInput from '../images/resources/admin3.jpg';
 import './MyPosts.css';
 import Post from './Post/Post';
 import {Field, reduxForm} from 'redux-form';
-import {requireField, maxLengthCreator} from '../../validators/validators';
+import {requireField, maxLengthCreator} from '../../utils/validators/validators';
 import {Textarea} from '../common/FormsControls/FormsControls';
 
 
 class MyPosts extends React.Component {
     postList = () => {
-        return this.props.postData.map(postData => <Post key={postData.id} login={this.props.login} id={postData.id}
+        return [...this.props.postData].reverse().map(postData => <Post key={postData.id} login={this.props.login} id={postData.id}
                                                          message={postData.message} like={postData.like}/>)
     }
     addPost = (value) => {

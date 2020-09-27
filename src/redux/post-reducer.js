@@ -32,11 +32,7 @@ export default postReducer;
 export const addPost = (value) => ({type: 'add_Post', value});
 export const setPosts = (posts) => ({type: 'set_Posts', posts});
 
-export const getPostThunkCreator = () => {
-    return (dispatch) => {
-
-        getPostAPI().then(post => {
-            dispatch(setPosts(post))
-        });
-    }
+export const getPostThunkCreator = () => async (dispatch) => {
+    const post = await getPostAPI()
+    dispatch(setPosts(post))
 }

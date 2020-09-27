@@ -1,4 +1,5 @@
-import { getFollowDelAPI, getFollowPostAPI, getUsersAPI } from "../api/api";
+import {getFollowDelAPI, getFollowPostAPI, getUsersAPI} from "../api/api";
+import {updateObjectInArray} from "../utils/object-helpers";
 
 const toggleIs_Fetching = 'toggleIs_Fetching';
 const add_People = 'add_People';
@@ -7,7 +8,6 @@ const un_Friend = 'un_Friend';
 const set_Peoples = 'set_Peoples';
 const current_Page = 'current_Page';
 const toggle_followingInProgress = 'toggle_followingInProgress';
-
 
 
 let initialState = {
@@ -32,23 +32,12 @@ const peoplesReducer = (state = initialState, action) => {
         }
         case add_Friend: {
             return {
-                ...state, peoplesData: state.peoplesData.map(people => {
-                    if (people.id === action.peopleId) {
-                        return { ...people, followed: true }
-                    }
-                    return people;
-                })
+                ...state, users: updateObjectInArray(state.peoplesData, action.peopleId, "id", {followed: true})
             }
         }
         case un_Friend: {
-
             return {
-                ...state, peoplesData: state.peoplesData.map(people => {
-                    if (people.id === action.peopleId) {
-                        return { ...people, followed: false }
-                    }
-                    return people;
-                })
+                ...state, users: updateObjectInArray(state.peoplesData, action.peopleId, "id", {followed: false})
             }
         }
         case set_Peoples: {
@@ -73,52 +62,49 @@ const peoplesReducer = (state = initialState, action) => {
                     : state.followingInProgress.filter(id => id != action.peopleId)
             }
         }
-        default: return state;
+        default:
+            return state;
     }
 }
 export default peoplesReducer;
 
-export const addPeople = () => ({ type: 'add_People' });
-export const addFriend = (peopleId) => ({ type: 'add_Friend', peopleId });
-export const unFriend = (peopleId) => ({ type: 'un_Friend', peopleId });
-export const setPeoples = (peoples) => ({ type: 'set_Peoples', peoples });
-export const setCurrent = (currentPage) => ({ type: 'current_Page', currentPage });
-export const toggleIsFetching = (isFetching) => ({ type: 'toggleIs_Fetching', isFetching });
-export const togglefollowingInProgress = (following, peopleId) => ({ type: 'toggle_followingInProgress', following, peopleId });
+export const addPeople = () => ({type: 'add_People'});
+export const addFriend = (peopleId) => ({type: 'add_Friend', peopleId});
+export const unFriend = (peopleId) => ({type: 'un_Friend', peopleId});
+export const setPeoples = (peoples) => ({type: 'set_Peoples', peoples});
+export const setCurrent = (currentPage) => ({type: 'current_Page', currentPage});
+export const toggleIsFetching = (isFetching) => ({type: 'toggleIs_Fetching', isFetching});
+export const togglefollowingInProgress = (following, peopleId) => ({
+    type: 'toggle_followingInProgress',
+    following,
+    peopleId
+});
 
 
+export const getUsersThunkCreator = (currentPage, pageSize) => async (dispatch) => {
+    dispatch(setCurrent(currentPage));
+    dispatch(toggleIsFetching(true));
+    const data = await getUsersAPI(currentPage, pageSize)
+    dispatch(toggleIsFetching(false));
+    dispatch(setPeoples(data.items));
+}
 
-export const getUsersThunkCreator = ( currentPage, pageSize) => {
-    return (dispatch) => {
-        dispatch(setCurrent(currentPage));
-        dispatch(toggleIsFetching(true));
-        getUsersAPI( currentPage, pageSize).then(data => {
-            dispatch(toggleIsFetching(false));
-            dispatch(setPeoples(data.items));
-        });
+export const getFollowPostThunkCreator = (id) => {
+    return async (dispatch) => {
+        getFollowPostAndDelFlow(dispatch, getFollowPostAPI.bind(getFollowPostAPI), addFriend.bind(addFriend), id)
     }
 }
 export const getFollowDelThunkCreator = (id) => {
-    return (dispatch) => {
-        dispatch(togglefollowingInProgress(true, id));
-        getFollowDelAPI(id).then(data => {
-            if (data.resultCode == 0) {
-                dispatch(unFriend(id));
-            }
-            dispatch(togglefollowingInProgress(false, id));
-        });
-    }
-}
-export const getFollowPostThunkCreator = (id) => {
-    return (dispatch) => {
-        dispatch(togglefollowingInProgress(true, id));
-        getFollowPostAPI(id).then(data => {
-            if (data.resultCode == 0) {
-                dispatch(addFriend(id));
-            }
-            dispatch(togglefollowingInProgress(false, id));
-        });
+    return async (dispatch) => {
+        getFollowPostAndDelFlow(dispatch, getFollowDelAPI.bind(getFollowDelAPI), unFriend.bind(unFriend), id)
     }
 }
 
-
+const getFollowPostAndDelFlow = async (dispatch, methodApi, actionCreator, id) => {
+    dispatch(togglefollowingInProgress(true, id));
+    let data = await methodApi(id);
+    if (data.resultCode == 0) {
+        dispatch(actionCreator(id));
+    }
+    dispatch(togglefollowingInProgress(false, id));
+}

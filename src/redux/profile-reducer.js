@@ -1,4 +1,4 @@
-import { getProfileAPI, getStatusAPI } from "../api/api";
+import {getProfileAPI, getStatusAPI} from "../api/api";
 
 const set_PeoplesProfile = 'set_PeoplesProfile';
 const set_Status = 'set_Status';
@@ -22,30 +22,24 @@ const pofileReducer = (state = initialState, action) => {
                 ...state, status: action.status
             }
         }
-        default: return state;
+        default:
+            return state;
     }
 }
 export default pofileReducer;
 
-export const setPeoplesProfile = (profile) => ({ type: 'set_PeoplesProfile', profile });
-export const setStatusProf = (status) => ({ type: 'set_Status', status });
+export const setPeoplesProfile = (profile) => ({type: 'set_PeoplesProfile', profile});
+export const setStatusProf = (status) => ({type: 'set_Status', status});
 
 
-export const getProfileThunkCreator = (userId) => {
-    return (dispatch) => {
-        getProfileAPI(userId).then(data => {
-            dispatch(setPeoplesProfile(data));
-        });
-    }
+export const getProfileThunkCreator = (userId) => async (dispatch) => {
+    const data = await getProfileAPI(userId);
+    dispatch(setPeoplesProfile(data));
 }
-export const getStatusThunkCreator = (userId) => {
-    return (dispatch) => {
-       
-        getStatusAPI(userId).then(response => {
-          
-            dispatch(setStatusProf(response.data));
-        });
-    }
+export const getStatusThunkCreator = (userId) => async (dispatch) => {
+    const response = await getStatusAPI(userId)
+    dispatch(setStatusProf(response.data));
+
 }
 
 

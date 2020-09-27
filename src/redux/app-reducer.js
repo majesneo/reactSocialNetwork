@@ -22,7 +22,10 @@ export default appReducer;
 
 export const initializedSuccess = () => ({type: 'set_Initialized'});
 
-export const initializedThunkCreator = () => async (dispatch) => {
-    await dispatch(getGetAuthThunkCreator());
-    dispatch(initializedSuccess());
+
+export const initializedThunkCreator = () => {
+    return async (dispatch) => {
+        await dispatch(getGetAuthThunkCreator());
+        dispatch(initializedSuccess());
+    }
 }

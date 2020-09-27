@@ -5,7 +5,7 @@ import you from '../../images/resources/userlist-2.jpg';
 import Message from './Message/Message';
 import {Field, reduxForm} from 'redux-form';
 import {Textarea} from '../../common/FormsControls/FormsControls';
-import {maxLengthCreator, requireField} from '../../../validators/validators';
+import {maxLengthCreator, requireField} from '../../../utils/validators/validators';
 
 
 class Messages extends React.Component {
@@ -13,7 +13,9 @@ class Messages extends React.Component {
         this.props.addMessage(value.newMessageText);
     }
 
-    messageYouList = () => {
+
+
+    _messageYouList = () => {
         return this.props.messagesDataYou.map(messagesDataYou => <Message key={messagesDataYou.id}
                                                                           message={messagesDataYou.message}
                                                                           id={messagesDataYou.id}/>)
@@ -34,7 +36,7 @@ class Messages extends React.Component {
                 <ul class="chatting-area">
                     <li class="you">
                         <figure><img src={you} alt=""/></figure>
-                        {this.messageYouList()}
+                        {this._messageYouList()}
                     </li>
                     <li class="me">
                         <figure><img src={me} alt=""/></figure>

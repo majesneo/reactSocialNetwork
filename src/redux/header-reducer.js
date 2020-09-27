@@ -1,5 +1,4 @@
-import {getProfileAPI, getStatusAPI, updatedStatusAPI} from "../api/api";
-import {setPeoplesProfile} from "./profile-reducer";
+import {getStatusAPI, updatedStatusAPI} from "../api/api";
 
 const set_Status = 'set_Status';
 
@@ -26,22 +25,17 @@ export const setStatus = (status) => ({type: 'set_Status', status});
 
 
 export const updatedStatusThunkCreator = (status) => {
-    return (dispatch) => {
-        updatedStatusAPI(status).then(response => {
-            if (response.data.resultCode == 0) {
-                dispatch(setStatus(status));
-            }
-        });
+    return async (dispatch) => {
+        const response = await updatedStatusAPI(status)
+        if (response.data.resultCode == 0) {
+            dispatch(setStatus(status));
+        }
     }
 }
 
-
 export const getStatusThunkCreator = (userId) => {
-    return (dispatch) => {
-
-        getStatusAPI(userId).then(response => {
-
-            dispatch(setStatus(response.data));
-        });
+    return async (dispatch) => {
+        const response = await getStatusAPI(userId)
+        dispatch(setStatus(response.data));
     }
 }

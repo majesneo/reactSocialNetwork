@@ -1,7 +1,5 @@
-
-
-import { stopSubmit } from "redux-form";
-import { delLogoutAPI, getGetAuthAPI, postLoginAPI } from "../api/api";
+import {stopSubmit} from "redux-form";
+import {delLogoutAPI, getGetAuthAPI, postLoginAPI} from "../api/api";
 
 
 const set_UserData = 'set_UserData';
@@ -21,52 +19,42 @@ const authReducer = (state = initialState, action) => {
                 ...state, ...action.data,
             }
         }
-        default: return state;
+        default:
+            return state;
     }
 }
 export default authReducer;
 
-export const setAuthUserData = (id, email, login, isAuth) => ({ type: 'set_UserData', data: { id, email, login, isAuth } });
+export const setAuthUserData = (id, email, login, isAuth) => ({type: 'set_UserData', data: {id, email, login, isAuth}});
 
 
 export const getGetAuthThunkCreator = () => {
-
     return async (dispatch) => {
         const data = await getGetAuthAPI();
         if (data.resultCode === 0) {
-            let { id, email, login } = data.data;
+            let {id, email, login} = data.data;
             dispatch(setAuthUserData(id, email, login, true));
-            return true;
         }
-        // getGetAuthAPI().then(data => {
-        //     if (data.resultCode === 0) {
-        //         let { id, email, login } = data.data;
-        //         dispatch(setAuthUserData(id, email, login, true));
-        //     }
-        // })
     }
 }
+
 export const loginThunkCreator = (email, password, rememberMe) => {
-    return (dispatch) => {
-
-        postLoginAPI({ email, password, rememberMe }).then(data => {
-
-            if (data.data.resultCode === 0) {
-                dispatch(getGetAuthThunkCreator());
-            } else {
-
-                let message = data.data.messages.length > 0 ? data.data.messages[0] : "Some error";
-                dispatch(stopSubmit('Login', { _error: message }));
-            }
-        });
+    return async (dispatch) => {
+        const data = await postLoginAPI({email, password, rememberMe})
+        if (data.data.resultCode === 0) {
+            dispatch(getGetAuthThunkCreator());
+        } else {
+            let message = data.data.messages.length > 0 ? data.data.messages[0] : "Some error";
+            dispatch(stopSubmit('Login', {_error: message}));
+        }
     }
 }
+
 export const logoutThunkCreator = () => {
-    return (dispatch) => {
-        delLogoutAPI().then(data => {
-            if (data.data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null, false));
-            }
-        });
+    return async (dispatch) => {
+        const data = await delLogoutAPI()
+        if (data.data.resultCode === 0) {
+            dispatch(setAuthUserData(null, null, null, false));
+        }
     }
 }
