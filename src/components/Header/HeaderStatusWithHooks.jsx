@@ -7,9 +7,11 @@ const HeaderStatusWithHooks = (props) => {
     let [status, setStatus] = useState(props.status);
 
     useEffect(() => {
-        setStatus(props.getStatusThunkCreator(props.id));
         setStatus(props.status);
-    }, [props.status],[props.id],[props.getStatusThunkCreator])
+    }, [props.status])
+    useEffect(() => {
+        setStatus(props.getStatusHeadThunkCreator(props.id));
+    },[] )
 
 
     const activateEditMode = () => {
@@ -20,7 +22,7 @@ const HeaderStatusWithHooks = (props) => {
     }
     const deactivateEditMode = () => {
         setEditMode(false);
-        props.updatedStatusThunkCreator(status);
+        props.updatedStatusHeadThunkCreator(status);
     }
 
     return (

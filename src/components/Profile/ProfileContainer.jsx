@@ -10,11 +10,12 @@ import Preloader from "../Preloader/Preloader";
 
 class ProfileContainer extends React.Component {
 
-    componentDidMount() {
+    refreshProfile() {
+        debugger
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = this.props.id;
-            if (!userId){
+            if (!userId) {
                 this.props.history.push('/Login');
             }
         }
@@ -22,12 +23,22 @@ class ProfileContainer extends React.Component {
         this.props.getStatusThunkCreator(userId);
     }
 
+    componentDidMount() {
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.userId != prevProps.match.params.userId || this.props.statusHead != prevProps.statusHead) {
+            this.refreshProfile();
+        }
+    }
+
     render() {
         if (!this.props.profile) {
             return <Preloader/>
         }
         return (
-            <Profile {...this.props} status={this.props.status} profile={this.props.profile}/>
+            <Profile isOwner={!this.props.match.params.userId}  {...this.props} statusProf={this.props.statusProf} profile={this.props.profile}/>
         );
     }
 }
@@ -35,7 +46,8 @@ class ProfileContainer extends React.Component {
 let mapStateToProps = (state) => ({
     profile: state.profileReducerKey.profile,
     login: state.authReducerKey.login,
-    status: state.profileReducerKey.status,
+    statusProf: state.profileReducerKey.status,
+    statusHead: state.headerReducerKey.status,
     isAuth: state.authReducerKey.isAuth,
     id: state.authReducerKey.id
 })

@@ -1,7 +1,5 @@
 import {connect} from 'react-redux';
 import {
-    addFriend,
-    unFriend,
     addPeople,
     getUsersThunkCreator,
     getFollowDelThunkCreator,
@@ -23,16 +21,17 @@ import {
 
 class PeoplesContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
+        let {currentPage, pageSize} = this.props
+        this.props.getUsersThunkCreator(currentPage, pageSize);
     }
 
     onPageChanged = (p) => {
-        this.props.getUsersThunkCreator(p, this.props.pageSize);
+        let {pageSize} = this.props
+        this.props.getUsersThunkCreator(p, pageSize);
     }
 
     render() {
         return <>
-
             {this.props.isFetching ? <Preloader/> : null}
             <Peoples {...this.props} onPageChanged={this.onPageChanged}/>
         </>
@@ -52,8 +51,6 @@ let mapStateToProps = (state) => {
 
 export default compose(connect(mapStateToProps, {
     addPeople,
-    addFriend,
-    unFriend,
     getFollowDelThunkCreator,
     getFollowPostThunkCreator,
     getUsersThunkCreator

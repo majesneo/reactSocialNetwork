@@ -32,12 +32,12 @@ const peoplesReducer = (state = initialState, action) => {
         }
         case add_Friend: {
             return {
-                ...state, users: updateObjectInArray(state.peoplesData, action.peopleId, "id", {followed: true})
+                ...state, peoplesData: updateObjectInArray(state.peoplesData, action.peopleId, "id", {followed: true})
             }
         }
         case un_Friend: {
             return {
-                ...state, users: updateObjectInArray(state.peoplesData, action.peopleId, "id", {followed: false})
+                ...state, peoplesData: updateObjectInArray(state.peoplesData, action.peopleId, "id", {followed: false})
             }
         }
         case set_Peoples: {
@@ -91,19 +91,20 @@ export const getUsersThunkCreator = (currentPage, pageSize) => async (dispatch) 
 
 export const getFollowPostThunkCreator = (id) => {
     return async (dispatch) => {
-        getFollowPostAndDelFlow(dispatch, getFollowPostAPI.bind(getFollowPostAPI), addFriend.bind(addFriend), id)
+        getFollowPostAndDelFlow(dispatch, getFollowPostAPI.bind(getFollowPostAPI), addFriend.bind(addFriend), id);
     }
 }
 export const getFollowDelThunkCreator = (id) => {
     return async (dispatch) => {
-        getFollowPostAndDelFlow(dispatch, getFollowDelAPI.bind(getFollowDelAPI), unFriend.bind(unFriend), id)
+        getFollowPostAndDelFlow(dispatch, getFollowDelAPI.bind(getFollowDelAPI), unFriend.bind(unFriend), id);
     }
 }
 
 const getFollowPostAndDelFlow = async (dispatch, methodApi, actionCreator, id) => {
     dispatch(togglefollowingInProgress(true, id));
-    let data = await methodApi(id);
+    let data = await methodApi(id)
     if (data.resultCode == 0) {
+
         dispatch(actionCreator(id));
     }
     dispatch(togglefollowingInProgress(false, id));

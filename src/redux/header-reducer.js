@@ -1,6 +1,6 @@
 import {getStatusAPI, updatedStatusAPI} from "../api/api";
 
-const set_Status = 'set_Status';
+const headStatusWHsetStatus = 'headStatusWH/set_Status';
 
 
 let initialState = {
@@ -10,7 +10,7 @@ let initialState = {
 
 const headerReducer = (state = initialState, action) => {
     switch (action.type) {
-        case set_Status: {
+        case headStatusWHsetStatus : {
             return {
                 ...state, status: action.status
             }
@@ -21,10 +21,10 @@ const headerReducer = (state = initialState, action) => {
 }
 export default headerReducer;
 
-export const setStatus = (status) => ({type: 'set_Status', status});
+export const setStatus = (status) => ({type: 'headStatusWH/set_Status', status});
 
 
-export const updatedStatusThunkCreator = (status) => {
+export const updatedStatusHeadThunkCreator = (status) => {
     return async (dispatch) => {
         const response = await updatedStatusAPI(status)
         if (response.data.resultCode == 0) {
@@ -33,7 +33,7 @@ export const updatedStatusThunkCreator = (status) => {
     }
 }
 
-export const getStatusThunkCreator = (userId) => {
+export const getStatusHeadThunkCreator = (userId) => {
     return async (dispatch) => {
         const response = await getStatusAPI(userId)
         dispatch(setStatus(response.data));

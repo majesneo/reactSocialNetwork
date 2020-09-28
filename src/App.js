@@ -6,7 +6,7 @@ import MyPostsContainer from './components/MyPosts/MyPostsContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import YourPageContainer from './components/YourPage/YourPageContainer';
 import {Route, withRouter} from 'react-router-dom';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
+
 import PeoplesContainer from './components/Peoples/PeoplesContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Logout from './components/Logout/Logout';
@@ -16,6 +16,7 @@ import {compose} from "redux";
 import {initializedThunkCreator} from "./redux/app-reducer";
 import Preloader from "./components/Preloader/Preloader";
 
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 
 class App extends React.Component {
     componentDidMount() {
@@ -27,20 +28,22 @@ class App extends React.Component {
             return <Preloader/>
         }
         return (
-            <div className='app-wrapper'>
-                <HeaderContainer/>
-                <div class="row">
-                    <Navbar/>
-                    <Route path="/Dialogs" render={() => <DialogsContainer/>}/>
-                    <Route path="/MyPosts" render={() => <MyPostsContainer/>}/>
-                    <Route path="/Profile/:userId?" render={() => <ProfileContainer/>}/>
-                    <Route path="/Peoples" render={() => <PeoplesContainer/>}/>
-                    <Route path="/Logout" render={() => <Logout/>}/>
-                    <Route path="/Profile/Logout" render={() => <Logout/>}/>
-                    <Route path="/Login" render={() => <Login/>}/>
-                    <YourPageContainer/>
+            <React.Suspense fallback={<Preloader/>}>
+                <div className='app-wrapper'>
+                    <HeaderContainer/>
+                    <div class="row">
+                        <Navbar/>
+                        <Route path="/Dialogs" render={() => <DialogsContainer/>}/>
+                        <Route path="/MyPosts" render={() => <MyPostsContainer/>}/>
+                        <Route path="/Profile/:userId?" render={() => <ProfileContainer/>}/>
+                        <Route path="/Peoples" render={() => <PeoplesContainer/>}/>
+                        <Route path="/Logout" render={() => <Logout/>}/>
+                        <Route path="/Profile/Logout" render={() => <Logout/>}/>
+                        <Route path="/Login" render={() => <Login/>}/>
+                        <YourPageContainer/>
+                    </div>
                 </div>
-            </div>
+            </React.Suspense>
         );
     }
 }

@@ -1,13 +1,12 @@
 import React from 'react';
-import s from './Peoples.module.css';
 import People from './People/People';
+import Paginator from "../common/Paginator/Paginator";
 
-let Peoples = (props) => {
+let Peoples = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}) => {
 
     let peoplesList = () => {
         return props.peoplesData.map(peoplesData => <People
             followingInProgress={props.followingInProgress}
-            unFriend={props.unFriend} addFriend={props.addFriend}
             key={peoplesData.id} followed={peoplesData.followed}
             photos={peoplesData.photos}
             name={peoplesData.name}
@@ -16,29 +15,27 @@ let Peoples = (props) => {
             getFollowPostThunkCreator={props.getFollowPostThunkCreator}
         />)
     }
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
+
     return (
         <div class="col-lg-6">
             <div class="central-meta">
                 <div class="frnds">
                     <ul class="nav nav-tabs">
-                        <li class="nav-item"><a class="active" data-toggle="tab">Peoples</a> <span>{peoplesList().length}</span></li>
-                        <div style={{ marginLeft: "auto" }}>
-                            {pages.map(p => {
-                                return <span style={{ cursor: "pointer" }} onClick={() => { props.onPageChanged(p) }} className={props.currentPage === p && s.active}>{p}</span>
-                            })}
-                        </div>
+                        <li class="nav-item"><a class="active" data-toggle="tab">Peoples</a>
+                            <span>{peoplesList().length}</span></li>
+                        <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage}
+                                   onPageChanged={onPageChanged}/>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active fade show " id="frends" >
+                        <div class="tab-pane active fade show " id="frends">
                             <ul class="nearby-contct">
                                 {peoplesList()}
                             </ul>
-                            <div class="lodmore"><button onClick={() => { props.addPeople() }} class="btn-view btn-load-more"></button></div>
+                            <div class="lodmore">
+                                <button onClick={() => {
+                                    props.addPeople()
+                                }} class="btn-view btn-load-more"/>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -2,16 +2,15 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import Header from './Header';
-import {getStatusThunkCreator, updatedStatusThunkCreator} from "../../redux/header-reducer";
-
+import {getStatusHeadThunkCreator, updatedStatusHeadThunkCreator} from "../../redux/header-reducer";
+import {withRouter} from "react-router-dom";
 
 
 class HeaderContainer extends React.Component {
-
-
     render() {
-        return <Header {...this.props} getStatusThunkCreator={this.props.getStatusThunkCreator}
-                       updatedStatusThunkCreator={this.props.updatedStatusThunkCreator}/>
+        return <Header  {...this.props}
+                       getStatusHeadThunkCreator={this.props.getStatusHeadThunkCreator}
+                       updatedStatusHeadThunkCreator={this.props.updatedStatusHeadThunkCreator}/>
     };
 }
 
@@ -21,5 +20,8 @@ let mapStateToProps = (state) => ({
     id: state.authReducerKey.id
 });
 
-
-export default compose(connect(mapStateToProps, {getStatusThunkCreator, updatedStatusThunkCreator}))(HeaderContainer);
+debugger
+export default compose(connect(mapStateToProps, {
+    getStatusHeadThunkCreator,
+    updatedStatusHeadThunkCreator
+}))(HeaderContainer);
