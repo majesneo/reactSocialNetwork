@@ -12,7 +12,7 @@ const Post = (props) => {
                 <div class="user-post">
                     <div class="friend-info">
                         <figure>
-                            <img src={Photo} alt=""></img>
+                            <img src={props.photos.small} alt=""></img>
                         </figure>
                         <div class="friend-name">
                             <ins><a href="time-line.html" title="">{props.login}</a></ins>

@@ -2,26 +2,36 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import Header from './Header';
-import {getStatusHeadThunkCreator, updatedStatusHeadThunkCreator} from "../../redux/header-reducer";
-import {withRouter} from "react-router-dom";
+import {getStatusHeadThunkCreator, savePhoto, updatedStatusHeadThunkCreator} from "../../redux/header-reducer";
+import {getProfileThunkCreator} from "../../redux/profile-reducer";
 
 
 class HeaderContainer extends React.Component {
+    componentDidMount() {
+        this.props.getProfileThunkCreator(this.props.id);
+    }
+
     render() {
         return <Header  {...this.props}
-                       getStatusHeadThunkCreator={this.props.getStatusHeadThunkCreator}
-                       updatedStatusHeadThunkCreator={this.props.updatedStatusHeadThunkCreator}/>
+                        getStatusHeadThunkCreator={this.props.getStatusHeadThunkCreator}
+                        savePhoto={this.props.savePhoto}
+                        photos={this.props.photos}
+
+                        updatedStatusHeadThunkCreator={this.props.updatedStatusHeadThunkCreator}/>
     };
 }
 
 let mapStateToProps = (state) => ({
     login: state.authReducerKey.login,
     status: state.headerReducerKey.status,
-    id: state.authReducerKey.id
+    id: state.authReducerKey.id,
+    photos: state.headerReducerKey.photos
 });
 
-debugger
+
 export default compose(connect(mapStateToProps, {
     getStatusHeadThunkCreator,
-    updatedStatusHeadThunkCreator
+    updatedStatusHeadThunkCreator,
+    savePhoto,
+    getProfileThunkCreator
 }))(HeaderContainer);

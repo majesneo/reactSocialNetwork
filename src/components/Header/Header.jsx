@@ -1,26 +1,31 @@
 import React from 'react';
 import './Header.css'
-import face from '../images/resources/user-avatar2.jpg';
 import back from '../images/resources/timeline-1.jpg';
 import HeaderStatusWithHooks from "./HeaderStatusWithHooks";
 
 
 const Header = (props) => {
+    const onMainPhotoSelected = (e) => {
+        if (e.target.files) {
+            props.savePhoto(e.target.files[0]);
+        }
+    }
 
     return (
         <div class="feature-photo">
+
             <figure><img src={back} alt=""/></figure>
             <div class="container-fluid">
                 <div class="row merged">
                     <div class="col-lg-2 col-sm-3">
                         <div class="user-avatar">
                             <figure>
-                                <img src={face} alt=""/>
+                                <img src={props.photos.large} alt=""/>
                                 <form class="edit-phto">
                                     <i class="fa fa-camera-retro"/>
                                     <label class="fileContainer">
                                         Edit Display Photo
-                                        {props.isOwner && <input type="file"/>}
+                                        <input onChange={onMainPhotoSelected} type="file"/>
                                     </label>
                                 </form>
                             </figure>

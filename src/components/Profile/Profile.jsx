@@ -9,7 +9,7 @@ const Profile = (props) => {
                     <div class="friend-info">
                         <figure>
                             <img style={{width:"80px", height:"80px"}} src={props.profile.photos.small || profilePhoto} alt=""/>
-                            {props.isOwner }
+
                         </figure>
                         <div class="friend-name">
                             <ins><a href="#" title="">{props.profile.fullName}</a></ins>

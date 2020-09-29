@@ -1,4 +1,5 @@
 import {getProfileAPI, getStatusAPI} from "../api/api";
+import {getPhotoProfile} from "./header-reducer";
 
 const set_PeoplesProfile = 'set_PeoplesProfile';
 const set_Status = 'set_Status';
@@ -35,6 +36,7 @@ export const setStatusProf = (status) => ({type: 'set_Status', status});
 export const getProfileThunkCreator = (userId) => async (dispatch) => {
     const data = await getProfileAPI(userId);
     dispatch(setPeoplesProfile(data));
+    dispatch(getPhotoProfile(data.photos));
 }
 export const getStatusThunkCreator = (userId) => async (dispatch) => {
     const response = await getStatusAPI(userId)

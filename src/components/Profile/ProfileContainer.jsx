@@ -8,10 +8,10 @@ import {compose} from 'redux';
 import Preloader from "../Preloader/Preloader";
 
 
+
 class ProfileContainer extends React.Component {
 
     refreshProfile() {
-        debugger
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = this.props.id;
@@ -38,7 +38,7 @@ class ProfileContainer extends React.Component {
             return <Preloader/>
         }
         return (
-            <Profile isOwner={!this.props.match.params.userId}  {...this.props} statusProf={this.props.statusProf} profile={this.props.profile}/>
+            <Profile  {...this.props} statusProf={this.props.statusProf} profile={this.props.profile}/>
         );
     }
 }

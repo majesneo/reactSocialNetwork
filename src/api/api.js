@@ -4,9 +4,8 @@ import * as axios from 'axios';
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    headers: { "API-KEY": "6e653f6e-b667-4c69-b909-e415cdfb364d" }
+    headers: {"API-KEY": "6e653f6e-b667-4c69-b909-e415cdfb364d"}
 });
-
 
 
 export const getUsersAPI = (currentPage = 1, pageSize = 10) => {
@@ -46,19 +45,19 @@ export const getStatusAPI = (userId) => {
 }
 
 export const updatedStatusAPI = (status) => {
-    return instance.put(`profile/status`, { status }).then(response => {
+    return instance.put(`profile/status`, {status}).then(response => {
         return response
     });
 }
 
-export const postLoginAPI = ({ email, password, rememberMe = false }) => {
-    return instance.post(`auth/login`, { email, password, rememberMe }).then(response => {
+export const postLoginAPI = ({email, password, rememberMe = false, captcha = null}) => {
+    return instance.post(`auth/login`, {email, password, rememberMe, captcha}).then(response => {
         return response
     });
 }
 
 export const delLogoutAPI = () => {
-    return instance.delete(`auth/login`, ).then(response => {
+    return instance.delete(`auth/login`,).then(response => {
         return response
     });
 }
@@ -66,5 +65,17 @@ export const delLogoutAPI = () => {
 export const getPostAPI = () => {
     return axios.get("http://test-api.quando.pro/reactsocialnetwork/post").then(response => {
         return response.data
+    });
+}
+export const putSavePhotoAPI = (photo) => {
+    var formData = new FormData();
+    formData.append('image', photo);
+    return instance.put(`profile/photo`, formData, {
+        headers: {'Content-Type': 'multipart/form-data'}
+    });
+}
+export const captchaAPI = () => {
+    return instance.post(`security/get-captcha-url`, {}).then(response => {
+        return response
     });
 }

@@ -6,12 +6,14 @@ import {loginThunkCreator} from '../../redux/auth-reducer';
 import {maxLengthCreator, requireField} from '../../utils/validators/validators';
 import {Input} from '../common/FormsControls/FormsControls';
 import s from '../common/FormsControls/FormsControls.module.css';
+import {getProfileThunkCreator} from "../../redux/profile-reducer";
+import {getStatusHeadThunkCreator} from "../../redux/header-reducer";
 
 
 const maxLengthCreatorEmail30 = maxLengthCreator(30);
 const maxLengthCreatorPassword12 = maxLengthCreator(12);
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captcha}) => {
     return (
         <div class="col-lg-6">
             <div class="login-reg-bg">
@@ -36,6 +38,8 @@ const LoginForm = ({handleSubmit, error}) => {
                         </div>
                         {error && <div className={s.formError}>{error}</div>}
                         <div class="submit-btns">
+                            {captcha && <img src={captcha}/>}
+                            {captcha && <Field validate={[requireField]} component={Input} name={"captcha"}/>}
                             <button type="submit" style={{marginRight: "10px"}} class="mtr-btn signin"><span
                                 style={{color: "white"}}>Login</span></button>
                             <button class="mtr-btn signup"><span style={{color: "white"}}>Register</span></button>
@@ -48,18 +52,31 @@ const LoginForm = ({handleSubmit, error}) => {
 }
 const LoginReduxForm = reduxForm({form: 'Login'})(LoginForm);
 
-const Login = (props) => {
-    const onSubmit = (formData) => {
-        props.loginThunkCreator(formData.email, formData.password, formData.rememberMe);
-    }
-    if (props.isAuth) {
-        return <Redirect to={"/MyPosts"}/>
-    } else {
-        return <LoginReduxForm onSubmit={onSubmit}/>
+class Login extends React.Component {
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props != this.prevProps) {
+            this.props.getProfileThunkCreator(this.props.id);
+            this.props.getStatusHeadThunkCreator(this.props.id);
+        }
     }
 
+    render() {
+
+        const onSubmit = (formData) => {
+            this.props.loginThunkCreator(formData.email, formData.password, formData.rememberMe, formData.captcha);
+
+        }
+        if (this.props.isAuth) {
+            return <Redirect to={"/MyPosts"}/>
+        } else {
+            return <LoginReduxForm captcha={this.props.captcha} onSubmit={onSubmit}/>
+        }
+
+    }
 }
-let mapStateToProps = (state) => {
-    return {isAuth: state.authReducerKey.isAuth}
-}
-export default connect(mapStateToProps, {loginThunkCreator})(Login);
+
+let mapStateToProps = (state) => ({
+    isAuth: state.authReducerKey.isAuth, id: state.authReducerKey.id, captcha: state.authReducerKey.captcha
+})
+export default connect(mapStateToProps, {loginThunkCreator, getStatusHeadThunkCreator, getProfileThunkCreator})(Login);

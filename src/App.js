@@ -19,8 +19,16 @@ import Preloader from "./components/Preloader/Preloader";
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 
 class App extends React.Component {
+    catchAllUnhandledErrors = (promiseRejectionEvent) =>{
+        alert("some error");
+    }
     componentDidMount() {
         this.props.initializedThunkCreator();
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+            // handle error here, for example log
+    }
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
     }
 
     render() {

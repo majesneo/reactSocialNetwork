@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import YourPage from './YourPage';
+import {logoutThunkCreator} from "../../redux/auth-reducer";
 
 
 class YourPageContainer extends React.Component {
@@ -16,7 +17,8 @@ class YourPageContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
     isAuth: state.authReducerKey.isAuth,
-    login: state.authReducerKey.login
+    login: state.authReducerKey.login,
+    photos: state.headerReducerKey.photos
 });
-export default compose(connect(mapStateToProps))(YourPageContainer)
+export default compose(connect(mapStateToProps,{logoutThunkCreator}))(YourPageContainer)
 

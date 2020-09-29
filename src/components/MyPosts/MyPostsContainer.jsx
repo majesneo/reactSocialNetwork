@@ -22,7 +22,8 @@ let mapStateToProps = (state) => {
     return {
         postData: state.postReducerKey.postData,
         newPostText: state.postReducerKey.newPostText,
-        login: state.authReducerKey.login
+        login: state.authReducerKey.login,
+        photos: state.headerReducerKey.photos
     }
 }
 

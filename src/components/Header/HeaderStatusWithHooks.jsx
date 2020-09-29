@@ -10,6 +10,7 @@ const HeaderStatusWithHooks = (props) => {
         setStatus(props.status);
     }, [props.status])
     useEffect(() => {
+
         setStatus(props.getStatusHeadThunkCreator(props.id));
     },[] )
 

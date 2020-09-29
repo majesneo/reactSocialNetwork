@@ -21,17 +21,17 @@ const YourPage = (props) => {
                     <div class="flex">
                         <h4 class="widget-title">Your page</h4>
                         {props.isAuth
-                            ? <button onClick={props.logoutThunkCreator} className={s.widgetTitle} >{props.login}</button>
-                            : <NavLink to={'/Login'} className={s.widgetTitle} >Login</NavLink>}
+                            ? <button onClick={props.logoutThunkCreator} className={s.logout} >Logout</button>
+                            : <NavLink to={'/Login'} className={s.login} />}
                     </div>
                     <div class="your-page">
                         <figure>
-                            <img src={Userlist7} alt="" />
+                            <img src={props.photos.small} alt="" />
                         </figure>
                         <div class="page-meta">
                             <a href="#" title="" class="underline">{props.login}</a>
                             <span><i class="fa fa-comment-o"></i><a href="insight.html" title="">Messages <em>9</em></a></span>
-                            <span><i class="fa  fa-bell-o"></i><a href="insight.html" title="">Notifications <em>2</em></a></span>
+                            <span><i class="fa  fa-bell-o"/><a href="insight.html" title="">Notifications <em>2</em></a></span>
                         </div>
                         <div class="page-likes">
                             <ul class="nav nav-tabs likes-btn">
@@ -40,7 +40,7 @@ const YourPage = (props) => {
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active fade show " id="link1" >
-                                    <span><i class="fa fa-heart-o"></i>884</span>
+                                    <span><i class="fa fa-heart-o"/>884</span>
                                     <a href="#" title="weekly-likes">35 new likes this week</a>
                                     <div class="users-thumb-list">
                                         <a href="#" title="Anderw" data-toggle="tooltip">

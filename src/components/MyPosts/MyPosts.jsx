@@ -1,6 +1,4 @@
 import React from 'react';
-import * as axios from 'axios';
-import PhotoInput from '../images/resources/admin3.jpg';
 import './MyPosts.css';
 import Post from './Post/Post';
 import {Field, reduxForm} from 'redux-form';
@@ -10,8 +8,10 @@ import {Textarea} from '../common/FormsControls/FormsControls';
 
 class MyPosts extends React.Component {
     postList = () => {
-        return [...this.props.postData].reverse().map(postData => <Post key={postData.id} login={this.props.login} id={postData.id}
-                                                         message={postData.message} like={postData.like}/>)
+        return [...this.props.postData].reverse().map(postData => <Post photos={this.props.photos} key={postData.id}
+                                                                        login={this.props.login} id={postData.id}
+                                                                        message={postData.message}
+                                                                        like={postData.like}/>)
     }
     addPost = (value) => {
         this.props.addPost(value.newPostText);
@@ -23,7 +23,7 @@ class MyPosts extends React.Component {
                 <div class="central-meta">
                     <div class="new-postbox">
                         <figure>
-                            <img src={PhotoInput} alt=""></img>
+                            <img src={this.props.photos.small} alt=""/>
                         </figure>
                         <div class="newpst-input">
                             <div class="wrapper">
@@ -31,27 +31,27 @@ class MyPosts extends React.Component {
                                 <div class="attachments">
                                     <ul>
                                         <li>
-                                            <i class="fa fa-music"></i>
+                                            <i class="fa fa-music"/>
                                             <label class="fileContainer">
-                                                <input type="file"></input>
+                                                <input type="file"/>
                                             </label>
                                         </li>
                                         <li>
-                                            <i class="fa fa-image"></i>
+                                            <i class="fa fa-image"/>
                                             <label class="fileContainer">
-                                                <input type="file"></input>
+                                                <input type="file"/>
                                             </label>
                                         </li>
                                         <li>
-                                            <i class="fa fa-video-camera"></i>
+                                            <i class="fa fa-video-camera"/>
                                             <label class="fileContainer">
-                                                <input type="file"></input>
+                                                <input type="file"/>
                                             </label>
                                         </li>
                                         <li>
-                                            <i class="fa fa-camera"></i>
+                                            <i class="fa fa-camera"/>
                                             <label class="fileContainer">
-                                                <input type="file"></input>
+                                                <input type="file"/>
                                             </label>
                                         </li>
                                     </ul>
