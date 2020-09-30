@@ -1,5 +1,19 @@
 const addMessage = 'addMessage';
 
+type dialogsData = {
+    id: number
+    name: string
+    imageUrl: string
+}
+type messagesDataMe = {
+    id: number
+    message: string
+}
+type messagesDataYou = {
+    id: number
+    message: string
+}
+
 
 let initialState = {
     dialogsData: [
@@ -12,29 +26,29 @@ let initialState = {
         {id: 7, name: 'Kill Bill', imageUrl: require("../components/images/resources/friend-avatar7.jpg")},
         {id: 8, name: 'Jasmin Walia', imageUrl: require("../components/images/resources/friend-avatar8.jpg")},
         {id: 9, name: 'Neclos Cage', imageUrl: require("../components/images/resources/friend-avatar9.jpg")}
-    ],
+    ] as Array<dialogsData>,
 
     messagesDataMe: [
         {id: 1, message: 'Elizabeth lol'},
         {id: 2, message: 'wanna know whats my second guess was?'},
         {id: 3, message: "Disney's the lizard king"},
         {id: 4, message: 'i know him 5 years ago'}
-    ],
+    ] as Array<messagesDataMe>,
 
     messagesDataYou: [
         {id: 1, message: "what's liz short for? :)"},
         {id: 2, message: 'yes'},
         {id: 3, message: 'coooooooooool dude ;)'}
-    ]
-};
+    ] as Array<messagesDataYou>
+}
+export type initialStateType = typeof initialState;
 
-const dialogsReducer = (state = initialState, action) => {
+const dialogsReducer = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
         case addMessage: {
             return {
                 ...state,
                 messagesDataMe: [...state.messagesDataMe, {id: 5, message: action.value}],
-                newMessageText: ''
             }
         }
         default:
@@ -43,5 +57,8 @@ const dialogsReducer = (state = initialState, action) => {
 }
 export default dialogsReducer;
 
-
-export const addMessageActionCreator = (value) => ({type: 'addMessage', value});
+type addMessageActionCreatorType = {
+    type: typeof addMessage
+    value: string
+}
+export const addMessageActionCreator = (value: string): addMessageActionCreatorType => ({type: 'addMessage', value});

@@ -1,13 +1,16 @@
 import {getGetAuthThunkCreator} from "./auth-reducer";
 
-const set_Initialized = 'set_Initialized';
+const set_Initialized = 'app/set_Initialized';
 
+export type nitialStateType = {
+    initialized: boolean;
+}
 
-let initialState = {
+let initialState: nitialStateType = {
     initialized: false
 };
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any): nitialStateType => {
     switch (action.type) {
         case set_Initialized: {
             return {
@@ -20,11 +23,14 @@ const appReducer = (state = initialState, action) => {
 }
 export default appReducer;
 
-export const initializedSuccess = () => ({type: 'set_Initialized'});
+type initializedSuccessType = {
+    type: typeof set_Initialized;
+}
+export const initializedSuccess = ():initializedSuccessType => ({type: 'app/set_Initialized'});
 
 
 export const initializedThunkCreator = () => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         await dispatch(getGetAuthThunkCreator());
         dispatch(initializedSuccess());
     }

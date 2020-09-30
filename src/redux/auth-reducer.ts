@@ -5,15 +5,17 @@ import {logoutPhoto, logoutSatus} from "./header-reducer";
 const set_UserData = 'set_UserData';
 const set_Captcha = 'auth/set_Captcha';
 
-let initialState = {
-    id: null,
-    email: null,
-    login: null,
-    isAuth: false,
-    captcha: null
-};
 
-const authReducer = (state = initialState, action) => {
+let initialState = {
+    id: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
+    isAuth: false as boolean | null,
+    captcha: null as string | null,
+};
+export type initialStateType = typeof initialState;
+
+const authReducer = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
         case set_UserData: {
             return {
@@ -31,11 +33,32 @@ const authReducer = (state = initialState, action) => {
 }
 export default authReducer;
 
-export const setAuthUserData = (id, email, login, isAuth) => ({type: 'set_UserData', data: {id, email, login, isAuth}});
-export const setCaptcha = (captcha) => ({type: 'auth/set_Captcha', captcha});
+type setAuthUserDataTypeDataType = {
+    id: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+
+}
+
+type setAuthUserDataType = {
+    type: typeof set_UserData,
+    data: setAuthUserDataTypeDataType
+}
+
+export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean): setAuthUserDataType => ({
+    type: 'set_UserData',
+    data: {id, email, login, isAuth}
+});
+
+type setCaptchaType = {
+    type: typeof set_Captcha,
+    captcha: string
+}
+export const setCaptcha = (captcha: string): setCaptchaType => ({type: 'auth/set_Captcha', captcha});
 
 export const getGetAuthThunkCreator = () => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         const data = await getGetAuthAPI();
         if (data.resultCode === 0) {
             let {id, email, login} = data.data;
@@ -44,9 +67,9 @@ export const getGetAuthThunkCreator = () => {
     }
 }
 
-export const loginThunkCreator = (email, password, rememberMe,captcha) => {
-    return async (dispatch) => {
-        const data = await postLoginAPI({email, password, rememberMe,captcha})
+export const loginThunkCreator = (email: string, password: number, rememberMe: boolean, captcha: string) => {
+    return async (dispatch: any) => {
+        const data = await postLoginAPI({email, password, rememberMe, captcha})
         if (data.data.resultCode === 0) {
             dispatch(getGetAuthThunkCreator());
         } else {
@@ -60,7 +83,7 @@ export const loginThunkCreator = (email, password, rememberMe,captcha) => {
 }
 
 export const logoutThunkCreator = () => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         const data = await delLogoutAPI()
         if (data.data.resultCode === 0) {
             dispatch(setAuthUserData(null, null, null, false));
@@ -70,10 +93,8 @@ export const logoutThunkCreator = () => {
         }
     }
 }
-export const getCaptchaThunkCreat = () => async (dispatch) => {
-    debugger
+export const getCaptchaThunkCreat = () => async (dispatch: any) => {
     const response = await captchaAPI()
     const captchaURL = response.data.url;
-
     dispatch(setCaptcha(captchaURL));
 }

@@ -13,15 +13,13 @@ class Messages extends React.Component {
         this.props.addMessage(value.newMessageText);
     }
 
-
-
-    _messageYouList = () => {
-        return this.props.messagesDataYou.map(messagesDataYou => <Message key={messagesDataYou.id}
+    messageYouList = () => {
+        return [...this.props.messagesDataYou].map(messagesDataYou => <Message key={messagesDataYou.id}
                                                                           message={messagesDataYou.message}
                                                                           id={messagesDataYou.id}/>)
     }
     messageMeList = () => {
-        return this.props.messagesDataMe.map(messagesDataMe => <Message key={messagesDataMe.id}
+        return [...this.props.messagesDataMe].map(messagesDataMe => <Message key={messagesDataMe.id}
                                                                         message={messagesDataMe.message}
                                                                         id={messagesDataMe.id}/>)
     }
@@ -36,7 +34,7 @@ class Messages extends React.Component {
                 <ul class="chatting-area">
                     <li class="you">
                         <figure><img src={you} alt=""/></figure>
-                        {this._messageYouList()}
+                        {this.messageYouList()}
                     </li>
                     <li class="me">
                         <figure><img src={me} alt=""/></figure>

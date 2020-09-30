@@ -7,7 +7,6 @@ const headLogoutStatus = 'head/logout_status';
 const headLogoutPhoto = 'head/logout_Photo';
 
 let initialState = {
-
     status: "",
     photos: ""
 };
@@ -15,6 +14,7 @@ let initialState = {
 
 const headerReducer = (state = initialState, action) => {
     switch (action.type) {
+        case headLogoutStatus :
         case headStatusWHsetStatus : {
             return {
                 ...state, status: action.status
@@ -25,17 +25,8 @@ const headerReducer = (state = initialState, action) => {
                 ...state, photos: action.photos
             }
         }
+        case headLogoutPhoto :
         case headGetPhotoProfile : {
-            return {
-                ...state, photos: action.photo
-            }
-        }
-        case headLogoutStatus : {
-            return {
-                ...state, status: action.status
-            }
-        }
-        case headLogoutPhoto : {
             return {
                 ...state, photos: action.photo
             }

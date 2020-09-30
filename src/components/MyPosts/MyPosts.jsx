@@ -66,6 +66,8 @@ class MyPosts extends React.Component {
     }
 }
 
+export default MyPosts;
+
 const maxLengthCreator10 = maxLengthCreator(10);
 const AddTextForm = (props) => {
     return (
@@ -77,8 +79,5 @@ const AddTextForm = (props) => {
         </form>
     );
 }
-const AddTextFormRedux = reduxForm({
-    form: "AddTextForm",
-    onSubmit: handleSubmit => console.log(handleSubmit)
-})(AddTextForm);
-export default MyPosts;
+const AddTextFormRedux = reduxForm({form: "AddTextForm", onSubmit: handleSubmit => console.log(handleSubmit)})(AddTextForm);
+

@@ -10,6 +10,7 @@ const current_Page = 'current_Page';
 const toggle_followingInProgress = 'toggle_followingInProgress';
 
 
+
 let initialState = {
     peoplesData: [],
     pageSize: 7,
@@ -18,16 +19,14 @@ let initialState = {
     isFetching: false,
     followingInProgress: []
 };
+export type initialStateType = typeof initialState;
 
-const peoplesReducer = (state = initialState, action) => {
+const peoplesReducer = (state = initialState, action:any):initialStateType => {
 
     switch (action.type) {
         case add_People: {
             return {
-                // ...state, peoplesData: [...state.peoplesData, { id: 5, name: 'Kill Bill', friend: true, about: "Ftv Model", imageUrl: require("../components/images/resources/friend-avatar7.jpg") },
-                // { id: 6, name: 'Amy Watson', friend: false, about: "Study In University", imageUrl: require("../components/images/resources/nearly5.jpg") },
-                // { id: 7, name: 'Caty Lasbo', friend: false, about: "Work As Dancers", imageUrl: require("../components/images/resources/nearly6.jpg") },
-                // { id: 8, name: 'Ema Watson', friend: false, about: "Personal Business", imageUrl: require("../components/images/resources/nearly2.jpg") }]
+                ...state
             }
         }
         case add_Friend: {
