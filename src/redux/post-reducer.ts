@@ -1,13 +1,9 @@
 import {getPostAPI} from "../api/api";
+import {postDataType} from "../types/types";
 
 const add_Post = 'add_Post';
 const set_Posts = 'set_Posts';
 
-type postDataType = {
-    id: number
-    message: string
-    like: number
-}
 
 let initialState = {
     postData: [] as Array<postDataType>,

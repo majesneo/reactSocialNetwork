@@ -1,17 +1,21 @@
 import {getProfileAPI, getStatusAPI} from "../api/api";
 import {getPhotoProfile} from "./header-reducer";
+import {profileType} from "../types/types";
 
 const set_PeoplesProfile = 'set_PeoplesProfile';
 const set_Status = 'set_Status';
 
 
+
+
 let initialState = {
-    profile: null,
+    profile: null as profileType | null,
     status: ""
-};
+}
+export type initialStateType = typeof initialState
 
 
-const pofileReducer = (state = initialState, action) => {
+const pofileReducer = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
         case set_PeoplesProfile: {
             return {
@@ -29,16 +33,28 @@ const pofileReducer = (state = initialState, action) => {
 }
 export default pofileReducer;
 
-export const setPeoplesProfile = (profile) => ({type: 'set_PeoplesProfile', profile});
-export const setStatusProf = (status) => ({type: 'set_Status', status});
+type setPeoplesProfileType = {
+    type: typeof set_PeoplesProfile
+    profile: profileType
+}
+type setStatusProfType = {
+    type: typeof set_Status
+    status: string
+}
+
+export const setPeoplesProfile = (profile: profileType): setPeoplesProfileType => ({
+    type: 'set_PeoplesProfile',
+    profile
+});
+export const setStatusProf = (status: string): setStatusProfType => ({type: 'set_Status', status});
 
 
-export const getProfileThunkCreator = (userId) => async (dispatch) => {
+export const getProfileThunkCreator = (userId: number) => async (dispatch: any) => {
     const data = await getProfileAPI(userId);
     dispatch(setPeoplesProfile(data));
     dispatch(getPhotoProfile(data.photos));
 }
-export const getStatusThunkCreator = (userId) => async (dispatch) => {
+export const getStatusThunkCreator = (userId: number) => async (dispatch: any) => {
     const response = await getStatusAPI(userId)
     dispatch(setStatusProf(response.data));
 

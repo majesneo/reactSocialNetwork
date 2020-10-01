@@ -1,18 +1,6 @@
-const addMessage = 'addMessage';
+import {dialogsData, messagesDataMe, messagesDataYou} from "../types/types";
 
-type dialogsData = {
-    id: number
-    name: string
-    imageUrl: string
-}
-type messagesDataMe = {
-    id: number
-    message: string
-}
-type messagesDataYou = {
-    id: number
-    message: string
-}
+const addMessage = 'addMessage';
 
 
 let initialState = {

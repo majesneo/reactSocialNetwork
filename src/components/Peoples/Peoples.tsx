@@ -1,8 +1,19 @@
 import React from 'react';
 import People from './People/People';
 import Paginator from "../common/Paginator/Paginator";
+import { peoplesDataType } from '../../types/types';
 
-let Peoples = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}) => {
+type propsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged: (p: number) => void
+    peoplesData: Array<peoplesDataType>
+    followingInProgress: Array<number>
+    addPeople: () => void
+}
+
+let Peoples: React.FC<propsType> = ({ totalUsersCount, pageSize, addPeople, currentPage, onPageChanged, ...props }) => {
 
     let peoplesList = () => {
         return props.peoplesData.map(peoplesData => <People
@@ -24,7 +35,7 @@ let Peoples = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}
                         <li class="nav-item"><a class="active" data-toggle="tab">Peoples</a>
                             <span>{peoplesList().length}</span></li>
                         <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage}
-                                   onPageChanged={onPageChanged}/>
+                            onPageChanged={onPageChanged} />
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active fade show " id="frends">
@@ -34,7 +45,7 @@ let Peoples = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}
                             <div class="lodmore">
                                 <button onClick={() => {
                                     props.addPeople()
-                                }} class="btn-view btn-load-more"/>
+                                }} class="btn-view btn-load-more" />
                             </div>
                         </div>
                     </div>

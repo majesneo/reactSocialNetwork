@@ -20,7 +20,7 @@ const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsCo
 
 class App extends React.Component {
     catchAllUnhandledErrors = (promiseRejectionEvent) =>{
-        alert("some error");
+        // alert("some error");
     }
     componentDidMount() {
         this.props.initializedThunkCreator();
@@ -44,7 +44,7 @@ class App extends React.Component {
                         <Route path="/Dialogs" render={() => <DialogsContainer/>}/>
                         <Route path="/MyPosts" render={() => <MyPostsContainer/>}/>
                         <Route path="/Profile/:userId?" render={() => <ProfileContainer/>}/>
-                        <Route path="/Peoples" render={() => <PeoplesContainer/>}/>
+                        <Route path="/Peoples" render={() => <PeoplesContainer pageTitle={'Страница'}/>}/>
                         <Route path="/Logout" render={() => <Logout/>}/>
                         <Route path="/Profile/Logout" render={() => <Logout/>}/>
                         <Route path="/Login" render={() => <Login/>}/>
