@@ -11,6 +11,7 @@ import appReducer from "./app-reducer";
 
 
 type rootReducerType = typeof rootReducer;
+
 export type appStateType = ReturnType<rootReducerType>
 
 let rootReducer = combineReducers({

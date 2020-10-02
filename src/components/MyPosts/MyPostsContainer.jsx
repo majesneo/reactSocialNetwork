@@ -3,7 +3,7 @@ import {compose} from 'redux';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import MyPosts from './MyPosts';
 import {addPost, getPostThunkCreator, setPosts} from "../../redux/post-reducer";
-import React, {Component} from 'react';
+import React from 'react';
 
 
 class MyPostsContainer extends React.Component {
@@ -34,10 +34,3 @@ export default compose(connect(mapStateToProps, {
     setPosts,
     getPostThunkCreator
 }), withAuthRedirect)(MyPostsContainer)
-
-
-
-
-
-
-

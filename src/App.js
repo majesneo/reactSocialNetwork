@@ -6,7 +6,6 @@ import MyPostsContainer from './components/MyPosts/MyPostsContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import YourPageContainer from './components/YourPage/YourPageContainer';
 import {Route, withRouter} from 'react-router-dom';
-
 import PeoplesContainer from './components/Peoples/PeoplesContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Logout from './components/Logout/Logout';
@@ -20,7 +19,7 @@ const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsCo
 
 class App extends React.Component {
     catchAllUnhandledErrors = (promiseRejectionEvent) =>{
-        // alert("some error");
+        // alert("some error"); 
     }
     componentDidMount() {
         this.props.initializedThunkCreator();

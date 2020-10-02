@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css'
 import back from '../images/resources/timeline-1.jpg';
-import HeaderStatusWithHooks from "./HeaderStatusWithHooks";
+import HeaderStatusWithHooks from "./HeaderStatusWithHooks.jsx";
 
 
 const Header = (props) => {

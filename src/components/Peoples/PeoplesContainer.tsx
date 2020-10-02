@@ -52,12 +52,10 @@ class PeoplesContainer extends React.Component<propsType> {
         let { currentPage, pageSize } = this.props
         this.props.getUsersThunkCreator(currentPage, pageSize);
     }
-
-    onPageChanged = (p) => {
+    onPageChanged = (p: number) => {
         let { pageSize } = this.props
         this.props.getUsersThunkCreator(p, pageSize);
     }
-
     render() {
         return <>
             <h2>{this.props.pageTitle}</h2>
