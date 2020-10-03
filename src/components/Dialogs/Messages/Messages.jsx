@@ -59,8 +59,5 @@ const AddMessageForm = (props) => {
         </form>
     );
 }
-const AddMessageFormReduxForm = reduxForm({
-    form: "AddMessageForm",
-    onSubmit: handleSubmit => console.log(handleSubmit)
-})(AddMessageForm);
+const AddMessageFormReduxForm = reduxForm({form: "AddMessageForm",onSubmit: handleSubmit => console.log(handleSubmit)})(AddMessageForm);
 export default Messages;

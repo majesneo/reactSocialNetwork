@@ -10,6 +10,7 @@ type propsType = {
     currentPage: number
     onPageChanged: (p:number) => void
     portionSize?: number
+    className?: string
 }
 
 let Paginator: React.FC<propsType> = ({ totalUsersCount, pageSize, currentPage, onPageChanged, portionSize = 10 }) => {

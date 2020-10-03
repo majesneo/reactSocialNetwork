@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Field, reduxForm } from 'redux-form';
+import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { loginThunkCreator } from '../../redux/auth-reducer';
 import { maxLengthCreator, requireField } from '../../utils/validators/validators';
 import { Input } from '../common/FormsControls/FormsControls';
@@ -15,7 +15,18 @@ import { type } from 'os';
 const maxLengthCreatorEmail30 = maxLengthCreator(30);
 const maxLengthCreatorPassword12 = maxLengthCreator(12);
 
-const LoginForm = ({ handleSubmit, error, captcha }) => {
+type loginOwnPropsType = {
+    captcha: string | null
+   
+}
+type logonFormValuesType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: string
+
+}
+const LoginForm: React.FC<InjectedFormProps<logonFormValuesType,loginOwnPropsType> & loginOwnPropsType> = ({ handleSubmit, error, captcha }) => {
     return (
         <div class="col-lg-6">
             <div class="login-reg-bg">
@@ -52,7 +63,7 @@ const LoginForm = ({ handleSubmit, error, captcha }) => {
         </div>
     );
 }
-const LoginReduxForm = reduxForm({ form: 'Login' })(LoginForm);
+const LoginReduxForm = reduxForm<logonFormValuesType,loginOwnPropsType>({ form: 'Login' })(LoginForm);
 
 
 type mapStatePropsType = {
@@ -62,28 +73,28 @@ type mapStatePropsType = {
 }
 
 type mapDispatchPropsType = {
-    loginThunkCreator: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-    getStatusHeadThunkCreator: (userId: number) => void
-    getProfileThunkCreator: (userId: number) => void
+    loginThunkCreator: () => void
+    getProfileThunkCreator: () => void
+    getStatusHeadThunkCreator: () => void
+    
 }
 type propsType = {
-    getProfileThunkCreator: (id: number| null) => void
-    getStatusHeadThunkCreator: (id: number| null) => void
-
+    loginThunkCreator: (email: string, password: string, rememberMe: boolean, captcha: string) => void
+    getProfileThunkCreator: (id: number | null) => void
+    getStatusHeadThunkCreator: (id: number | null) => void
 }
 type ownPropsType = {
 
 }
 
-class Login extends React.Component<propsType & mapDispatchPropsType & mapStatePropsType> {
-    componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
-        if (this.props != this.prevProps) {
+
+class Login extends PureComponent<propsType&mapDispatchPropsType & mapStatePropsType> {
+    componentDidUpdate() {
             this.props.getProfileThunkCreator(this.props.id);
             this.props.getStatusHeadThunkCreator(this.props.id);
-        }
     }
     render() {
-        const onSubmit = (formData: any) => {
+        const onSubmit = (formData: logonFormValuesType) => {
             this.props.loginThunkCreator(formData.email, formData.password, formData.rememberMe, formData.captcha);
         }
         if (this.props.isAuth) {
@@ -100,4 +111,4 @@ let mapStateToProps = (state: appStateType): mapStatePropsType => ({
     captcha: state.authReducerKey.captcha
 })
 export default connect<mapStatePropsType, mapDispatchPropsType, ownPropsType, appStateType>(mapStateToProps,
-{ loginThunkCreator, getStatusHeadThunkCreator, getProfileThunkCreator })(Login);
+    { loginThunkCreator, getStatusHeadThunkCreator, getProfileThunkCreator })(Login);

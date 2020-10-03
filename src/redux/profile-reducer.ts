@@ -60,6 +60,7 @@ type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionsTypes>
 export const getProfileThunkCreator = (userId: number):thunkType => async (dispatch) => {
     const data = await getProfileAPI(userId);
     dispatch(setPeoplesProfile(data));
+    //@ts-ignore
     dispatch(getPhotoProfile(data.photos));
 }
 export const getStatusThunkCreator = (userId: number):thunkType => async (dispatch) => {

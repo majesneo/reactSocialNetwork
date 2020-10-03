@@ -87,6 +87,7 @@ export const loginThunkCreator = (email: string, password: string, rememberMe: b
                 dispatch(getCaptchaThunkCreat());
             }
             let message = data.data.messages.length > 0 ? data.data.messages[0] : "Some error";
+            //@ts-ignore
             dispatch(stopSubmit('Login', { _error: message }));
         }
     }
