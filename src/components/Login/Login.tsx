@@ -9,7 +9,8 @@ import s from '../common/FormsControls/FormsControls.module.css';
 import { getProfileThunkCreator } from "../../redux/profile-reducer";
 import { getStatusHeadThunkCreator } from "../../redux/header-reducer";
 import { appStateType } from '../../redux/redux-store';
-import { type } from 'os';
+
+
 
 
 const maxLengthCreatorEmail30 = maxLengthCreator(30);
@@ -17,45 +18,45 @@ const maxLengthCreatorPassword12 = maxLengthCreator(12);
 
 type loginOwnPropsType = {
     captcha: string | null
-   
+
 }
 type logonFormValuesType = {
     email: string
     password: string
     rememberMe: boolean
     captcha: string
-
 }
-const LoginForm: React.FC<InjectedFormProps<logonFormValuesType,loginOwnPropsType> & loginOwnPropsType> = ({ handleSubmit, error, captcha }) => {
+type logonFormValuesKeys = keyof logonFormValuesType
+const LoginForm: React.FC<InjectedFormProps<logonFormValuesType, loginOwnPropsType> & loginOwnPropsType> = ({ handleSubmit, error, captcha }) => {
     return (
-        <div class="col-lg-6">
-            <div class="login-reg-bg">
-                <div class="log-reg-area sign">
-                    <h2 class="log-title">Login</h2>
+        <div className="col-lg-6">
+            <div className="login-reg-bg">
+                <div className="log-reg-area sign">
+                    <h2 className="log-title">Login</h2>
                     <form onSubmit={handleSubmit}>
-                        <div class="form-group">
+                        <div className="form-group">
                             <Field component={Input} validate={[requireField, maxLengthCreatorEmail30]} name={"email"}
                                 placeholder={"Email"} />
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <Field type={"password"} component={Input}
                                 validate={[requireField, maxLengthCreatorPassword12]} name={"password"}
                                 placeholder={"Password"} />
                         </div>
-                        <div class="checkbox">
+                        <div className="checkbox">
                             <label>
                                 <Field component={"input"} name={"rememberMe"} type={"checkbox"} /><i
-                                    class="check-box" />
+                                    className="check-box" />
                             </label>
                             <label style={{ paddingLeft: "25px" }}>Always Remember Me.</label>
                         </div>
                         {error && <div className={s.formError}>{error}</div>}
-                        <div class="submit-btns">
+                        <div className="submit-btns">
                             {captcha && <img src={captcha} />}
                             {captcha && <Field validate={[requireField]} component={Input} name={"captcha"} />}
-                            <button type="submit" style={{ marginRight: "10px" }} class="mtr-btn signin"><span
+                            <button type="submit" style={{ marginRight: "10px" }} className="mtr-btn signin"><span
                                 style={{ color: "white" }}>Login</span></button>
-                            <button class="mtr-btn signup"><span style={{ color: "white" }}>Register</span></button>
+                            <button className="mtr-btn signup"><span style={{ color: "white" }}>Register</span></button>
                         </div>
                     </form>
                 </div>
@@ -63,7 +64,7 @@ const LoginForm: React.FC<InjectedFormProps<logonFormValuesType,loginOwnPropsTyp
         </div>
     );
 }
-const LoginReduxForm = reduxForm<logonFormValuesType,loginOwnPropsType>({ form: 'Login' })(LoginForm);
+const LoginReduxForm = reduxForm<logonFormValuesType, loginOwnPropsType>({ form: 'Login' })(LoginForm);
 
 
 type mapStatePropsType = {
@@ -73,10 +74,9 @@ type mapStatePropsType = {
 }
 
 type mapDispatchPropsType = {
-    loginThunkCreator: () => void
-    getProfileThunkCreator: () => void
-    getStatusHeadThunkCreator: () => void
-    
+    getStatusHeadThunkCreator:()=> void
+    getProfileThunkCreator:()=> void
+    loginThunkCreator:()=> void
 }
 type propsType = {
     loginThunkCreator: (email: string, password: string, rememberMe: boolean, captcha: string) => void
@@ -88,10 +88,10 @@ type ownPropsType = {
 }
 
 
-class Login extends PureComponent<propsType&mapDispatchPropsType & mapStatePropsType> {
+class Login extends PureComponent<propsType&mapStatePropsType & mapDispatchPropsType> {
     componentDidUpdate() {
-            this.props.getProfileThunkCreator(this.props.id);
-            this.props.getStatusHeadThunkCreator(this.props.id);
+        this.props.getProfileThunkCreator(this.props.id);
+        this.props.getStatusHeadThunkCreator(this.props.id);
     }
     render() {
         const onSubmit = (formData: logonFormValuesType) => {
@@ -110,5 +110,5 @@ let mapStateToProps = (state: appStateType): mapStatePropsType => ({
     id: state.authReducerKey.id,
     captcha: state.authReducerKey.captcha
 })
-export default connect<mapStatePropsType, mapDispatchPropsType, ownPropsType, appStateType>(mapStateToProps,
+export default connect<mapStatePropsType, mapDispatchPropsType, ownPropsType, appStateType>(mapStateToProps, 
     { loginThunkCreator, getStatusHeadThunkCreator, getProfileThunkCreator })(Login);

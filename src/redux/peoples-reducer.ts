@@ -2,19 +2,9 @@ import { getFollowDelAPI, getFollowPostAPI, getUsersAPI } from "../api/api";
 import { updateObjectInArray } from "../utils/object-helpers";
 import { peoplesDataType } from "../types/types";
 import { Dispatch } from "redux";
-import { appStateType } from "./redux-store";
+import { appStateType, inferActionsTypes } from "./redux-store";
 import { ThunkAction } from "redux-thunk";
-import { type } from "os";
 
-
-const toggleIs_Fetching = 'toggleIs_Fetching';
-// const add_People = 'add_People';
-const add_Friend = 'add_Friend';
-const un_Friend = 'un_Friend';
-const set_Peoples = 'set_Peoples';
-const current_Page = 'current_Page';
-const toggle_followingInProgress = 'toggle_followingInProgress';
-const total_UsersCount = "total_UsersCount";
 
 
 let initialState = {
@@ -27,48 +17,46 @@ let initialState = {
 };
 export type initialStateType = typeof initialState;
 
-type actionsTypes = setUsersCountActionType | addFriendActionType | unFriendActionType | setPeoplesActionType
-    | setCurrentActionType | toggleIsFetchingActionType | togglefollowingInProgressActionType
+
 
 const peoplesReducer = (state = initialState, action: actionsTypes): initialStateType => {
-
     switch (action.type) {
         // case add_People: {
         //     return {
         //         ...state, peoplesData: action.people
         //     }
         // }
-        case add_Friend: {
+        case "add_Friend": {
             return {
                 ...state, peoplesData: updateObjectInArray(state.peoplesData, action.peopleId, "id", { followed: true })
             }
         }
-        case un_Friend: {
+        case "un_Friend": {
             return {
                 ...state, peoplesData: updateObjectInArray(state.peoplesData, action.peopleId, "id", { followed: false })
             }
         }
-        case set_Peoples: {
+        case "set_Peoples": {
             return {
                 ...state, peoplesData: action.peoples
             }
         }
-        case current_Page: {
+        case "current_Page": {
             return {
                 ...state, currentPage: action.currentPage
             }
         }
-        case toggleIs_Fetching: {
+        case "toggleIs_Fetching": {
             return {
                 ...state, isFetching: action.isFetching
             }
         }
-        case total_UsersCount: {
+        case "total_UsersCount": {
             return {
                 ...state, totalUsersCount: action.totalCount
             }
         }
-        case toggle_followingInProgress: {
+        case "toggle_followingInProgress": {
             return {
                 ...state, followingInProgress: action.following
                     ? [...state.followingInProgress, action.peopleId]
@@ -81,95 +69,52 @@ const peoplesReducer = (state = initialState, action: actionsTypes): initialStat
 }
 export default peoplesReducer;
 
+type actionsTypes = inferActionsTypes<typeof actions>
 
-type setUsersCountActionType = {
-    type: typeof total_UsersCount
-    totalCount: number
+
+
+
+
+export const actions = {
+    addFriend: (peopleId: number) => ({ type: 'add_Friend', peopleId } as const),
+    unFriend: (peopleId: number) => ({ type: 'un_Friend', peopleId } as const),
+    setPeoples: (peoples: Array<peoplesDataType>) => ({ type: 'set_Peoples', peoples } as const),
+    setCurrent: (currentPage: number) => ({ type: 'current_Page', currentPage } as const),
+    toggleIsFetching: (isFetching: boolean) => ({ type: 'toggleIs_Fetching', isFetching } as const),
+    togglefollowingInProgress: (following: boolean, peopleId: number) => ({ type: 'toggle_followingInProgress', following, peopleId } as const),
+    setUsersCount: (totalCount: number) => ({ type: 'total_UsersCount', totalCount } as const)
 }
-export const setUsersCount = (totalCount: number): setUsersCountActionType => ({ type: 'total_UsersCount', totalCount });
 
-// type addPeopleType = {
-//     type: typeof add_People
-//     people:
-// }
 // export const addPeople = (): addPeopleType => ({type: 'add_People'});
-
-
-type addFriendActionType = {
-    type: typeof add_Friend
-    peopleId: number
-}
-export const addFriend = (peopleId: number): addFriendActionType => ({ type: 'add_Friend', peopleId });
-
-
-type unFriendActionType = {
-    type: typeof un_Friend
-    peopleId: number
-}
-export const unFriend = (peopleId: number): unFriendActionType => ({ type: 'un_Friend', peopleId });
-
-
-type setPeoplesActionType = {
-    type: typeof set_Peoples
-    peoples: Array<peoplesDataType>
-}
-export const setPeoples = (peoples: Array<peoplesDataType>): setPeoplesActionType => ({ type: 'set_Peoples', peoples });
-
-
-type setCurrentActionType = {
-    type: typeof current_Page
-    currentPage: number
-}
-export const setCurrent = (currentPage: number): setCurrentActionType => ({ type: 'current_Page', currentPage });
-
-
-type toggleIsFetchingActionType = {
-    type: typeof toggleIs_Fetching
-    isFetching: boolean
-}
-export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingActionType => ({ type: 'toggleIs_Fetching', isFetching });
-
-
-type togglefollowingInProgressActionType = {
-    type: typeof toggle_followingInProgress
-    following: boolean
-    peopleId: number
-}
-export const togglefollowingInProgress = (following: boolean, peopleId: number): togglefollowingInProgressActionType => ({
-    type: 'toggle_followingInProgress',
-    following,
-    peopleId
-});
-
 
 // type getStateType = () => appStateType
 type dispatchType = Dispatch<actionsTypes>
 type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionsTypes>
 
 export const getUsersThunkCreator = (currentPage: number, pageSize: number): thunkType => async (dispatch) => {
-    dispatch(setCurrent(currentPage));
-    dispatch(toggleIsFetching(true));
+    dispatch(actions.setCurrent(currentPage));
+    dispatch(actions.toggleIsFetching(true));
     const data = await getUsersAPI(currentPage, pageSize)
-    dispatch(setUsersCount(data.totalCount));
-    dispatch(toggleIsFetching(false));
-    dispatch(setPeoples(data.items));
+    dispatch(actions.setUsersCount(data.totalCount));
+    dispatch(actions.toggleIsFetching(false));
+    dispatch(actions.setPeoples(data.items));
 }
 
 export const getFollowPostThunkCreator = (id: number): thunkType => {
     return async (dispatch) => {
-        getFollowPostAndDelFlow(dispatch, getFollowPostAPI.bind(getFollowPostAPI), addFriend.bind(addFriend), id);
+        getFollowPostAndDelFlow(dispatch, getFollowPostAPI.bind(getFollowPostAPI), actions.addFriend.bind(actions.addFriend), id);
     }
 }
 export const getFollowDelThunkCreator = (id: number): thunkType => {
     return async (dispatch) => {
-        getFollowPostAndDelFlow(dispatch, getFollowDelAPI.bind(getFollowDelAPI), unFriend.bind(unFriend), id);
+        getFollowPostAndDelFlow(dispatch, getFollowDelAPI.bind(getFollowDelAPI), actions.unFriend.bind(actions.unFriend), id);
     }
 }
-const getFollowPostAndDelFlow = async (dispatch: dispatchType, methodApi: any, actionCreator: (id: number) => addFriendActionType | unFriendActionType, id: number) => {
-    dispatch(togglefollowingInProgress(true, id));
+const getFollowPostAndDelFlow = async (dispatch: dispatchType, methodApi: any, actionCreator: (id: number) => actionsTypes, id: number) => {
+    dispatch(actions.togglefollowingInProgress(true, id));
     let data = await methodApi(id)
     if (data.resultCode == 0) {
         dispatch(actionCreator(id));
     }
-    dispatch(togglefollowingInProgress(false, id));
+    dispatch(actions.togglefollowingInProgress(false, id));
 }
