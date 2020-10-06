@@ -14,7 +14,6 @@ type propsType = {
 }
 
 let Peoples: React.FC<propsType> = ({ totalUsersCount, pageSize, addPeople, currentPage, onPageChanged, ...props }) => {
-
     let peoplesList = () => {
         return props.peoplesData.map(peoplesData => <People
             followingInProgress={props.followingInProgress}

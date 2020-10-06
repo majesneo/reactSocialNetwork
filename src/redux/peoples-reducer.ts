@@ -71,10 +71,6 @@ export default peoplesReducer;
 
 type actionsTypes = inferActionsTypes<typeof actions>
 
-
-
-
-
 export const actions = {
     addFriend: (peopleId: number) => ({ type: 'add_Friend', peopleId } as const),
     unFriend: (peopleId: number) => ({ type: 'un_Friend', peopleId } as const),
@@ -86,7 +82,6 @@ export const actions = {
 }
 
 // export const addPeople = (): addPeopleType => ({type: 'add_People'});
-
 // type getStateType = () => appStateType
 type dispatchType = Dispatch<actionsTypes>
 type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionsTypes>

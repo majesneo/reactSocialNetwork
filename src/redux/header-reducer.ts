@@ -1,14 +1,8 @@
-import { Dispatch } from "redux";
+import { Action, Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { getStatusAPI, putSavePhotoAPI, updatedStatusAPI } from "../api/api";
 import { photosType } from "../types/types";
-import { appStateType } from "./redux-store";
-
-const headStatusWHsetStatus = 'headStatusWH/set_Status';
-const headStatusWHsetPhoto = 'headStatusWH/set_Photo';
-const headGetPhotoProfile = 'head/getPhotoProfile';
-const headLogoutStatus = 'head/logout_status';
-const headLogoutPhoto = 'head/logout_Photo';
+import { appStateType, inferActionsTypes } from "./redux-store";
 
 let initialState = {
     status: "" as string | null,
@@ -18,19 +12,19 @@ export type initialStateType = typeof initialState
 
 const headerReducer = (state = initialState, action: actionsTypes): initialStateType => {
     switch (action.type) {
-        case headLogoutStatus:
-        case headStatusWHsetStatus: {
+        case 'head/logout_status':
+        case 'headStatusWH/set_Status': {
             return {
                 ...state, status: action.status
             }
         }
-        case headStatusWHsetPhoto: {
+        case 'headStatusWH/set_Photo': {
             return {
                 ...state, photos: action.photos
             }
         }
-        case headLogoutPhoto:
-        case headGetPhotoProfile: {
+        case 'head/logout_Photo':
+        case 'head/getPhotoProfile': {
             return {
                 ...state, photos: action.photo
             }
@@ -41,38 +35,15 @@ const headerReducer = (state = initialState, action: actionsTypes): initialState
 }
 export default headerReducer;
 
-type setStatusType = {
-    type: typeof headStatusWHsetStatus
-    status: string | null
+type actionsTypes = inferActionsTypes<typeof actions>
+
+export const actions = {
+    setStatus: (status: string | null) => ({ type: 'headStatusWH/set_Status', status } as const),
+    setPhoto: (photos: photosType | null) => ({ type: 'headStatusWH/set_Photo', photos } as const),
+    getPhotoProfile: (photo: photosType | null) => ({ type: 'head/getPhotoProfile', photo } as const),
+    logoutSatus: (status: null) => ({ type: 'head/logout_status', status } as const),
+    logoutPhoto: (photo: photosType | null) => ({ type: 'head/logout_Photo', photo } as const)
 }
-export const setStatus = (status: string | null): setStatusType => ({ type: 'headStatusWH/set_Status', status });
-
-type setPhotoType = {
-    type: typeof headStatusWHsetPhoto
-    photos: photosType | null
-}
-export const setPhoto = (photos: photosType | null): setPhotoType => ({ type: 'headStatusWH/set_Photo', photos });
-
-type getPhotoProfileType = {
-    type: typeof headGetPhotoProfile
-    photo: photosType | null
-}
-export const getPhotoProfile = (photo: photosType | null): getPhotoProfileType => ({ type: 'head/getPhotoProfile', photo });
-
-type logoutSatusType = {
-    type: typeof headLogoutStatus
-    status: null
-}
-export const logoutSatus = (status: null): logoutSatusType => ({ type: 'head/logout_status', status });
-
-type logoutPhotoType = {
-    type: typeof headLogoutPhoto
-    photo: photosType | null
-}
-export const logoutPhoto = (photo: photosType | null): logoutPhotoType => ({ type: 'head/logout_Photo', photo });
-
-
-type actionsTypes = setStatusType | setPhotoType | getPhotoProfileType | logoutSatusType | logoutPhotoType
 
 // type getStateType = () => appStateType
 type dispatchType = Dispatch<actionsTypes>
@@ -82,7 +53,7 @@ export const updatedStatusHeadThunkCreator = (status: string): thunkType => {
     return async (dispatch) => {
         const response = await updatedStatusAPI(status)
         if (response.data.resultCode === 0) {
-            dispatch(setStatus(status));
+            dispatch(actions.setStatus(status));
         }
     }
 }
@@ -90,13 +61,13 @@ export const updatedStatusHeadThunkCreator = (status: string): thunkType => {
 export const getStatusHeadThunkCreator = (userId: number): thunkType => {
     return async (dispatch) => {
         const response = await getStatusAPI(userId)
-        dispatch(setStatus(response.data));
+        dispatch(actions.setStatus(response.data));
     }
 }
 
 export const savePhoto = (photo: photosType): thunkType => async (dispatch: any) => {
     const response = await putSavePhotoAPI(photo)
     if (response.data.resultCode === 0) {
-        dispatch(setPhoto(response.data.data.photos));
+        dispatch(actions.setPhoto(response.data.data.photos));
     }
 }
