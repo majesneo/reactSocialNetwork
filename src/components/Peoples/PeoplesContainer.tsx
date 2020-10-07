@@ -5,7 +5,6 @@ import {
     // addPeople,
     getFollowDelThunkCreator,
     getFollowPostThunkCreator, getUsersThunkCreator,
-    setUsersCount
 } from '../../redux/peoples-reducer';
 import {
     getCurrentPage,
@@ -33,7 +32,6 @@ type mapDispatchPropsType = {
     getFollowDelThunkCreator: (id: number) => void
     getFollowPostThunkCreator: (id: number) => void
     getUsersThunkCreator: (currentPage: number, pageSize: number) => void
-    setUsersCount: (totalCount: number) => void
 }
 type ownPropsType = {
     pageTitle: string
@@ -43,8 +41,13 @@ type propsType = {
     currentPage: number
     pageSize: number
     isFetching: boolean
-
     getUsersThunkCreator: (currentPage: number, pageSize: number) => void
+    getFollowDelThunkCreator: (id: number) => void
+    getFollowPostThunkCreator: (id: number) => void
+    followingInProgress: Array<number>
+    totalUsersCount: number
+    peoplesData: Array<peoplesDataType>
+
 }
 
 class PeoplesContainer extends React.Component<propsType> {
@@ -81,7 +84,6 @@ export default compose(connect<mapStatePropsType, mapDispatchPropsType, ownProps
     getFollowDelThunkCreator,
     getFollowPostThunkCreator,
     getUsersThunkCreator,
-    setUsersCount,
 }))(PeoplesContainer);
 
 

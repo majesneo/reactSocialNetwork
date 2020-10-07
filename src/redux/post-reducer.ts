@@ -19,7 +19,7 @@ const postReducer = (state = initialState, action: actionsTypes): initialStateTy
         }
         case 'set_Posts': {
             return {
-                ...state, postData: [...action.posts]
+                ...state, postData: [action.posts]
             }
         }
         default:
@@ -32,7 +32,7 @@ type actionsTypes = inferActionsTypes<typeof actions>
 
 export const actions = {
     addPost: (value: string) => ({ type: 'add_Post', value } as const),
-    setPosts: (posts: postDataType) => ({ type: 'set_Posts', posts } as Array<postDataType>),
+    setPosts: (posts: postDataType) => ({ type: 'set_Posts', posts } as const),
 }
 
 

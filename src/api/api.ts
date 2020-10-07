@@ -107,7 +107,7 @@ export const getPostAPI = () => {
 type putSavePhotoAPIDataType = {
     photos: photosType
 }
-export const putSavePhotoAPI = (photo: any) => {
+export const putSavePhotoAPI = (photo: File) => {
     const formData = new FormData();
     formData.append('image', photo);
     return instance.put<responseType<putSavePhotoAPIDataType>>(`profile/photo`, formData, {

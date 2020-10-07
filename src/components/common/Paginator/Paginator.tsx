@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import s from './Paginator.module.css';
-
+import * as React from 'react';
 
 
 
@@ -8,15 +8,19 @@ type propsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    onPageChanged: (p:number) => void
+    onPageChanged: (p: number) => void
     portionSize?: number
-    className?: string
+    className?: string | undefined
 }
 
-let Paginator: React.FC<propsType> = ({ totalUsersCount, pageSize, currentPage, onPageChanged, portionSize = 10 }) => {
+// export interface SpreadingExampleProps
+//     extends React.HTMLAttributes<HTMLSpanElement> {
+//     className: string | undefined
+// }
 
+let Paginator: React.FC<propsType> = ({ totalUsersCount, pageSize, currentPage, onPageChanged, portionSize = 10, }) => {
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
-    let pages:Array<number> = [];
+    let pages: Array<number> = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }

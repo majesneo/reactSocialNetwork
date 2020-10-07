@@ -2,7 +2,7 @@ import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { RouteComponentProps } from 'react-router'
+import { match, RouteComponentProps } from 'react-router'
 import { getProfileThunkCreator, getStatusThunkCreator } from '../../redux/profile-reducer';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
@@ -28,23 +28,26 @@ type ownPropsType = {
     pageTitle: string
 }
 
-type propsType = {
+interface propsType extends RouteComponentProps<matchParams> {
     getProfileThunkCreator: (userId: number) => void
     getStatusThunkCreator: (userId: number) => void
     statusHead: string | null
     profile: profileType | null
     statusProf: string | null
     id: number | null
-    userId: number | null
 }
 type stateType = {
 
 }
-type routParams = {
-    userId: number | null
+type matchParams = {
+
+    userId: number
+
 }
 
-class ProfileContainer extends React.Component<RouteComponentProps<routParams> & propsType, stateType> {
+
+
+class ProfileContainer extends React.Component<propsType & stateType> {
     refreshProfile() {
         let userId = this.props.match.params.userId;
         if (!userId) {
@@ -90,4 +93,4 @@ let mapStateToProps = (state: appStateType): mapStatePropsType => {
 export default compose(connect<mapStatePropsType, mapDispatchPropsType, ownPropsType, appStateType>(mapStateToProps, {
     getStatusThunkCreator,
     getProfileThunkCreator
-}), withRouter, withAuthRedirect)(ProfileContainer);
+}), withRouter, withAuthRedirect)(ProfileContainer) as React.ComponentType;

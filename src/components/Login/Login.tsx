@@ -9,6 +9,8 @@ import s from '../common/FormsControls/FormsControls.module.css';
 import { getProfileThunkCreator } from "../../redux/profile-reducer";
 import { getStatusHeadThunkCreator } from "../../redux/header-reducer";
 import { appStateType } from '../../redux/redux-store';
+import { compose } from 'redux';
+
 
 
 
@@ -25,6 +27,7 @@ type logonFormValuesType = {
     password: string
     rememberMe: boolean
     captcha: string
+
 }
 type logonFormValuesKeys = keyof logonFormValuesType
 const LoginForm: React.FC<InjectedFormProps<logonFormValuesType, loginOwnPropsType> & loginOwnPropsType> = ({ handleSubmit, error, captcha }) => {
@@ -71,12 +74,11 @@ type mapStatePropsType = {
     isAuth: boolean | null
     id: number | null
     captcha: string | null
+
 }
 
 type mapDispatchPropsType = {
-    getStatusHeadThunkCreator:()=> void
-    getProfileThunkCreator:()=> void
-    loginThunkCreator:()=> void
+
 }
 type propsType = {
     loginThunkCreator: (email: string, password: string, rememberMe: boolean, captcha: string) => void
@@ -88,7 +90,7 @@ type ownPropsType = {
 }
 
 
-class Login extends PureComponent<propsType&mapStatePropsType & mapDispatchPropsType> {
+class Login extends PureComponent<propsType & mapStatePropsType> {
     componentDidUpdate() {
         this.props.getProfileThunkCreator(this.props.id);
         this.props.getStatusHeadThunkCreator(this.props.id);
@@ -110,5 +112,5 @@ let mapStateToProps = (state: appStateType): mapStatePropsType => ({
     id: state.authReducerKey.id,
     captcha: state.authReducerKey.captcha
 })
-export default connect<mapStatePropsType, mapDispatchPropsType, ownPropsType, appStateType>(mapStateToProps, 
-    { loginThunkCreator, getStatusHeadThunkCreator, getProfileThunkCreator })(Login);
+export default compose<React.ComponentType>(connect<mapStatePropsType, mapDispatchPropsType, ownPropsType, appStateType>(mapStateToProps,
+    { loginThunkCreator, getStatusHeadThunkCreator, getProfileThunkCreator }))(Login);

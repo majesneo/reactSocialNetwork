@@ -1,4 +1,4 @@
-import { getFollowDelAPI, getFollowPostAPI, getUsersAPI } from "../api/api";
+import { getFollowDelAPI, getFollowPostAPI, getUsersAPI, resultCodesEnum } from "../api/api";
 import { updateObjectInArray } from "../utils/object-helpers";
 import { peoplesDataType } from "../types/types";
 import { Dispatch } from "redux";
@@ -16,7 +16,6 @@ let initialState = {
     followingInProgress: [] as Array<number> //array of peoples id
 };
 export type initialStateType = typeof initialState;
-
 
 
 const peoplesReducer = (state = initialState, action: actionsTypes): initialStateType => {
@@ -108,7 +107,7 @@ export const getFollowDelThunkCreator = (id: number): thunkType => {
 const getFollowPostAndDelFlow = async (dispatch: dispatchType, methodApi: any, actionCreator: (id: number) => actionsTypes, id: number) => {
     dispatch(actions.togglefollowingInProgress(true, id));
     let data = await methodApi(id)
-    if (data.resultCode == 0) {
+    if (data.resultCode == resultCodesEnum.success) {
         dispatch(actionCreator(id));
     }
     dispatch(actions.togglefollowingInProgress(false, id));

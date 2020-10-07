@@ -1,11 +1,14 @@
 import React from 'react';
 import './Header.css'
 import back from '../images/resources/timeline-1.jpg';
-import HeaderStatusWithHooks from "./HeaderStatusWithHooks.jsx";
+import HeaderStatusWithHooks from "./HeaderStatusWithHooks";
 
+type propsType = {
 
-const Header = (props) => {
-    const onMainPhotoSelected = (e) => {
+}
+
+const Header: React.FC<propsType> = (props) => {
+    const onMainPhotoSelected = (e: React.MouseEvent) => {
         if (e.target.files) {
             props.savePhoto(e.target.files[0]);
         }
@@ -13,19 +16,18 @@ const Header = (props) => {
 
     return (
         <div class="feature-photo">
-
-            <figure><img src={back} alt=""/></figure>
+            <figure><img src={back} alt="" /></figure>
             <div class="container-fluid">
                 <div class="row merged">
                     <div class="col-lg-2 col-sm-3">
                         <div class="user-avatar">
                             <figure>
-                                <img src={props.photos.large} alt=""/>
+                                <img src={props.photos.large} alt="" />
                                 <form class="edit-phto">
-                                    <i class="fa fa-camera-retro"/>
+                                    <i class="fa fa-camera-retro" />
                                     <label class="fileContainer">
                                         Edit Display Photo
-                                        <input onChange={onMainPhotoSelected} type="file"/>
+                                        <input onChange={onMainPhotoSelected} type="file" />
                                     </label>
                                 </form>
                             </figure>
@@ -36,10 +38,9 @@ const Header = (props) => {
                             <ul>
                                 <li class="admin-name">
                                     <h5>{props.login}</h5>
-
                                     <HeaderStatusWithHooks {...props} status={props.status}
-                                                           getStatusHeadThunkCreator={props.getStatusHeadThunkCreator}
-                                                           updatedStatusThunkCreator={props.updatedStatusThunkCreator}/>
+                                        getStatusHeadThunkCreator={props.getStatusHeadThunkCreator}
+                                        updatedStatusThunkCreator={props.updatedStatusThunkCreator} />
                                 </li>
                                 <li>
                                     <a class="active" href="fav-page.html" title="" data-ripple="">Page</a>

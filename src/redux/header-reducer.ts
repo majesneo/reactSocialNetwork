@@ -1,6 +1,6 @@
-import { Action, Dispatch } from "redux";
+import { Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { getStatusAPI, putSavePhotoAPI, updatedStatusAPI } from "../api/api";
+import { getStatusAPI, putSavePhotoAPI, resultCodesEnum, updatedStatusAPI } from "../api/api";
 import { photosType } from "../types/types";
 import { appStateType, inferActionsTypes } from "./redux-store";
 
@@ -52,7 +52,7 @@ type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionsTypes>
 export const updatedStatusHeadThunkCreator = (status: string): thunkType => {
     return async (dispatch) => {
         const response = await updatedStatusAPI(status)
-        if (response.data.resultCode === 0) {
+        if (response.data.resultCode === resultCodesEnum.success) {
             dispatch(actions.setStatus(status));
         }
     }
@@ -65,9 +65,9 @@ export const getStatusHeadThunkCreator = (userId: number): thunkType => {
     }
 }
 
-export const savePhoto = (photo: photosType): thunkType => async (dispatch: any) => {
+export const savePhoto = (photo: File): thunkType => async (dispatch: any) => {
     const response = await putSavePhotoAPI(photo)
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === resultCodesEnum.success) {
         dispatch(actions.setPhoto(response.data.data.photos));
     }
 }
