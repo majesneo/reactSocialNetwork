@@ -32,34 +32,34 @@ type logonFormValuesType = {
 type logonFormValuesKeys = keyof logonFormValuesType
 const LoginForm: React.FC<InjectedFormProps<logonFormValuesType, loginOwnPropsType> & loginOwnPropsType> = ({ handleSubmit, error, captcha }) => {
     return (
-        <div className="col-lg-6">
-            <div className="login-reg-bg">
-                <div className="log-reg-area sign">
-                    <h2 className="log-title">Login</h2>
+        <div class="col-lg-6">
+            <div class="login-reg-bg">
+                <div class="log-reg-area sign">
+                    <h2 class="log-title">Login</h2>
                     <form onSubmit={handleSubmit}>
-                        <div className="form-group">
+                        <div class="form-group">
                             <Field component={Input} validate={[requireField, maxLengthCreatorEmail30]} name={"email"}
                                 placeholder={"Email"} />
                         </div>
-                        <div className="form-group">
+                        <div class="form-group">
                             <Field type={"password"} component={Input}
                                 validate={[requireField, maxLengthCreatorPassword12]} name={"password"}
                                 placeholder={"Password"} />
                         </div>
-                        <div className="checkbox">
+                        <div class="checkbox">
                             <label>
                                 <Field component={"input"} name={"rememberMe"} type={"checkbox"} /><i
-                                    className="check-box" />
+                                    class="check-box" />
                             </label>
                             <label style={{ paddingLeft: "25px" }}>Always Remember Me.</label>
                         </div>
-                        {error && <div className={s.formError}>{error}</div>}
-                        <div className="submit-btns">
+                        {error && <div class={s.formError}>{error}</div>}
+                        <div class="submit-btns">
                             {captcha && <img src={captcha} />}
                             {captcha && <Field validate={[requireField]} component={Input} name={"captcha"} />}
-                            <button type="submit" style={{ marginRight: "10px" }} className="mtr-btn signin"><span
+                            <button type="submit" style={{ marginRight: "10px" }} class="mtr-btn signin"><span
                                 style={{ color: "white" }}>Login</span></button>
-                            <button className="mtr-btn signup"><span style={{ color: "white" }}>Register</span></button>
+                            <button class="mtr-btn signup"><span style={{ color: "white" }}>Register</span></button>
                         </div>
                     </form>
                 </div>

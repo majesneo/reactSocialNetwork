@@ -10,7 +10,7 @@ import { photosType } from '../../types/types';
 
 
 type propsType = {
-    getProfileThunkCreator: (id: number) => void
+    getProfileThunkCreator: (userId: number) => void
     savePhoto: (arg0: File) => void
     getStatusHeadThunkCreator: (userId: number) => void
     photos: string | photosType | null
@@ -39,7 +39,6 @@ class HeaderContainer extends React.Component<propsType> {
             getStatusHeadThunkCreator={this.props.getStatusHeadThunkCreator}
             savePhoto={this.props.savePhoto}
             photos={this.props.photos}
-
             updatedStatusHeadThunkCreator={this.props.updatedStatusHeadThunkCreator} />
     };
 }
@@ -52,7 +51,7 @@ let mapStateToProps = (state: appStateType): mapStateToPropsType => ({
 });
 
 
-export default compose(connect<mapStateToPropsType, mapDispatchPropsType, ownPropsType, appStateType>(mapStateToProps, {
+export default compose<React.ComponentType>(connect<mapStateToPropsType, mapDispatchPropsType, ownPropsType, appStateType>(mapStateToProps, {
     getStatusHeadThunkCreator,
     updatedStatusHeadThunkCreator,
     savePhoto,

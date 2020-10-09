@@ -35,7 +35,7 @@ let Paginator: React.FC<propsType> = ({ totalUsersCount, pageSize, currentPage, 
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map((p) => {
                     return <span style={{ cursor: "pointer", margin: "0px 3px 0px 3px" }}
-                        onClick={() => { onPageChanged(p) }} className={currentPage === p && s.active}>{p}</span>
+                        onClick={() => { onPageChanged(p) }} className={currentPage === p ? s.active : undefined}>{p}</span>
                 })}
             {portionCount > portionNumber && <button className={s.btn} onClick={() => { setPortionNumber(portionNumber + 1) }}>Left</button>}
 

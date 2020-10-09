@@ -66,4 +66,4 @@ const mapStateToProps = (state: appStateType) => ({
     initialized: state.appReducerKey.initialized
 })
 
-export default compose(connect(mapStateToProps, { initializedThunkCreator }), withRouter)(App);
+export default compose(connect(mapStateToProps, { initializedThunkCreator }), withRouter)(App) as React.ComponentType;

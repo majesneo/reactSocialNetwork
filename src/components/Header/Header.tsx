@@ -2,13 +2,17 @@ import React from 'react';
 import './Header.css'
 import back from '../images/resources/timeline-1.jpg';
 import HeaderStatusWithHooks from "./HeaderStatusWithHooks";
+import { ChangeEvent } from 'react';
+import { photosType } from '../../types/types';
 
 type propsType = {
-
+    savePhoto: (files: File) => void
+    photos: string | photosType | null
+    login: string
 }
 
 const Header: React.FC<propsType> = (props) => {
-    const onMainPhotoSelected = (e: React.MouseEvent) => {
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             props.savePhoto(e.target.files[0]);
         }

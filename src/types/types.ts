@@ -25,7 +25,7 @@ export type peoplesDataType = {
     name: string
     status: string
     photos: photosType
-    followed:boolean
+    followed: boolean
 }
 export type dialogsData = {
     id: number

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import Userlist1 from '../images/resources/userlist-1.jpg';
 import Userlist2 from '../images/resources/userlist-2.jpg';
@@ -7,13 +8,20 @@ import Userlist5 from '../images/resources/userlist-5.jpg';
 import Userlist6 from '../images/resources/userlist-6.jpg';
 import Userlist7 from '../images/resources/userlist-7.jpg';
 import Friends from '../Friends/Friends';
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import s from "./YourPage.module.css";
+import { photosType } from '../../types/types';
 
 
+type propsType = {
+    isAuth: boolean | null
+    logoutThunkCreator: () => void
+    photos: string | photosType | null
+    login: string | null
+}
 
-const YourPage = (props) => {
-   
+const YourPage: React.FC<propsType> = (props) => {
+
     return (
         <div class="col-lg-3">
             <aside class="sidebar static">
@@ -31,7 +39,7 @@ const YourPage = (props) => {
                         <div class="page-meta">
                             <a href="#" title="" class="underline">{props.login}</a>
                             <span><i class="fa fa-comment-o"></i><a href="insight.html" title="">Messages <em>9</em></a></span>
-                            <span><i class="fa  fa-bell-o"/><a href="insight.html" title="">Notifications <em>2</em></a></span>
+                            <span><i class="fa  fa-bell-o" /><a href="insight.html" title="">Notifications <em>2</em></a></span>
                         </div>
                         <div class="page-likes">
                             <ul class="nav nav-tabs likes-btn">
@@ -40,7 +48,7 @@ const YourPage = (props) => {
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active fade show " id="link1" >
-                                    <span><i class="fa fa-heart-o"/>884</span>
+                                    <span><i class="fa fa-heart-o" />884</span>
                                     <a href="#" title="weekly-likes">35 new likes this week</a>
                                     <div class="users-thumb-list">
                                         <a href="#" title="Anderw" data-toggle="tooltip">

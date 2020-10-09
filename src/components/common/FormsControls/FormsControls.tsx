@@ -6,11 +6,11 @@ import s from './FormsControls.module.css';
 type FormsControlType = {
     input: WrappedFieldInputProps
     meta: WrappedFieldMetaProps
-    child:ReactNode
+    child: ReactNode
 }
 
 
-export const FormControl: React.FC<FormsControlType> = ({ input, meta, child, ...props }) => {
+export const FormControl: React.FC<FormsControlType> = ({ input, meta, child, ...props }) => { //деструктуризируем: инпут, мету, чилд и оставшееся остается в остаточныхпропсах
     const hasError = meta.error && meta.touched;
     return (
         <div className={s.formControl + " " + (hasError ? s.error : "")}>

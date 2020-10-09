@@ -1,12 +1,10 @@
 import React from 'react';
 import s from './Post.module.css';
-import Photo from '../../images/resources/admin3.jpg';
+
 
 const Post = (props) => {
 
-
     return (
-
         <div className={s.item}>
             <div class="central-meta item">
                 <div class="user-post">
@@ -59,7 +57,6 @@ const Post = (props) => {
                 </div>
             </div>
         </div>
-
     );
 }
 export default Post;

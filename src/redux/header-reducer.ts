@@ -6,7 +6,7 @@ import { appStateType, inferActionsTypes } from "./redux-store";
 
 let initialState = {
     status: "" as string | null,
-    photos: "" as string | photosType | null
+    photos: "" as photosType | null | string
 };
 export type initialStateType = typeof initialState
 

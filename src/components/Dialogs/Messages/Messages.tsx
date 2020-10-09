@@ -12,7 +12,7 @@ type propsType = {
     addMessage: (newMessageText: string) => void
     messagesDataYou: Array<messagesDataYou>
     messagesDataMe: Array<messagesDataMe>
-    class?: any
+
 }
 export const Messages: React.FC<propsType> = (props) => {
     let addNewMessage = (value: { newMessageText: string }) => {
@@ -20,31 +20,29 @@ export const Messages: React.FC<propsType> = (props) => {
     }
     let messageYouList = () => {
         return [...props.messagesDataYou].map(messagesDataYou => <Message key={messagesDataYou.id}
-            message={messagesDataYou.message}
-            id={messagesDataYou.id} />)
+            message={messagesDataYou.message} id={messagesDataYou.id} />)
     }
     let messageMeList = () => {
         return [...props.messagesDataMe].map(messagesDataMe => <Message key={messagesDataMe.id}
-            message={messagesDataMe.message}
-            id={messagesDataMe.id} />)
+            message={messagesDataMe.message} id={messagesDataMe.id} />)
     }
     return (
-        <div className="peoples-mesg-box">
-            <div className="conversation-head">
+        <div class="peoples-mesg-box">
+            <div class="conversation-head">
                 <figure><img src={Userlist3} alt="" /></figure>
                 <span>jason bourne <i>online</i></span>
             </div>
-            <ul className="chatting-area">
-                <li className="you">
+            <ul class="chatting-area">
+                <li class="you">
                     <figure><img src={you} alt="" /></figure>
                     {messageYouList()}
                 </li>
-                <li className="me">
+                <li class="me">
                     <figure><img src={me} alt="" /></figure>
                     {messageMeList()}
                 </li>
             </ul>
-            <div className="message-text-container">
+            <div class="message-text-container">
                 <AddMessageFormReduxForm onSubmit={addNewMessage} />
             </div>
         </div>
@@ -64,7 +62,7 @@ const AddMessageForm: React.FC<InjectedFormProps<newMessagesValuesType, loginOwn
         <form onSubmit={props.handleSubmit}>
             <Field placeholder={"Enter your message"} component={Textarea} name={"newMessageText"}
                 validate={[requireField, maxLengthCreator20]} />
-            <button type="submit" title="send"><i className="fa fa-paper-plane" /></button>
+            <button type="submit" title="send"><i class="fa fa-paper-plane" /></button>
         </form>
     );
 }

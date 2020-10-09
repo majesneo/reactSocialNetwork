@@ -14,10 +14,13 @@ type propsType = {
     followingInProgress: Array<number>
     getFollowDelThunkCreator: (id: number) => void
     getFollowPostThunkCreator: (id: number) => void
+
 }
 
+
+
 const People: React.FC<propsType> = (props) => (
-    <li className={s.peopleItem}>
+    <li class={s.peopleItem}>
         <div class="nearly-pepls">
             <figure>
                 <NavLink to={"/Profile/" + props.id} title=""><img width="60px" height="60px"
