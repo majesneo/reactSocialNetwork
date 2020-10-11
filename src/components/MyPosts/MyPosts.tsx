@@ -20,7 +20,7 @@ class MyPosts extends React.Component<propsType> {
             message={postData.message}
             like={postData.like} />)
     }
-    addPost = (value: { newPostText: string }) => {
+    addPost = (value: logonFormValuesType) => {
         this.props.addPost(value.newPostText);
     }
 
@@ -74,15 +74,13 @@ class MyPosts extends React.Component<propsType> {
 }
 export default MyPosts;
 
-type loginOwnPropsType = {
 
-}
 type logonFormValuesType = {
     newPostText: string
 }
 
 const maxLengthCreator10 = maxLengthCreator(10);
-const AddTextForm: React.FC<InjectedFormProps<logonFormValuesType, loginOwnPropsType> & loginOwnPropsType> = (props) => {
+const AddTextForm: React.FC<InjectedFormProps<logonFormValuesType, {}> & {}> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <Field style={{ display: "block", height: "100%", width: "100%", paddingBottom: "35px" }}
@@ -92,5 +90,5 @@ const AddTextForm: React.FC<InjectedFormProps<logonFormValuesType, loginOwnProps
         </form>
     );
 }
-const AddTextFormRedux = reduxForm<logonFormValuesType, loginOwnPropsType>({ form: "AddTextForm", onSubmit: handleSubmit => console.log(handleSubmit) })(AddTextForm);
+const AddTextFormRedux = reduxForm<logonFormValuesType, {}>({ form: "AddTextForm", onSubmit: handleSubmit => console.log(handleSubmit) })(AddTextForm);
 

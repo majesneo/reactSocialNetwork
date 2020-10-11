@@ -1,15 +1,11 @@
-import { type } from 'os';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, SetStateAction, useEffect, useState } from 'react';
 
 
 type propsType = {
-    status: string
-    getStatusHeadThunkCreator: (id: number) => void
+    status: string | null
+    getStatusHeadThunkCreator: (id: number) => SetStateAction<string | null>
     updatedStatusHeadThunkCreator: (status: string) => void
-}
-
-type stateType = {
-
+    id: number | null
 }
 
 
@@ -17,28 +13,27 @@ const HeaderStatusWithHooks: React.FC<propsType> = (props) => {
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(props.status);
 
-    useEffect(() => {
-        setStatus(props.status);
-    }, [props.status])
-    useEffect(() => { setStatus(props.getStatusHeadThunkCreator(props.id)); }, [])
+    useEffect(() => { setStatus(props.status); }, [props.status])
+
+    useEffect(() => { setStatus(props.getStatusHeadThunkCreator(props.id!)); }, [])
 
     const activateEditMode = () => {
         setEditMode(true);
     }
-    const onStatusChange = (e) => {
+    const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value);
     }
     const deactivateEditMode = () => {
         setEditMode(false);
-        props.updatedStatusHeadThunkCreator(status);
+        props.updatedStatusHeadThunkCreator(status!);
     }
 
     return (
         <div>
             {!editMode &&
-                <div><span onDoubleClick={activateEditMode}>{props.status || "-----"}</span></div>}
+                <div><span onDoubleClick={activateEditMode}>{props.status ? props.status : "-----"}</span></div>}
             {editMode &&
-                <div><input onChange={onStatusChange} onBlur={deactivateEditMode} value={status} autoFocus={true} /></div>}
+                <div><input onChange={onStatusChange} onBlur={deactivateEditMode} value={status!} autoFocus={true} /></div>}
         </div>
     );
 }

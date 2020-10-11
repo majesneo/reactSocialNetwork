@@ -28,7 +28,12 @@ class MyPostsContainer extends React.Component<propsType> {
     }
 }
 
-let mapStateToProps = (state: appStateType) => {
+type mapStateToPropsType = {
+    postData: Array<postDataType>
+    login: string | null
+    photos: string | photosType | null
+}
+let mapStateToProps = (state: appStateType): mapStateToPropsType => {
     return {
         postData: state.postReducerKey.postData,
         // newPostText: state.postReducerKey.newPostText,
@@ -39,7 +44,7 @@ let mapStateToProps = (state: appStateType) => {
 
 // let AuthRedirectComponent = withAuthRedirect(MyPosts);
 // const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);//compose рефакторит этот код на аналогичный ниже
-export default compose<React.ComponentType>(connect(mapStateToProps, {
+export default compose<React.ComponentType>(connect<mapStateToPropsType, {}, {}, appStateType>(mapStateToProps, {
     addPost,
     getPostThunkCreator
 }), withAuthRedirect)(MyPostsContainer)

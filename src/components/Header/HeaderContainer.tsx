@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { SetStateAction } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import Header from './Header';
-import { getStatusHeadThunkCreator, savePhoto, updatedStatusHeadThunkCreator } from "../../redux/header-reducer";
+import getStatusHeadThunkCreator from "../../redux/header-reducer";
+import { savePhoto } from "../../redux/header-reducer";
+import updatedStatusHeadThunkCreator from "../../redux/header-reducer";
 import { getProfileThunkCreator } from "../../redux/profile-reducer";
 import { appStateType } from '../../redux/redux-store';
-import { type } from 'os';
 import { photosType } from '../../types/types';
 
 
 type propsType = {
-    getProfileThunkCreator: (userId: number) => void
+    getProfileThunkCreator: (id: number) => void
     savePhoto: (arg0: File) => void
-    getStatusHeadThunkCreator: (userId: number) => void
-    photos: string | photosType | null
-    updatedStatusHeadThunkCreator: () => void
+    photos: photosType
+    getStatusHeadThunkCreator: (id: number) => SetStateAction<string | null>
+    updatedStatusHeadThunkCreator: (status: string) => void
 }
 type mapStateToPropsType = {
     login: string | null
@@ -22,16 +23,11 @@ type mapStateToPropsType = {
     id: number | null
     photos: string | photosType | null
 }
-type mapDispatchPropsType = {
 
-}
-type ownPropsType = {
 
-}
-
-class HeaderContainer extends React.Component<propsType> {
+class HeaderContainer extends React.Component<propsType & mapStateToPropsType> {
     componentDidMount() {
-        this.props.getProfileThunkCreator(this.props.id);
+        this.props.getProfileThunkCreator(this.props.id!);
     }
 
     render() {
@@ -39,7 +35,7 @@ class HeaderContainer extends React.Component<propsType> {
             getStatusHeadThunkCreator={this.props.getStatusHeadThunkCreator}
             savePhoto={this.props.savePhoto}
             photos={this.props.photos}
-            updatedStatusHeadThunkCreator={this.props.updatedStatusHeadThunkCreator} />
+            updatedStatusHeadThunkCreator={this.props.updatedStatusHeadThunkCreator} id={this.props.id} />
     };
 }
 
@@ -51,7 +47,7 @@ let mapStateToProps = (state: appStateType): mapStateToPropsType => ({
 });
 
 
-export default compose<React.ComponentType>(connect<mapStateToPropsType, mapDispatchPropsType, ownPropsType, appStateType>(mapStateToProps, {
+export default compose<React.ComponentType>(connect<mapStateToPropsType, {}, {}, appStateType>(mapStateToProps, {
     getStatusHeadThunkCreator,
     updatedStatusHeadThunkCreator,
     savePhoto,

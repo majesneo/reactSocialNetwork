@@ -8,19 +8,18 @@ import { type } from 'os';
 import { photosType } from '../../types/types';
 
 type mapStateToPropsType = {
-    photos: string | photosType | null
+    photos: string | photosType
     login: string | null
     isAuth: boolean | null
 }
 type mapDispatchToPropsType = {
     logoutThunkCreator: () => void
 }
-type ownPropsType = {
-}
+
 type propsType = {
     isAuth: boolean | null
     logoutThunkCreator: () => void
-    photos: string | photosType | null
+    photos: string | photosType
     login: string | null
 }
 
@@ -38,5 +37,5 @@ let mapStateToProps = (state: appStateType): mapStateToPropsType => ({
     login: state.authReducerKey.login,
     photos: state.headerReducerKey.photos
 });
-export default compose(connect<mapStateToPropsType, mapDispatchToPropsType, ownPropsType, appStateType>(mapStateToProps, { logoutThunkCreator }))(YourPageContainer)
+export default compose(connect<mapStateToPropsType, mapDispatchToPropsType, {}, appStateType>(mapStateToProps, { logoutThunkCreator }))(YourPageContainer)
 

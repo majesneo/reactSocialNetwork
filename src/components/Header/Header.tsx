@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { ReactNode, SetStateAction } from 'react';
 import './Header.css'
 import back from '../images/resources/timeline-1.jpg';
 import HeaderStatusWithHooks from "./HeaderStatusWithHooks";
 import { ChangeEvent } from 'react';
 import { photosType } from '../../types/types';
+import { type } from 'os';
 
 type propsType = {
     savePhoto: (files: File) => void
-    photos: string | photosType | null
-    login: string
+    photos: photosType
+    login: string | null
+    status: string | null
+    getStatusHeadThunkCreator: (id: number) => SetStateAction<string | null>
+    updatedStatusHeadThunkCreator: (status: string) => void
+    id: number | null
 }
 
-const Header: React.FC<propsType> = (props) => {
+
+const Header: React.FC<propsType & { children?: ReactNode; }> = (props) => {
     const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             props.savePhoto(e.target.files[0]);
@@ -44,7 +50,7 @@ const Header: React.FC<propsType> = (props) => {
                                     <h5>{props.login}</h5>
                                     <HeaderStatusWithHooks {...props} status={props.status}
                                         getStatusHeadThunkCreator={props.getStatusHeadThunkCreator}
-                                        updatedStatusThunkCreator={props.updatedStatusThunkCreator} />
+                                        updatedStatusHeadThunkCreator={props.updatedStatusHeadThunkCreator} id={props.id} />
                                 </li>
                                 <li>
                                     <a class="active" href="fav-page.html" title="" data-ripple="">Page</a>

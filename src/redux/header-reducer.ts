@@ -1,12 +1,10 @@
-import { Dispatch } from "redux";
-import { ThunkAction } from "redux-thunk";
 import { getStatusAPI, putSavePhotoAPI, resultCodesEnum, updatedStatusAPI } from "../api/api";
 import { photosType } from "../types/types";
-import { appStateType, inferActionsTypes } from "./redux-store";
+import { baseThunkType, inferActionsTypes } from "./redux-store";
 
 let initialState = {
     status: "" as string | null,
-    photos: "" as photosType | null | string
+    photos: "" as string | photosType
 };
 export type initialStateType = typeof initialState
 
@@ -35,39 +33,39 @@ const headerReducer = (state = initialState, action: actionsTypes): initialState
 }
 export default headerReducer;
 
-type actionsTypes = inferActionsTypes<typeof actions>
+type actionsTypes = inferActionsTypes<typeof headerActions>
 
-export const actions = {
-    setStatus: (status: string | null) => ({ type: 'headStatusWH/set_Status', status } as const),
-    setPhoto: (photos: photosType | null) => ({ type: 'headStatusWH/set_Photo', photos } as const),
-    getPhotoProfile: (photo: photosType | null) => ({ type: 'head/getPhotoProfile', photo } as const),
+export const headerActions = {
+    setStatus: (status: string) => ({ type: 'headStatusWH/set_Status', status } as const),
+    setPhoto: (photos: photosType) => ({ type: 'headStatusWH/set_Photo', photos } as const),
+    getPhotoProfile: (photo: photosType) => ({ type: 'head/getPhotoProfile', photo } as const),
     logoutSatus: (status: null) => ({ type: 'head/logout_status', status } as const),
-    logoutPhoto: (photo: photosType | null) => ({ type: 'head/logout_Photo', photo } as const)
+    logoutPhoto: (photo: photosType | string) => ({ type: 'head/logout_Photo', photo } as const)
 }
 
 // type getStateType = () => appStateType
-type dispatchType = Dispatch<actionsTypes>
-type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionsTypes>
+// type dispatchType = Dispatch<actionsTypes>
+// type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionsTypes>
 
-export const updatedStatusHeadThunkCreator = (status: string): thunkType => {
+export const updatedStatusHeadThunkCreator = (status: string): baseThunkType => {
     return async (dispatch) => {
         const response = await updatedStatusAPI(status)
         if (response.data.resultCode === resultCodesEnum.success) {
-            dispatch(actions.setStatus(status));
+            dispatch(headerActions.setStatus(status));
         }
     }
 }
 
-export const getStatusHeadThunkCreator = (userId: number): thunkType => {
+export const getStatusHeadThunkCreator = (userId: number): baseThunkType => {
     return async (dispatch) => {
         const response = await getStatusAPI(userId)
-        dispatch(actions.setStatus(response.data));
+        dispatch(headerActions.setStatus(response.data));
     }
 }
 
-export const savePhoto = (photo: File): thunkType => async (dispatch: any) => {
+export const savePhoto = (photo: File): baseThunkType => async (dispatch: any) => {
     const response = await putSavePhotoAPI(photo)
     if (response.data.resultCode === resultCodesEnum.success) {
-        dispatch(actions.setPhoto(response.data.data.photos));
+        dispatch(headerActions.setPhoto(response.data.data.photos));
     }
 }

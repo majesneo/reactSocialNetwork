@@ -1,7 +1,6 @@
 import { stopSubmit } from "redux-form";
 import { captchaAPI, delLogoutAPI, getGetAuthAPI, postLoginAPI, resultCodeForCaptcha, resultCodesEnum } from "../api/api";
-import logoutPhoto from "./header-reducer";
-import logoutSatus from "./header-reducer";
+import { headerActions } from "./header-reducer";
 import { baseThunkType, inferActionsTypes } from "./redux-store";
 
 let initialState = {
@@ -78,10 +77,8 @@ export const logoutThunkCreator = (): baseThunkType => {
         const data = await delLogoutAPI()
         if (data.resultCode === resultCodesEnum.success) {
             dispatch(actions.setAuthUserData(null, null, null, false));
-            //@ts-ignore
-            dispatch(logoutSatus(null));
-            //@ts-ignore
-            dispatch(logoutPhoto("https://www.kindpng.com/picc/m/495-4952535_create-digital-profile-icon-blue-user-profile-icon.png"));
+            dispatch(headerActions.logoutSatus(null));
+            dispatch(headerActions.logoutPhoto("https://www.kindpng.com/picc/m/495-4952535_create-digital-profile-icon-blue-user-profile-icon.png"));
         }
     }
 }

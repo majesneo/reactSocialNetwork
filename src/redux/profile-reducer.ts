@@ -1,12 +1,12 @@
 import { getProfileAPI, getStatusAPI } from "../api/api";
-import getPhotoProfile from "./header-reducer";
+import { headerActions } from "./header-reducer";
 import { profileType } from "../types/types";
 import { baseThunkType, inferActionsTypes } from "./redux-store";
 
 
 let initialState = {
     profile: null as profileType | null,
-    status: ""
+    status: "" as string | null
 }
 export type initialStateType = typeof initialState
 
@@ -41,11 +41,12 @@ export const actions = {
 // type getStateType = () => appStateType
 
 
-export const getProfileThunkCreator = (userId: number): baseThunkType => async (dispatch) => {
-    const data = await getProfileAPI(userId);
-    dispatch(actions.setPeoplesProfile(data));
-
-    dispatch(getPhotoProfile(data.photos));
+export const getProfileThunkCreator = (userId: number): baseThunkType => {
+    return async (dispatch) => {
+        const data = await getProfileAPI(userId);
+        dispatch(actions.setPeoplesProfile(data));
+        dispatch(headerActions.getPhotoProfile(data.photos));
+    }
 }
 export const getStatusThunkCreator = (userId: number): baseThunkType => async (dispatch) => {
     const response = await getStatusAPI(userId)

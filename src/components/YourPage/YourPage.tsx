@@ -16,7 +16,7 @@ import { photosType } from '../../types/types';
 type propsType = {
     isAuth: boolean | null
     logoutThunkCreator: () => void
-    photos: string | photosType | null
+    photos: any
     login: string | null
 }
 

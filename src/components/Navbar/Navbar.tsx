@@ -2,8 +2,9 @@ import React from 'react';
 import classes from './Navbar.module.css'
 import { NavLink } from 'react-router-dom';
 
-const Navbar = (props) => {
-    
+
+type propsType = {}
+const Navbar: React.FC<propsType> = (props) => {
     return (
         <div class="col-lg-3">
             <aside class="sidebar static">
@@ -58,8 +59,6 @@ const Navbar = (props) => {
                 </div>
             </aside>
         </div>
-
-
     );
 }
 export default Navbar;

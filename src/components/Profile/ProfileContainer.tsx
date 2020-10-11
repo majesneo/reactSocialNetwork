@@ -2,24 +2,17 @@ import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { match, RouteComponentProps } from 'react-router'
+import { RouteComponentProps } from 'react-router'
 import { getProfileThunkCreator, getStatusThunkCreator } from '../../redux/profile-reducer';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 import Preloader from "../Preloader/Preloader";
 import { appStateType } from '../../redux/redux-store';
-import { profileType } from '../../types/types';
 import { getIdAuthRed, getIsAuthAuthRed, getLoginAuthRed, getProfileProfileRed, getStatusHeaderRed } from '../../redux/profile-selector';
-import { type } from 'os';
+import { profileType } from '../../types/types';
 
 
-type mapStatePropsType = {
-    profile: profileType | null
-    login: string | null
-    statusHead: string
-    isAuth: boolean | null
-    id: number | null
-}
+
 type mapDispatchPropsType = {
     getStatusThunkCreator: (userId: number) => void
     getProfileThunkCreator: (userId: number) => void
@@ -28,36 +21,24 @@ type ownPropsType = {
     pageTitle: string
 }
 
-interface propsType extends RouteComponentProps<matchParams> {
-    getProfileThunkCreator: (userId: number) => void
-    getStatusThunkCreator: (userId: number) => void
-    statusHead: string | null
-    profile: profileType | null
-    statusProf: string | null
-    id: number | null
-}
-type stateType = {
-
-}
-type matchParams = {
-
-    userId: number
-
+type PathParamsType = {
+    userId: string
 }
 
+type propsType = mapDispatchPropsType & mapStatePropsType & RouteComponentProps<PathParamsType>
 
 
-class ProfileContainer extends React.Component<propsType & stateType> {
+class ProfileContainer extends React.Component<propsType> {
     refreshProfile() {
-        let userId = this.props.match.params.userId;
+        let userId: number | null = +this.props.match.params.userId;
         if (!userId) {
             userId = this.props.id;
             if (!userId) {
                 this.props.history.push('/Login');
             }
         }
-        this.props.getProfileThunkCreator(userId);
-        this.props.getStatusThunkCreator(userId);
+        this.props.getProfileThunkCreator(userId as number);
+        this.props.getStatusThunkCreator(userId as number);
     }
     componentDidMount() {
         this.refreshProfile();
@@ -72,11 +53,18 @@ class ProfileContainer extends React.Component<propsType & stateType> {
             return <Preloader />
         }
         return (
-            <Profile  {...this.props} statusProf={this.props.statusProf} profile={this.props.profile} />
+            <Profile  {...this.props} profile={this.props.profile} />
         );
     }
 }
-
+// statusProf={this.props.statusProf}
+type mapStatePropsType = {
+    profile: profileType | null
+    login: string | null
+    statusHead: string | null
+    isAuth: boolean | null
+    id: number | null
+}
 let mapStateToProps = (state: appStateType): mapStatePropsType => {
     return {
         profile: getProfileProfileRed(state),
@@ -86,6 +74,8 @@ let mapStateToProps = (state: appStateType): mapStatePropsType => {
         id: getIdAuthRed(state)
     }
 }
+// 
+
 
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
 // let WitUrlProfileContainer = withRouter(AuthRedirectComponent);
