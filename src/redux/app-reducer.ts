@@ -5,12 +5,13 @@ import { appStateType, inferActionsTypes } from "./redux-store";
 
 
 let initialState = {
-  initialized: false,
+  initialized: true,
 };
 
 export type initialStateType = typeof initialState;
 
 const appReducer = (state = initialState, action: actionsTypes): initialStateType => {
+  debugger
   switch (action.type) {
     case "app/set_Initialized": {
       return {
@@ -23,7 +24,7 @@ const appReducer = (state = initialState, action: actionsTypes): initialStateTyp
 };
 export default appReducer;
 
-type actionsTypes = inferActionsTypes<typeof actions>
+type actionsTypes = ReturnType<inferActionsTypes<typeof actions>>
 
 export const actions = {
   initializedSuccess: () => ({ type: "app/set_Initialized" } as const)

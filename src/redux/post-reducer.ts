@@ -28,7 +28,7 @@ const postReducer = (state = initialState, action: actionsTypes): initialStateTy
 }
 export default postReducer;
 
-type actionsTypes = inferActionsTypes<typeof actions>
+type actionsTypes = ReturnType<inferActionsTypes<typeof actions>>
 
 export const actions = {
     addPost: (value: string) => ({ type: 'add_Post', value } as const),

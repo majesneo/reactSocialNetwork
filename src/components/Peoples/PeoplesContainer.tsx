@@ -36,21 +36,9 @@ type mapDispatchPropsType = {
 type ownPropsType = {
     pageTitle: string
 }
-type propsType = {
-    pageTitle: string
-    currentPage: number
-    pageSize: number
-    isFetching: boolean
-    getUsersThunkCreator: (currentPage: number, pageSize: number) => void
-    getFollowDelThunkCreator: (id: number) => void
-    getFollowPostThunkCreator: (id: number) => void
-    followingInProgress: Array<number>
-    totalUsersCount: number
-    peoplesData: Array<peoplesDataType>
 
-}
 
-class PeoplesContainer extends React.Component<propsType> {
+class PeoplesContainer extends React.Component<mapStatePropsType & mapDispatchPropsType & ownPropsType> {
     componentDidMount() {
         let { currentPage, pageSize } = this.props
         this.props.getUsersThunkCreator(currentPage, pageSize);

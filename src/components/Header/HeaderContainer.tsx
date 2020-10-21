@@ -2,9 +2,9 @@ import React, { SetStateAction } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import Header from './Header';
-import getStatusHeadThunkCreator from "../../redux/header-reducer";
-import { savePhoto } from "../../redux/header-reducer";
-import updatedStatusHeadThunkCreator from "../../redux/header-reducer";
+
+import { getStatusHeadThunkCreator, savePhoto, updatedStatusHeadThunkCreator } from "../../redux/header-reducer";
+
 import { getProfileThunkCreator } from "../../redux/profile-reducer";
 import { appStateType } from '../../redux/redux-store';
 import { photosType } from '../../types/types';
@@ -23,7 +23,6 @@ type mapStateToPropsType = {
     id: number | null
     photos: string | photosType | null
 }
-
 
 class HeaderContainer extends React.Component<propsType & mapStateToPropsType> {
     componentDidMount() {

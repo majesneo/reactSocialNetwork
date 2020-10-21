@@ -32,7 +32,7 @@ export default authReducer;
 
 
 
-type actionsTypes = inferActionsTypes<typeof actions>
+type actionsTypes = ReturnType<inferActionsTypes<typeof actions>>
 
 export const actions = {
     setAuthUserData: (id: number | null, email: string | null, login: string | null, isAuth: boolean) => ({

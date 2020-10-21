@@ -68,7 +68,7 @@ const peoplesReducer = (state = initialState, action: actionsTypes): initialStat
 }
 export default peoplesReducer;
 
-type actionsTypes = inferActionsTypes<typeof actions>
+type actionsTypes = ReturnType<inferActionsTypes<typeof actions>>
 
 export const actions = {
     addFriend: (peopleId: number) => ({ type: 'add_Friend', peopleId } as const),

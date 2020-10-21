@@ -2,18 +2,19 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import MyPosts from './MyPosts';
-import addPost from "../../redux/post-reducer";
-import getPostThunkCreator from "../../redux/post-reducer";
 import React from 'react';
 import { appStateType } from '../../redux/redux-store';
 import { photosType, postDataType } from '../../types/types';
+import { actions, getPostThunkCreator } from '../../redux/post-reducer';
+
+const { addPost } = actions;
 
 type propsType = {
     getPostThunkCreator: () => void
     photos: photosType
     postData: Array<postDataType>
     login: string
-    addPost: () => void
+    addPost: (value: string) => void
 }
 
 class MyPostsContainer extends React.Component<propsType> {
@@ -27,7 +28,9 @@ class MyPostsContainer extends React.Component<propsType> {
         );
     }
 }
+type mapDispatchToPropsType = {
 
+}
 type mapStateToPropsType = {
     postData: Array<postDataType>
     login: string | null
@@ -42,9 +45,13 @@ let mapStateToProps = (state: appStateType): mapStateToPropsType => {
     }
 }
 
+type ownPropsType = {
+
+}
+
 // let AuthRedirectComponent = withAuthRedirect(MyPosts);
 // const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);//compose рефакторит этот код на аналогичный ниже
-export default compose<React.ComponentType>(connect<mapStateToPropsType, {}, {}, appStateType>(mapStateToProps, {
+export default compose<React.ComponentType>(connect<mapStateToPropsType, mapDispatchToPropsType, ownPropsType, appStateType>(mapStateToProps, {
     addPost,
     getPostThunkCreator
 }), withAuthRedirect)(MyPostsContainer)

@@ -1,9 +1,11 @@
 import preloader from './../../assets/Spinner-1s-200px.svg'
 import React from 'react';
 
-let Preloader = (props) => {
+type propsType = {}
+
+let Preloader: React.FC<propsType> = (props) => {
     return (
-        <img src={preloader}/>
+        <img src={preloader} />
     );
 }
 export default Preloader;

@@ -10,19 +10,19 @@ export type initialStateType = typeof initialState
 
 const headerReducer = (state = initialState, action: actionsTypes): initialStateType => {
     switch (action.type) {
-        case 'head/logout_status':
-        case 'headStatusWH/set_Status': {
+        case "head/logout_status":
+        case "headStatusWH/set_Status": {
             return {
                 ...state, status: action.status
             }
         }
-        case 'headStatusWH/set_Photo': {
+        case "headStatusWH/set_Photo": {
             return {
                 ...state, photos: action.photos
             }
         }
-        case 'head/logout_Photo':
-        case 'head/getPhotoProfile': {
+        case "head/logout_Photo":
+        case "head/getPhotoProfile": {
             return {
                 ...state, photos: action.photo
             }
@@ -33,14 +33,14 @@ const headerReducer = (state = initialState, action: actionsTypes): initialState
 }
 export default headerReducer;
 
-type actionsTypes = inferActionsTypes<typeof headerActions>
+type actionsTypes = ReturnType<inferActionsTypes<typeof headerActions>>
 
 export const headerActions = {
-    setStatus: (status: string) => ({ type: 'headStatusWH/set_Status', status } as const),
-    setPhoto: (photos: photosType) => ({ type: 'headStatusWH/set_Photo', photos } as const),
-    getPhotoProfile: (photo: photosType) => ({ type: 'head/getPhotoProfile', photo } as const),
-    logoutSatus: (status: null) => ({ type: 'head/logout_status', status } as const),
-    logoutPhoto: (photo: photosType | string) => ({ type: 'head/logout_Photo', photo } as const)
+    setStatus: (status: string) => ({ type: "headStatusWH/set_Status", status } as const),
+    setPhoto: (photos: photosType) => ({ type: "headStatusWH/set_Photo", photos } as const),
+    getPhotoProfile: (photo: photosType) => ({ type: "head/getPhotoProfile", photo } as const),
+    logoutSatus: (status: null) => ({ type: "head/logout_status", status } as const),
+    logoutPhoto: (photo: photosType | string) => ({ type: "head/logout_Photo", photo } as const)
 }
 
 // type getStateType = () => appStateType

@@ -30,7 +30,7 @@ const pofileReducer = (state = initialState, action: actionsTypes): initialState
 export default pofileReducer;
 
 
-type actionsTypes = inferActionsTypes<typeof actions>
+type actionsTypes = ReturnType<inferActionsTypes<typeof actions>>
 
 export const actions = {
     setPeoplesProfile: (profile: profileType) => ({ type: 'set_PeoplesProfile', profile } as const),
