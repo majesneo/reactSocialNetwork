@@ -4,7 +4,7 @@ import profilePhoto from '../images/profile-icon.png'
 
 type propsType = {
     profile: profileType
-
+    statusProf: string | null
 }
 
 const Profile: React.FC<propsType> = (props) => {
@@ -18,7 +18,7 @@ const Profile: React.FC<propsType> = (props) => {
                         </figure>
                         <div class="friend-name">
                             <ins><a href="#" title="">{props.profile.fullName}</a></ins>
-                            {/* <span>{props.statusProf}</span> */}
+                            <span>{props.statusProf}</span>
                         </div>
                         <div class="post-meta">
                             {/* <div>{props.profile.aboutMe}</div> */}

@@ -17,7 +17,7 @@ export enum resultCodeForCaptcha {
     captchaIsRequired = 10
 }
 
-type responseType<D = {}, RC = resultCodesEnum> = {
+export type responseType<D = {}, RC = resultCodesEnum> = {
     data: D
     messages: Array<string>
     resultCode: RC
@@ -29,8 +29,8 @@ type getUsersAPIType = {
     totalCount: number
     error: string | null
 }
-export const getUsersAPI = (currentPage = 1, pageSize = 10) => {
-    return instance.get<getUsersAPIType>(`users?page=${currentPage}&count=${pageSize}`).then(response => {
+export const getUsersAPI = (currentPage = 1, pageSize = 10, term: string = "", friend: null | boolean = null) => {
+    return instance.get<getUsersAPIType>(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? '' : `&friend=${friend}`)).then(response => {
         return response.data
     });
 }

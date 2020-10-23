@@ -28,11 +28,11 @@ class App extends React.Component<propsType & dispatchPropsType> {
     // catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
     //     // alert("some error"); 
     // }
-    // componentDidMount() {
-    //     this.props.initializedThunkCreator();
-    //     window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
-    //     // handle error here, for example log
-    // }
+    componentDidMount() {
+        this.props.initializedThunkCreator();
+        // window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+        // handle error here, for example log
+    }
     // componentWillUnmount() {
     //     window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors); //отписка от прослушивание события очистка мусора 
     // }
@@ -50,7 +50,7 @@ class App extends React.Component<propsType & dispatchPropsType> {
                         <Route path="/Dialogs" render={() => <DialogsContainer />} />
                         <Route path="/MyPosts" render={() => <MyPostsContainer />} />
                         <Route path="/Profile/:userId?" render={() => <ProfileContainer />} />
-                        <Route path="/Peoples" render={() => <PeoplesContainer pageTitle={'Страница'} />} />
+                        <Route path="/Peoples" render={() => <PeoplesContainer />} />
                         <Route path="/Logout" render={() => <Logout />} />
                         <Route path="/Profile/Logout" render={() => <Logout />} />
                         <Route path="/Login" render={() => <Login />} />

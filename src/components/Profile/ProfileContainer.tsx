@@ -10,6 +10,7 @@ import Preloader from "../Preloader/Preloader";
 import { appStateType } from '../../redux/redux-store';
 import { getIdAuthRed, getIsAuthAuthRed, getLoginAuthRed, getProfileProfileRed, getStatusHeaderRed } from '../../redux/profile-selector';
 import { profileType } from '../../types/types';
+import { getStatusProf } from '../../redux/peoples-selector';
 
 
 
@@ -30,6 +31,7 @@ type propsType = mapDispatchPropsType & mapStatePropsType & RouteComponentProps<
 
 class ProfileContainer extends React.Component<propsType> {
     refreshProfile() {
+        debugger
         let userId: number | null = +this.props.match.params.userId;
         if (!userId) {
             userId = this.props.id;
@@ -64,6 +66,7 @@ type mapStatePropsType = {
     statusHead: string | null
     isAuth: boolean | null
     id: number | null
+    statusProf: string | null
 }
 let mapStateToProps = (state: appStateType): mapStatePropsType => {
     return {
@@ -71,7 +74,8 @@ let mapStateToProps = (state: appStateType): mapStatePropsType => {
         login: getLoginAuthRed(state),
         statusHead: getStatusHeaderRed(state),
         isAuth: getIsAuthAuthRed(state),
-        id: getIdAuthRed(state)
+        id: getIdAuthRed(state),
+        statusProf: getStatusProf(state)
     }
 }
 // 

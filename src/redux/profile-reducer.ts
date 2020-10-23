@@ -6,12 +6,13 @@ import { baseThunkType, inferActionsTypes } from "./redux-store";
 
 let initialState = {
     profile: null as profileType | null,
-    status: "" as string | null
+    statusProf: "" as string | null
 }
 export type initialStateType = typeof initialState
 
 
 const pofileReducer = (state = initialState, action: actionsTypes): initialStateType => {
+
     switch (action.type) {
         case 'set_PeoplesProfile': {
             return {
@@ -20,7 +21,7 @@ const pofileReducer = (state = initialState, action: actionsTypes): initialState
         }
         case 'set_Status': {
             return {
-                ...state, status: action.status
+                ...state, statusProf: action.statusProf
             }
         }
         default:
@@ -34,7 +35,7 @@ type actionsTypes = ReturnType<inferActionsTypes<typeof actions>>
 
 export const actions = {
     setPeoplesProfile: (profile: profileType) => ({ type: 'set_PeoplesProfile', profile } as const),
-    setStatusProf: (status: string) => ({ type: 'set_Status', status } as const)
+    setStatusProf: (statusProf: string | null) => ({ type: 'set_Status', statusProf } as const)
 }
 
 
@@ -50,8 +51,9 @@ export const getProfileThunkCreator = (userId: number): baseThunkType => {
 }
 export const getStatusThunkCreator = (userId: number): baseThunkType => async (dispatch) => {
     const response = await getStatusAPI(userId)
-    dispatch(actions.setStatusProf(response.data));
 
+    dispatch(headerActions.setStatus(response.data));
+    dispatch(actions.setStatusProf(response.data));
 }
 
 

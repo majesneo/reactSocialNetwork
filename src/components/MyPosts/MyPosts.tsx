@@ -23,14 +23,13 @@ class MyPosts extends React.Component<propsType> {
     addPost = (value: logonFormValuesType) => {
         this.props.addPost(value.newPostText);
     }
-
     render() {
         return (
             <div class="col-lg-6">
                 <div class="central-meta">
                     <div class="new-postbox">
                         <figure>
-                            <img src={this.props.photos.small} alt="" />
+                            <img src={this.props.photos.small!} alt="" />
                         </figure>
                         <div class="newpst-input">
                             <div class="wrapper">

@@ -1,7 +1,9 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import People from './People/People';
 import Paginator from "../common/Paginator/Paginator";
 import { peoplesDataType } from '../../types/types';
+import { PeoplesSearchForm } from './PeoplesSearchForm';
+import { filterType } from '../../redux/peoples-reducer';
 
 type propsType = {
     totalUsersCount: number
@@ -10,7 +12,7 @@ type propsType = {
     onPageChanged: (p: number) => void
     peoplesData: Array<peoplesDataType>
     followingInProgress: Array<number>
-
+    onFilterChanged: (filter: filterType) => void
     // addPeople: () => void
     getFollowDelThunkCreator: (id: number) => void
     getFollowPostThunkCreator: (id: number) => void
@@ -36,6 +38,7 @@ let Peoples: React.FC<propsType> = ({ totalUsersCount, pageSize, currentPage, on
                     <ul className="nav nav-tabs">
                         <li className="nav-item"><a className="active" data-toggle="tab">Peoples</a>
                             <span>{peoplesList().length}</span></li>
+                        <PeoplesSearchForm onFilterChanged={props.onFilterChanged} />
                         <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage}
                             onPageChanged={onPageChanged} />
                     </ul>

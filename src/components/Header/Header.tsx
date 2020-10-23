@@ -32,7 +32,7 @@ const Header: React.FC<propsType & { children?: ReactNode; }> = (props) => {
                     <div class="col-lg-2 col-sm-3">
                         <div class="user-avatar">
                             <figure>
-                                <img src={props.photos.large} alt="" />
+                                <img src={props.photos.large!} alt="" />
                                 <form class="edit-phto">
                                     <i class="fa fa-camera-retro" />
                                     <label class="fileContainer">

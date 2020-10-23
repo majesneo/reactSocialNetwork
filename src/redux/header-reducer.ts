@@ -58,6 +58,7 @@ export const updatedStatusHeadThunkCreator = (status: string): baseThunkType => 
 
 export const getStatusHeadThunkCreator = (userId: number): baseThunkType => {
     return async (dispatch) => {
+        debugger
         const response = await getStatusAPI(userId)
         dispatch(headerActions.setStatus(response.data));
     }
