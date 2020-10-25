@@ -9,8 +9,13 @@ import { getFilter } from '../../redux/profile-selector';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import * as queryString from "querystring";
+import { type } from 'os';
 
-
+type queryType = {
+    term?: string;
+    page?: string;
+    friend?: string
+}
 
 export const Peoples: React.FC = (props) => {
     let peoplesList = () => {
@@ -32,7 +37,7 @@ export const Peoples: React.FC = (props) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        const parsed = queryString.parse(history.location.search.substr(1)) as { term: string; page: string; friend: string }
+        const parsed = queryString.parse(history.location.search.substr(1)) as queryType
         let actualPage = currentPage
         let actualFilter = filter
         if (parsed.page) actualPage = Number(parsed.page)
@@ -51,9 +56,13 @@ export const Peoples: React.FC = (props) => {
     const history = useHistory();
 
     useEffect(() => {
+        const query: queryType = {}
+        if (filter.term) query.term = filter.term
+        if (filter.friend !== null) query.friend = String(filter.friend)
+        if (currentPage !== 1) query.page = String(currentPage)
         history.push({
             pathname: "/Peoples",
-            search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
+            search: queryString.stringify(query)
         })
     }, [currentPage, filter])
 
