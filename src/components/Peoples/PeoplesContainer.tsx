@@ -5,11 +5,8 @@ import { Peoples } from './Peoples';
 import { getIsFetching } from '../../redux/peoples-selector';
 
 
-type PeoplesContainerType = {
 
-}
-
-export const PeoplesContainer: React.FC<PeoplesContainerType> = (props) => {
+export const PeoplesContainer: React.FC<{}> = (props) => {
 
     const isFetching = useSelector(getIsFetching)
 
