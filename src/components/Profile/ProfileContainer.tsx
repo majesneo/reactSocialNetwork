@@ -31,7 +31,7 @@ type propsType = mapDispatchPropsType & mapStatePropsType & RouteComponentProps<
 
 class ProfileContainer extends React.Component<propsType> {
     refreshProfile() {
-        debugger
+
         let userId: number | null = +this.props.match.params.userId;
         if (!userId) {
             userId = this.props.id;

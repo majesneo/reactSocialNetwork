@@ -4,17 +4,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navbar/Navbar';
 import MyPostsContainer from './components/MyPosts/MyPostsContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import YourPageContainer from './components/YourPage/YourPageContainer';
 import { Route, withRouter } from 'react-router-dom';
-import PeoplesContainer from './components/Peoples/PeoplesContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Logout from './components/Logout/Logout';
-import Login from './components/Login/Login';
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { initializedThunkCreator } from "./redux/app-reducer";
 import Preloader from "./components/Preloader/Preloader";
 import { appStateType } from './redux/redux-store';
+import { PeoplesContainer } from './components/Peoples/PeoplesContainer';
+import { Login } from './components/Login/Login';
+import { YourPageContainer } from './components/YourPage/YourPageContainer';
 
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
@@ -51,9 +51,9 @@ class App extends React.Component<propsType & dispatchPropsType> {
                         <Route path="/MyPosts" render={() => <MyPostsContainer />} />
                         <Route path="/Profile/:userId?" render={() => <ProfileContainer />} />
                         <Route path="/Peoples" render={() => <PeoplesContainer />} />
-                        <Route path="/Logout" render={() => <Logout />} />
                         <Route path="/Profile/Logout" render={() => <Logout />} />
                         <Route path="/Login" render={() => <Login />} />
+                        <Route path="/Logout" render={() => <Logout />} />
                         <YourPageContainer />
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Userlist1 from '../images/resources/userlist-1.jpg';
 import Userlist2 from '../images/resources/userlist-2.jpg';
 import Userlist3 from '../images/resources/userlist-3.jpg';
@@ -8,19 +8,26 @@ import Userlist5 from '../images/resources/userlist-5.jpg';
 import Userlist6 from '../images/resources/userlist-6.jpg';
 import Userlist7 from '../images/resources/userlist-7.jpg';
 import Friends from '../Friends/Friends';
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import s from "./YourPage.module.css";
-import { photosType } from '../../types/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { appStateType } from '../../redux/redux-store';
 
 
-type propsType = {
-    isAuth: boolean | null
-    logoutThunkCreator: () => void
-    photos: any
-    login: string | null
-}
+export const YourPage: React.FC = (props) => {
+    // if (!props.isAuth) {
+    //     return <Redirect to={"/Login"} />
+    // }
 
-const YourPage: React.FC<propsType> = (props) => {
+    const photos = useSelector((state: appStateType) => state.headerReducerKey.photos)
+    const isAuth = useSelector((state: appStateType) => state.authReducerKey.isAuth)
+    const login = useSelector((state: appStateType) => state.authReducerKey.login)
+
+    const dispatch = useDispatch()
+    const logoutThunkCreator = () => {
+        dispatch(logoutThunkCreator());
+    }
+
 
     return (
         <div class="col-lg-3">
@@ -28,16 +35,16 @@ const YourPage: React.FC<propsType> = (props) => {
                 <div class="widget">
                     <div class="flex">
                         <h4 class="widget-title">Your page</h4>
-                        {props.isAuth
-                            ? <button onClick={props.logoutThunkCreator} className={s.logout} >Logout</button>
+                        {isAuth
+                            ? <button onClick={logoutThunkCreator} className={s.logout} >Logout</button>
                             : <NavLink to={'/Login'} className={s.login} />}
                     </div>
                     <div class="your-page">
                         <figure>
-                            <img src={props.photos.small} alt="" />
+                            <img src={photos.small} alt="" />
                         </figure>
                         <div class="page-meta">
-                            <a href="#" title="" class="underline">{props.login}</a>
+                            <a href="#" title="" class="underline">{login}</a>
                             <span><i class="fa fa-comment-o"></i><a href="insight.html" title="">Messages <em>9</em></a></span>
                             <span><i class="fa  fa-bell-o" /><a href="insight.html" title="">Notifications <em>2</em></a></span>
                         </div>
@@ -110,4 +117,3 @@ const YourPage: React.FC<propsType> = (props) => {
         </div>
     );
 }
-export default YourPage;

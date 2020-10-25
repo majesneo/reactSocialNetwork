@@ -4,7 +4,7 @@ import { baseThunkType, inferActionsTypes } from "./redux-store";
 
 let initialState = {
     status: "" as string | null,
-    photos: "" as string | photosType
+    photos: "" as string | photosType | any
 };
 export type initialStateType = typeof initialState
 

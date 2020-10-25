@@ -9,8 +9,8 @@ export type contactsType = {
     mainLink: string
 }
 export type photosType = {
-    small: string | undefined | null
-    large: string | undefined | null
+    small: string | undefined
+    large: string | undefined
 }
 export type profileType = {
     userId: number

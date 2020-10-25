@@ -1,35 +1,43 @@
 import React from 'react';
 import People from './People/People';
 import Paginator from "../common/Paginator/Paginator";
-import { peoplesDataType } from '../../types/types';
 import { PeoplesSearchForm } from './PeoplesSearchForm';
-import { filterType } from '../../redux/peoples-reducer';
+import { filterType, getUsersThunkCreator } from '../../redux/peoples-reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentPage, getFollowingInProgress, getPageSize, getPeoples, getTotalUsersCount } from '../../redux/peoples-selector';
+import { getFilter } from '../../redux/profile-selector';
+import { useEffect } from 'react';
 
-type propsType = {
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    onPageChanged: (p: number) => void
-    peoplesData: Array<peoplesDataType>
-    followingInProgress: Array<number>
-    onFilterChanged: (filter: filterType) => void
-    // addPeople: () => void
-    getFollowDelThunkCreator: (id: number) => void
-    getFollowPostThunkCreator: (id: number) => void
-}
 
-let Peoples: React.FC<propsType> = ({ totalUsersCount, pageSize, currentPage, onPageChanged, ...props }) => {
+export const Peoples: React.FC = (props) => {
     let peoplesList = () => {
-        return props.peoplesData.map(peoplesData => <People
-            followingInProgress={props.followingInProgress}
+        return peoplesData.map(peoplesData => <People
+            followingInProgress={followingInProgress}
             key={peoplesData.id} followed={peoplesData.followed}
             photos={peoplesData.photos}
             name={peoplesData.name}
             id={peoplesData.id}
-            getFollowDelThunkCreator={props.getFollowDelThunkCreator}
-            getFollowPostThunkCreator={props.getFollowPostThunkCreator}
         />)
     }
+
+    const followingInProgress = useSelector(getFollowingInProgress)
+    const peoplesData = useSelector(getPeoples)
+    const totalUsersCount = useSelector(getTotalUsersCount)
+    const currentPage = useSelector(getCurrentPage)
+    const pageSize = useSelector(getPageSize)
+    const filter = useSelector(getFilter)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getUsersThunkCreator(currentPage, pageSize, filter));
+    }, [])
+    const onPageChanged = (p: number) => {
+        dispatch(getUsersThunkCreator(p, pageSize, filter));
+    }
+    const onFilterChanged = (filter: filterType) => {
+        dispatch(getUsersThunkCreator(1, pageSize, filter))
+    }
+
 
     return (
         <div className="col-lg-6">
@@ -38,7 +46,7 @@ let Peoples: React.FC<propsType> = ({ totalUsersCount, pageSize, currentPage, on
                     <ul className="nav nav-tabs">
                         <li className="nav-item"><a className="active" data-toggle="tab">Peoples</a>
                             <span>{peoplesList().length}</span></li>
-                        <PeoplesSearchForm onFilterChanged={props.onFilterChanged} />
+                        <PeoplesSearchForm onFilterChanged={onFilterChanged} />
                         <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage}
                             onPageChanged={onPageChanged} />
                     </ul>
@@ -59,4 +67,3 @@ let Peoples: React.FC<propsType> = ({ totalUsersCount, pageSize, currentPage, on
         </div>
     );
 }
-export default Peoples;

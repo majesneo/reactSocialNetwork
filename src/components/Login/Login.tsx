@@ -1,16 +1,12 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { loginThunkCreator } from '../../redux/auth-reducer';
 import { maxLengthCreator, requireField } from '../../utils/validators/validators';
 import { Input } from '../common/FormsControls/FormsControls';
 import s from '../common/FormsControls/FormsControls.module.css';
-import { getProfileThunkCreator } from "../../redux/profile-reducer";
-import { getStatusHeadThunkCreator } from "../../redux/header-reducer";
 import { appStateType } from '../../redux/redux-store';
-import { compose } from 'redux';
-
 
 
 
@@ -27,7 +23,6 @@ type logonFormValuesType = {
     password: string
     rememberMe: boolean
     captcha: string
-
 }
 type logonFormValuesKeys = keyof logonFormValuesType
 const LoginForm: React.FC<InjectedFormProps<logonFormValuesType, loginOwnPropsType> & loginOwnPropsType> = ({ handleSubmit, error, captcha }) => {
@@ -70,47 +65,18 @@ const LoginForm: React.FC<InjectedFormProps<logonFormValuesType, loginOwnPropsTy
 const LoginReduxForm = reduxForm<logonFormValuesType, loginOwnPropsType>({ form: 'Login' })(LoginForm);
 
 
-type mapStatePropsType = {
-    isAuth: boolean | null
-    id: number | null
-    captcha: string | null
 
-}
+export const Login: React.FC = () => {
+    const captcha = useSelector((state: appStateType) => state.authReducerKey.captcha)
+    const isAuth = useSelector((state: appStateType) => state.authReducerKey.isAuth)
+    const dispatch = useDispatch()
 
-type mapDispatchPropsType = {
-
-}
-type propsType = {
-    loginThunkCreator: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-    getProfileThunkCreator: (id: number | null) => void
-    getStatusHeadThunkCreator: (id: number | null) => void
-}
-type ownPropsType = {
-
-}
-
-
-class Login extends PureComponent<propsType & mapStatePropsType> {
-    componentDidUpdate() {
-        this.props.getProfileThunkCreator(this.props.id);
-        this.props.getStatusHeadThunkCreator(this.props.id);
+    const onSubmit = (formData: logonFormValuesType) => {
+        dispatch(loginThunkCreator(formData.email, formData.password, formData.rememberMe, formData.captcha))
     }
-    render() {
-        const onSubmit = (formData: logonFormValuesType) => {
-            this.props.loginThunkCreator(formData.email, formData.password, formData.rememberMe, formData.captcha);
-        }
-        if (this.props.isAuth) {
-            return <Redirect to={"/MyPosts"} />
-        } else {
-            return <LoginReduxForm captcha={this.props.captcha} onSubmit={onSubmit} />
-        }
+    if (isAuth) {
+        return <Redirect to={"/Profile"} />
+    } else {
+        return <LoginReduxForm captcha={captcha} onSubmit={onSubmit} />
     }
 }
-
-let mapStateToProps = (state: appStateType): mapStatePropsType => ({
-    isAuth: state.authReducerKey.isAuth,
-    id: state.authReducerKey.id,
-    captcha: state.authReducerKey.captcha
-})
-export default compose<React.ComponentType>(connect<mapStatePropsType, mapDispatchPropsType, ownPropsType, appStateType>(mapStateToProps,
-    { loginThunkCreator, getStatusHeadThunkCreator, getProfileThunkCreator }))(Login);
