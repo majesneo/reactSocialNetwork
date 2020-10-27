@@ -10,16 +10,17 @@ let initialState = {
 export type initialStateType = typeof initialState;
 
 const postReducer = (state = initialState, action: actionsTypes): initialStateType => {
+
     switch (action.type) {
         case 'add_Post': {
             return {
                 ...state,
-                postData: [...state.postData, { id: 3, message: action.value, like: 4 }],
+                postData: [...state.postData,],
             };
         }
         case 'set_Posts': {
             return {
-                ...state, postData: [action.posts]
+                ...state, postData: state.postData.concat(action.posts)
             }
         }
         default:
@@ -40,7 +41,9 @@ export const actions = {
 type dispatchType = Dispatch<actionsTypes>
 type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionsTypes>
 
-export const getPostThunkCreator = (): thunkType => async (dispatch) => {
-    const post = await getPostAPI()
-    dispatch(actions.setPosts(post))
+export const getPostThunkCreator = (): thunkType => {
+    return async (dispatch) => {
+        const post = await getPostAPI()
+        dispatch(actions.setPosts(post))
+    }
 }

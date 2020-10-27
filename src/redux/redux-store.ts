@@ -8,6 +8,7 @@ import thunkMiddleware, { ThunkAction } from "redux-thunk";
 import headerReducer from './header-reducer';
 import { reducer as formReducer } from 'redux-form';
 import appReducer from "./app-reducer";
+import friendReducer from './friend-reducer';
 
 
 type rootReducerType = typeof rootReducer;
@@ -22,6 +23,7 @@ let rootReducer = combineReducers({
     authReducerKey: authReducer,
     headerReducerKey: headerReducer,
     appReducerKey: appReducer,
+    friendReducerKey: friendReducer,
     form: formReducer
 });
 

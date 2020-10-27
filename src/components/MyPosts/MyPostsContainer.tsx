@@ -15,13 +15,14 @@ type propsType = {
     postData: Array<postDataType>
     login: string
     addPost: (value: string) => void
+
 }
 
 class MyPostsContainer extends React.Component<propsType> {
+
     componentDidMount() {
         this.props.getPostThunkCreator();
     }
-
     render() {
         return (
             <MyPosts {...this.props} />
@@ -53,5 +54,5 @@ type ownPropsType = {
 // const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);//compose рефакторит этот код на аналогичный ниже
 export default compose<React.ComponentType>(connect<mapStateToPropsType, mapDispatchToPropsType, ownPropsType, appStateType>(mapStateToProps, {
     addPost,
-    getPostThunkCreator
+    getPostThunkCreator,
 }), withAuthRedirect)(MyPostsContainer)

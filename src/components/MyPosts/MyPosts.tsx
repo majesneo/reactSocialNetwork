@@ -1,10 +1,11 @@
 import React from 'react';
 import './MyPosts.css';
 import Post from './Post/Post';
-import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import { Field, InjectedFormProps, reduxForm, reset } from 'redux-form';
 import { requireField, maxLengthCreator } from '../../utils/validators/validators';
 import { Textarea } from '../common/FormsControls/FormsControls';
 import { photosType, postDataType } from '../../types/types';
+import { useDispatch } from 'react-redux';
 
 type propsType = {
     postData: Array<postDataType>
@@ -14,14 +15,16 @@ type propsType = {
 }
 
 class MyPosts extends React.Component<propsType> {
+
     postList = () => {
         return [...this.props.postData].reverse().map(postData => <Post photos={this.props.photos} key={postData.id}
             login={this.props.login} id={postData.id}
             message={postData.message}
             like={postData.like} />)
     }
-    addPost = (value: logonFormValuesType) => {
+    addPost = (value: logonFormValuesType,) => {
         this.props.addPost(value.newPostText);
+
     }
     render() {
         return (
@@ -80,6 +83,8 @@ type logonFormValuesType = {
 
 const maxLengthCreator10 = maxLengthCreator(10);
 const AddTextForm: React.FC<InjectedFormProps<logonFormValuesType, {}> & {}> = (props) => {
+    const dispatch = useDispatch()
+    dispatch(reset('AddTextForm'))
     return (
         <form onSubmit={props.handleSubmit}>
             <Field style={{ display: "block", height: "100%", width: "100%", paddingBottom: "35px" }}

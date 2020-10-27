@@ -9,7 +9,7 @@ import { getFilter } from '../../redux/profile-selector';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import * as queryString from "querystring";
-import { type } from 'os';
+
 
 type queryType = {
     term?: string;
@@ -41,7 +41,6 @@ export const Peoples: React.FC = (props) => {
         let actualPage = currentPage
         let actualFilter = filter
         if (parsed.page) actualPage = Number(parsed.page)
-        debugger
         if (parsed.term) actualFilter = { ...actualFilter, term: parsed.term as string }
         if (parsed.friend) actualFilter = { ...actualFilter, friend: parsed.friend === "null" ? null : parsed.friend === "true" ? true : false }
         dispatch(getUsersThunkCreator(actualPage, pageSize, actualFilter));

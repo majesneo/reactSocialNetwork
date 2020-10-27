@@ -119,3 +119,10 @@ export const captchaAPI = () => {
         return response
     });
 }
+
+
+export const getFrendsAPI = () => {
+    return instance.get(`users?friend=true`).then(response => {
+        return response
+    });
+}

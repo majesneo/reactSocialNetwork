@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from 'react';
+import React from 'react';
 import Userlist1 from '../images/resources/userlist-1.jpg';
 import Userlist2 from '../images/resources/userlist-2.jpg';
 import Userlist3 from '../images/resources/userlist-3.jpg';
@@ -7,11 +7,11 @@ import Userlist4 from '../images/resources/userlist-4.jpg';
 import Userlist5 from '../images/resources/userlist-5.jpg';
 import Userlist6 from '../images/resources/userlist-6.jpg';
 import Userlist7 from '../images/resources/userlist-7.jpg';
-import Friends from '../Friends/Friends';
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import s from "./YourPage.module.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { appStateType } from '../../redux/redux-store';
+import { FriendsContainer } from './../Friends/FriendsContainer';
 
 
 export const YourPage: React.FC = (props) => {
@@ -112,7 +112,7 @@ export const YourPage: React.FC = (props) => {
                         </div>
                     </div>
                 </div>
-                <Friends />
+                <FriendsContainer />
             </aside>
         </div>
     );

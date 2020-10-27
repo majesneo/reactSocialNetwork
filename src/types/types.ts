@@ -42,6 +42,13 @@ export type messagesDataYou = {
 }
 export type postDataType = {
     id: number
-    message: string
     like: number
+    message: string
+}
+export type friendsDataType = {
+    id: number
+    name: string
+    status: string
+    photos: photosType
+    followed: boolean
 }

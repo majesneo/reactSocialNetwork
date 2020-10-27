@@ -7,6 +7,8 @@ import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { Textarea } from '../../common/FormsControls/FormsControls';
 import { maxLengthCreator, requireField } from '../../../utils/validators/validators';
 import { messagesDataMe, messagesDataYou } from '../../../types/types';
+import { useDispatch } from 'react-redux';
+import { reset } from 'redux-form';
 
 type propsType = {
     addMessage: (newMessageText: string) => void
@@ -15,8 +17,10 @@ type propsType = {
 
 }
 export const Messages: React.FC<propsType> = (props) => {
+    let dispatch = useDispatch();
     let addNewMessage = (value: { newMessageText: string }) => {
         props.addMessage(value.newMessageText);
+        dispatch(reset('AddMessageForm'))
     }
     let messageYouList = () => {
         return [...props.messagesDataYou].map(messagesDataYou => <Message key={messagesDataYou.id}
@@ -58,6 +62,11 @@ type loginOwnPropsType = {
 // type newMessagesValuesKeysType = Extract<keyof newMessagesValuesType, string>
 const maxLengthCreator20 = maxLengthCreator(20);
 const AddMessageForm: React.FC<InjectedFormProps<newMessagesValuesType, loginOwnPropsType> & loginOwnPropsType> = (props) => {
+
+
+
+
+
     return (
         <form onSubmit={props.handleSubmit}>
             <Field placeholder={"Enter your message"} component={Textarea} name={"newMessageText"}
