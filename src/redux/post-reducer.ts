@@ -1,8 +1,8 @@
-import { Dispatch } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { getPostAPI } from "../api/api";
-import { postDataType } from "../types/types";
-import { appStateType, inferActionsTypes } from "./redux-store";
+import {Dispatch} from "redux";
+import {ThunkAction} from "redux-thunk";
+import {getPostAPI, setPostAPI} from "../api/api";
+import {postDataType} from "../types/types";
+import {appStateType, baseThunkType, inferActionsTypes} from "./redux-store";
 
 let initialState = {
     postData: [] as Array<postDataType>,
@@ -15,12 +15,12 @@ const postReducer = (state = initialState, action: actionsTypes): initialStateTy
         case 'add_Post': {
             return {
                 ...state,
-                postData: [...state.postData,],
+                postData: [...state.postData, {id: 3, message: action.value, like: 4}]
             };
         }
         case 'set_Posts': {
             return {
-                ...state, postData: state.postData.concat(action.posts)
+                ...state, postData: action.posts
             }
         }
         default:
@@ -32,8 +32,8 @@ export default postReducer;
 type actionsTypes = ReturnType<inferActionsTypes<typeof actions>>
 
 export const actions = {
-    addPost: (value: string) => ({ type: 'add_Post', value } as const),
-    setPosts: (posts: postDataType) => ({ type: 'set_Posts', posts } as const),
+    addPost: (value: string) => ({type: 'add_Post', value} as const),
+    setPosts: (posts: Array<postDataType>) => ({type: 'set_Posts', posts} as const),
 }
 
 
@@ -47,3 +47,4 @@ export const getPostThunkCreator = (): thunkType => {
         dispatch(actions.setPosts(post))
     }
 }
+

@@ -1,6 +1,3 @@
-import { type } from "os";
-
-
 type validatorsType = (value: string) => string | undefined
 
 export const requireField: validatorsType = (value) => {

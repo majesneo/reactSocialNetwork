@@ -1,13 +1,13 @@
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import {connect} from 'react-redux';
+import {compose} from 'redux';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import MyPosts from './MyPosts';
-import React from 'react';
-import { appStateType } from '../../redux/redux-store';
-import { photosType, postDataType } from '../../types/types';
-import { actions, getPostThunkCreator } from '../../redux/post-reducer';
+import React, {PureComponent} from 'react';
+import {appStateType} from '../../redux/redux-store';
+import {photosType, postDataType} from '../../types/types';
+import {actions, getPostThunkCreator} from '../../redux/post-reducer';
 
-const { addPost } = actions;
+const {addPost} = actions;
 
 type propsType = {
     getPostThunkCreator: () => void
@@ -15,23 +15,23 @@ type propsType = {
     postData: Array<postDataType>
     login: string
     addPost: (value: string) => void
-
+    setPostThunkCreator: () => void
 }
 
-class MyPostsContainer extends React.Component<propsType> {
+class MyPostsContainer extends PureComponent<propsType> {
 
     componentDidMount() {
         this.props.getPostThunkCreator();
     }
+
     render() {
         return (
             <MyPosts {...this.props} />
         );
     }
 }
-type mapDispatchToPropsType = {
 
-}
+type mapDispatchToPropsType = {}
 type mapStateToPropsType = {
     postData: Array<postDataType>
     login: string | null
@@ -46,9 +46,7 @@ let mapStateToProps = (state: appStateType): mapStateToPropsType => {
     }
 }
 
-type ownPropsType = {
-
-}
+type ownPropsType = {}
 
 // let AuthRedirectComponent = withAuthRedirect(MyPosts);
 // const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);//compose рефакторит этот код на аналогичный ниже

@@ -1,18 +1,19 @@
 import axios from 'axios';
 
-import { peoplesDataType, photosType, postDataType, profileType } from '../types/types';
+import {peoplesDataType, photosType, postDataType, profileType} from '../types/types';
 
 
 export const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    headers: { "API-KEY": "6e653f6e-b667-4c69-b909-e415cdfb364d" }
+    headers: {"API-KEY": "2ee5855d-c164-4398-b1a8-6ce3e6773c75"}
 });
 
 export enum resultCodesEnum {
     success = 0,
     error = 1
 }
+
 export enum resultCodeForCaptcha {
     captchaIsRequired = 10
 }
@@ -60,15 +61,13 @@ export const getStatusAPI = (userId: number) => {
 }
 
 export const updatedStatusAPI = (status: string) => {
-    return instance.put<responseType>(`profile/status`, { status }).then(response => {
+    return instance.put<responseType>(`profile/status`, {status}).then(response => {
         return response
     });
 }
 
 
-
-
-//после типизации зарефакторить все запросы в общий запрос с подзапросами и общей типизацией 
+//после типизации зарефакторить все запросы в общий запрос с подзапросами и общей типизацией
 
 
 type getGetAuthAPIDataType = {
@@ -85,7 +84,12 @@ type postLoginAPIDataType = {
     userId: number
 }
 export const postLoginAPI = (email: string, password: string, rememberMe = false, captcha: null | string = null) => {
-    return instance.post<responseType<postLoginAPIDataType, resultCodesEnum | resultCodeForCaptcha>>(`auth/login`, { email, password, rememberMe, captcha }).then(response => {
+    return instance.post<responseType<postLoginAPIDataType, resultCodesEnum | resultCodeForCaptcha>>(`auth/login`, {
+        email,
+        password,
+        rememberMe,
+        captcha
+    }).then(response => {
         return response
     });
 }
@@ -96,9 +100,8 @@ export const delLogoutAPI = () => {
 }
 
 
-
 export const getPostAPI = () => {
-    return axios.get<postDataType>("http://test-api.quando.pro/reactsocialnetwork/post").then(response => {
+    return axios.get<Array<postDataType>>("http://test-api.quando.pro/reactsocialnetwork/post").then(response => {
         return response.data
     });
 }
@@ -111,7 +114,7 @@ export const putSavePhotoAPI = (photo: File) => {
     const formData = new FormData();
     formData.append('image', photo);
     return instance.put<responseType<putSavePhotoAPIDataType>>(`profile/photo`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: {'Content-Type': 'multipart/form-data'}
     });
 }
 export const captchaAPI = () => {
@@ -123,6 +126,15 @@ export const captchaAPI = () => {
 
 export const getFrendsAPI = () => {
     return instance.get(`users?friend=true`).then(response => {
+        return response
+    });
+}
+
+
+export const setPostAPI = (params: { id: number, message: string, like: number }) => {
+    JSON.stringify(params)
+    return axios.post(`http://test-api.quando.pro/reactsocialnetwork/post`, params).then(response => {
+        console.log(response)
         return response
     });
 }

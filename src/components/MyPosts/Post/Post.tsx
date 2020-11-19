@@ -1,5 +1,5 @@
 import React from 'react';
-import { photosType, postDataType } from '../../../types/types';
+import {photosType, postDataType} from '../../../types/types';
 import s from './Post.module.css';
 
 type propsType = {
@@ -19,10 +19,10 @@ const Post: React.FC<propsType> = (props) => {
                 <div class="user-post">
                     <div class="friend-info">
                         <figure>
-                            <img src={props.photos.small} alt=""></img>
+                            <img src={props.photos.small} alt=""/>
                         </figure>
                         <div class="friend-name">
-                            <ins><a href="time-line.html" title="">{props.login}</a></ins>
+                            <ins><a href="#" title="">{props.login}</a></ins>
                             <span>published: june,2 2018 19:PM</span>
                         </div>
                         <div class="post-meta">
@@ -31,25 +31,25 @@ const Post: React.FC<propsType> = (props) => {
                                 <ul>
                                     <li>
                                         <span class="views" data-toggle="tooltip" title="views">
-                                            <i class="fa fa-eye"></i>
+                                            <i class="fa fa-eye"/>
                                             <ins>1.2k</ins>
                                         </span>
                                     </li>
                                     <li>
                                         <span class="comment" data-toggle="tooltip" title="Comments">
-                                            <i class="fa fa-comments-o"></i>
+                                            <i class="fa fa-comments-o"/>
                                             <ins>52</ins>
                                         </span>
                                     </li>
                                     <li>
                                         <span class="like" data-toggle="tooltip" title="like">
-                                            <i class="fa fa-thumbs-o-up"></i>
+                                            <i class="fa fa-thumbs-o-up"/>
                                             <ins>{props.like}</ins>
                                         </span>
                                     </li>
                                     <li>
                                         <span class="dislike" data-toggle="tooltip" title="dislike">
-                                            <i class="fa fa-thumbs-o-down"></i>
+                                            <i class="fa fa-thumbs-o-down"/>
                                             <ins>200</ins>
                                         </span>
                                     </li>

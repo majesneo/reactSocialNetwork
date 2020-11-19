@@ -26,7 +26,7 @@ type dispatchPropsType = {
 
 class App extends React.Component<propsType & dispatchPropsType> {
     // catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
-    //     // alert("some error"); 
+    //     // alert("some error");
     // }
     componentDidMount() {
         this.props.initializedThunkCreator();
@@ -34,7 +34,7 @@ class App extends React.Component<propsType & dispatchPropsType> {
         // handle error here, for example log
     }
     // componentWillUnmount() {
-    //     window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors); //отписка от прослушивание события очистка мусора 
+    //     window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors); //отписка от прослушивание события очистка мусора
     // }
 
     render() {
